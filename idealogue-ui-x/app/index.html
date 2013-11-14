@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+    <title></title>
+    <link rel="stylesheet" href="styles/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="styles/layout.css"/>
+
+    <script type="text/javascript" src="components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="components/jquery.scrollto/jquery.scrollto-1.4.2-min.js"></script>
+    <script type="text/javascript">
+        (function($) {
+            $.resizeTextArea = function(element) {
+                var $this = $(element);
+
+                while($this.outerHeight() >= element.scrollHeight
+                        + parseFloat($this.css("borderTopWidth"))
+                        + parseFloat($this.css("borderBottomWidth"))) {
+                    $this.height($this.height()-1);
+                }
+
+                while($this.outerHeight() < element.scrollHeight
+                        + parseFloat($this.css("borderTopWidth"))
+                        + parseFloat($this.css("borderBottomWidth"))) {
+                    $this.height($this.height()+1);
+                }
+            }
+
+            $.fn.autoSize = function() {
+                return this.filter('textarea').each(function() {
+                    $(this).css('overflow', 'hidden');
+                    $(this).keyup(function() {$.resizeTextArea(this)});
+                });
+            };
+        })(jQuery);
+    </script>
+</head>
+<body ng-app="idealogue">
+
+<div id="background1" class="background">
+    <div class="bg1"></div>
+</div>
+<div id="background2" class="background">
+    <!--<div class="bg2"></div>-->
+</div>
+
+<navigation id="nav"></navigation>
+<searchbox id="searchBox"></searchbox>
+<div ng-view></div>
+
+<script src="components/angular/angular.min.js"></script>
+<script src="components/angular-resource/angular-resource.min.js"></script>
+<script src="scripts/idealogueApp.js"></script>
+<script src="scripts/directives/coreDirectives.js"></script>
+<script src="scripts/directives/ideaDirectives.js"></script>
+<script src="scripts/services/ideaServices.js"></script>
+<script src="scripts/services/configServices.js"></script>
+<script src="scripts/services/utilityServices.js"></script>
+</body>
+</html>

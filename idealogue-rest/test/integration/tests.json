@@ -1,0 +1,863 @@
+{
+	"requestTemplates": [
+        {
+            "id": "idea.request",
+            "protocol": "http",
+            "host": "${testHost}",
+            "headers": {
+                "Content-Type": "application/json"
+            }
+        },
+        {
+            "id": "idea.request.postBody",
+            "body": {
+                "name": "My Idea",
+                "summary": "summary",
+                "benefits": "benefits",
+                "details": "details",
+                "state": "Idea",
+                "tags": ["dev tools"],
+                "skills": ["Web UI", "REST"],
+                "technologies": ["AngularJS", "Node.JS"],
+                "repo": "myrepourl",
+                "proposers": [{
+                    "id": "61e7364e-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "Bob Jones"
+                }],
+                "contributors": [{
+                    "username": "61e7364e-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "Bob Jones"
+                }],
+                "contributorRequests": [{
+                    "username": "71b466b4-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "John Doe"
+                }],
+                "isPublic": false,
+                "votes": ["61e7364e-3c02-11e3-bee0-ce3f5508acd9", "7b824c9c-3c02-11e3-bee0-ce3f5508acd9"],
+                "voteCount": 2,
+                "comments": [{
+                    "id": "7b824c9c-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "Tom Jackson",
+                    "text": "the comment...",
+                    "timestamp": "2013-04-23T16:13:56.001Z"
+                }],
+                "createdDate": "2013-04-23T16:13:56.001Z",
+                "updatedDate": "2013-04-23T16:13:56.001Z"
+            }
+        },
+        {
+            "id": "idea.request.putBody",
+            "body": {
+                "id": "${ideaId}",
+                "name": "My New Idea",
+                "summary": "new summary",
+                "benefits": "new benefits",
+                "details": "new details",
+                "state": "Idea",
+                "tags": ["dev tools", "agile"],
+                "skills": ["Web UI", "REST", "Reporting"],
+                "technologies": ["jQuery", "Node.JS"],
+                "repo": "mynewrepourl",
+                "proposers": [{
+                    "id": "61e7364e-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "Bob Jones"
+                }],
+                "contributors": [{
+                    "username": "61e7364e-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "Bob Jones"
+                },{
+                    "username": "71b466b4-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "John Doe"
+                }],
+                "contributorRequests": [],
+                "isPublic": true,
+                "votes": [],
+                "voteCount": 0,
+                "comments": [],
+                "createdDate": "2013-04-23T16:13:56.001Z",
+                "updatedDate": "2013-04-23T16:13:56.001Z"
+            }
+        },
+        {
+            "id": "idea.request.invalidPostBody",
+            "body": {
+                "foo": [1234],
+                "bar": "1337"
+            }
+        },
+        {
+            "id": "user.request",
+            "protocol": "http",
+            "host": "${testHost}",
+            "headers": {
+                "Content-Type": "application/json"
+            }
+        },
+        {
+            "id": "user.request.postBody",
+            "body": {
+                "username" : "doej",
+                "firstName" : "John",
+                "lastName" : "Doe",
+                "email" : "john.doe@test.com",
+                "password" : "5f4dcc3b5aa765d61d8327deb882cf99",
+                "isEnabled" : true,
+                "createdDate" : "2013-04-23T16:13:56.001Z",
+                "updatedDate" : "2013-04-23T16:13:56.001Z"
+            }
+        },
+        {
+            "id": "user.request.putBody",
+            "body": {
+                "id": "${userId}",
+                "username" : "smithb",
+                "firstName" : "Smith",
+                "lastName" : "Bob",
+                "email" : "bob.smith@test.com",
+                "password" : "7c6a180b36896a0a8c02787eeafb0e4c",
+                "isEnabled" : false,
+                "createdDate" : "2013-04-23T16:13:56.001Z",
+                "updatedDate" : "2013-04-23T16:13:56.001Z"
+            }
+        },
+        {
+            "id": "user.request.invalidPostBody",
+            "body": {
+                "foo": [1234],
+                "bar": "1337"
+            }
+        },
+        {
+            "id": "token",
+            "headers": {
+                "Authorization": "${userToken}"
+            }
+	    }
+    ],
+	"responseTemplates": [
+        {
+            "id": "ok",
+            "statusCode": 200
+        },
+        {
+            "id": "created",
+            "statusCode": 201
+        },
+        {
+            "id": "noContent",
+            "statusCode": 204
+        },
+        {
+            "id": "notFound",
+            "statusCode": 404
+        },
+        {
+            "id": "badRequest",
+            "statusCode": 400
+        },
+        {
+            "id": "unauthorized",
+            "statusCode": 401
+        },
+        {
+            "id": "forbidden",
+            "statusCode": 403
+        },
+        {
+            "id": "json",
+            "headers": {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        },
+        {
+            "id": "original.idea",
+            "body": {
+                "id": {
+                    "$exists": true
+                },
+                "name": "My Idea",
+                "summary": "summary",
+                "benefits": "benefits",
+                "details": "details",
+                "state": "Idea",
+                "tags": ["dev tools"],
+                "skills": ["Web UI", "REST"],
+                "technologies": ["AngularJS", "Node.JS"],
+                "repo": "myrepourl",
+                "proposers": [{
+                    "id": "61e7364e-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "Bob Jones"
+                }],
+                "contributors": [{
+                    "username": "61e7364e-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "Bob Jones"
+                }],
+                "contributorRequests": [{
+                    "username": "71b466b4-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "John Doe"
+                }],
+                "isPublic": false,
+                "votes": ["61e7364e-3c02-11e3-bee0-ce3f5508acd9", "7b824c9c-3c02-11e3-bee0-ce3f5508acd9"],
+                "voteCount": 2,
+                "comments": [{
+                    "id": "7b824c9c-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "Tom Jackson",
+                    "text": "the comment...",
+                    "timestamp": "2013-04-23T16:13:56.001Z"
+                }],
+                "createdDate": "2013-04-23T16:13:56.001Z",
+                "updatedDate": "2013-04-23T16:13:56.001Z"
+            }
+        },
+        {
+            "id": "updated.idea",
+            "body": {
+                "id": "${ideaId}",
+                "name": "My New Idea",
+                "summary": "new summary",
+                "benefits": "new benefits",
+                "details": "new details",
+                "state": "Idea",
+                "tags": ["dev tools", "agile"],
+                "skills": ["Web UI", "REST", "Reporting"],
+                "technologies": ["jQuery", "Node.JS"],
+                "repo": "mynewrepourl",
+                "proposers": [{
+                    "id": "61e7364e-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "Bob Jones"
+                }],
+                "contributors": [{
+                    "username": "61e7364e-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "Bob Jones"
+                },{
+                    "username": "71b466b4-3c02-11e3-bee0-ce3f5508acd9",
+                    "fullName": "John Doe"
+                }],
+                "contributorRequests": [],
+                "isPublic": true,
+                "votes": [],
+                "voteCount": 0,
+                "comments": [],
+                "createdDate": "2013-04-23T16:13:56.001Z",
+                "updatedDate": "2013-04-23T16:13:56.001Z"
+            }
+	    },
+        {
+            "id": "original.user",
+            "body": {
+                "id": {
+                    "$exists": true
+                },
+                "username" : "doej",
+                "firstName" : "John",
+                "lastName" : "Doe",
+                "email" : "john.doe@test.com",
+                "password" : "5f4dcc3b5aa765d61d8327deb882cf99",
+                "isEnabled" : true,
+                "createdDate" : "2013-04-23T16:13:56.001Z",
+                "updatedDate" : "2013-04-23T16:13:56.001Z"
+            }
+        },
+        {
+            "id": "updated.user",
+            "body": {
+                "id": "${userId}",
+                "username" : "smithb",
+                "firstName" : "Smith",
+                "lastName" : "Bob",
+                "email" : "bob.smith@test.com",
+                "password" : "7c6a180b36896a0a8c02787eeafb0e4c",
+                "isEnabled" : false,
+                "createdDate" : "2013-04-23T16:13:56.001Z",
+                "updatedDate" : "2013-04-23T16:13:56.001Z"
+            }
+        }
+    ],
+	"setupAndTeardowns": [
+        {
+            "id": "unknownIdeaId",
+            "actions": [{
+                "$set": {
+                    "ideaId": "invalid"
+                }
+            }]
+        },
+        {
+            "id": "create.idea",
+            "request": {
+                "templates": ["idea.request", "token", "idea.request.postBody"],
+                "method": "POST",
+                "resource": "/ideas"
+            },
+            "expectedResponse": {
+                "templates": ["created"]
+            },
+            "actions": [{
+                "$set": {
+                    "ideaId": {
+                        "$replace": {
+                            "value": {
+                                "$extract": "headers.location"
+                            },
+                            "regex": "^.*/ideas/(.+)$",
+                            "replacement": "$1"
+                        }
+                    }
+                }
+            }]
+        },
+        {
+            "id": "delete.idea",
+            "request": {
+                "templates": ["idea.request", "token"],
+                "method": "DELETE",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["noContent"]
+            }
+        },
+        {
+            "id": "verifyCreated.idea",
+            "request": {
+                "templates": ["idea.request", "token"],
+                "method": "GET",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json", "original.idea"]
+            }
+        },
+        {
+            "id": "verifyUpdated.idea",
+            "request": {
+                "templates": ["idea.request", "token"],
+                "method": "GET",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json", "updated.idea"]
+            }
+        },
+        {
+            "id": "verifyDeleted.idea",
+            "request": {
+                "templates": ["idea.request", "token"],
+                "method": "GET",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json", "notFound"]
+            }
+        },
+        {
+            "id": "unknownUserId",
+            "actions": [{
+                "$set": {
+                    "userId": "invalid"
+                }
+            }]
+        },
+        {
+            "id": "create.user",
+            "request": {
+                "templates": ["user.request", "token", "user.request.postBody"],
+                "method": "POST",
+                "resource": "/users"
+            },
+            "expectedResponse": {
+                "templates": ["created"]
+            },
+            "actions": [{
+                "$set": {
+                    "userId": {
+                        "$replace": {
+                            "value": {
+                                "$extract": "headers.location"
+                            },
+                            "regex": "^.*/users/(.+)$",
+                            "replacement": "$1"
+                        }
+                    }
+                }
+            }]
+        },
+        {
+            "id": "delete.user",
+            "request": {
+                "templates": ["user.request", "token"],
+                "method": "DELETE",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["noContent"]
+            }
+        },
+        {
+            "id": "verifyCreated.user",
+            "request": {
+                "templates": ["user.request", "token"],
+                "method": "GET",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json", "original.user"]
+            }
+        },
+        {
+            "id": "verifyUpdated.user",
+            "request": {
+                "templates": ["user.request", "token"],
+                "method": "GET",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json", "updated.user"]
+            }
+        },
+        {
+            "id": "verifyDeleted.user",
+            "request": {
+                "templates": ["user.request", "token"],
+                "method": "GET",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json", "notFound"]
+            }
+        }
+    ],
+	"tests": [
+        {
+            "id": "POST /ideas 201",
+            "setup": [],
+            "teardown": ["verifyCreated.idea", "delete.idea"],
+            "request": {
+                "templates": ["idea.request", "token", "idea.request.postBody"],
+                "method": "POST",
+                "resource": "/ideas"
+            },
+            "expectedResponse": {
+                "templates": ["created"]
+            },
+            "actions": [{
+                "$set": {
+                    "ideaId": {
+                        "$replace": {
+                            "value": {
+                                "$extract": "headers.location"
+                            },
+                            "regex": "^.*/ideas/(.+)$",
+                            "replacement": "$1"
+                        }
+                    }
+                }
+            }]
+        },
+        {
+            "id": "POST /ideas 400",
+            "setup": [],
+            "teardown": [],
+            "request": {
+                "templates": ["idea.request", "token", "idea.request.invalidPostBody"],
+                "method": "POST",
+                "resource": "/ideas"
+            },
+            "expectedResponse": {
+                "templates": ["badRequest"]
+            }
+        },
+        {
+            "id": "POST /ideas 401",
+            "setup": [],
+            "teardown": [],
+            "request": {
+                "templates": ["idea.request", "idea.request.postBody"],
+                "method": "POST",
+                "resource": "/ideas"
+            },
+            "expectedResponse": {
+                "templates": ["unauthorized"]
+            }
+        },
+        {
+            "id": "GET /ideas 200",
+            "setup": ["create.idea"],
+            "teardown": ["delete.idea"],
+            "request": {
+                "templates": ["idea.request", "token", "idea.request.postBody"],
+                "method": "GET",
+                "resource": "/ideas"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json"]
+            }
+        },
+        {
+            "id": "GET /ideas?search=idea 200",
+            "setup": ["create.idea"],
+            "teardown": ["delete.idea"],
+            "request": {
+                "templates": ["idea.request", "token", "idea.request.postBody"],
+                "method": "GET",
+                "resource": "/ideas?search=idea"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json"]
+            }
+        },
+        {
+            "id": "GET /ideas 401",
+            "setup": ["create.idea"],
+            "teardown": ["delete.idea"],
+            "request": {
+                "templates": ["idea.request", "idea.request.postBody"],
+                "method": "GET",
+                "resource": "/ideas"
+            },
+            "expectedResponse": {
+                "templates": ["unauthorized", "json"]
+            }
+        },
+        {
+            "id": "GET /ideas/{id} 200",
+            "setup": ["create.idea"],
+            "teardown": ["delete.idea"],
+            "request": {
+                "templates": ["idea.request", "token", "idea.request.postBody"],
+                "method": "GET",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json", "original.idea"]
+            }
+        },
+        {
+            "id": "GET /ideas/{id} 404",
+            "setup": [],
+            "teardown": [],
+            "request": {
+                "templates": ["idea.request", "token", "idea.request.postBody"],
+                "method": "GET",
+                "resource": "/ideas/fnord"
+            },
+            "expectedResponse": {
+                "templates": ["notFound", "json"]
+            }
+        },
+        {
+            "id": "GET /ideas/{id} 401",
+            "setup": ["create.idea"],
+            "teardown": ["delete.idea"],
+            "request": {
+                "templates": ["idea.request", "idea.request.postBody"],
+                "method": "GET",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["unauthorized", "json"]
+            }
+        },
+        {
+            "id": "PUT /ideas/{id} 200",
+            "setup": ["create.idea"],
+            "teardown": ["verifyUpdated.idea", "delete.idea"],
+            "request": {
+                "templates": ["idea.request", "token", "idea.request.putBody"],
+                "method": "PUT",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["noContent"]
+            }
+        },
+        {
+            "id": "PUT /ideas/{id} 400",
+            "setup": ["create.idea"],
+            "teardown": ["delete.idea"],
+            "request": {
+                "templates": ["idea.request", "token", "idea.request.invalidPostBody"],
+                "method": "PUT",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["badRequest"]
+            }
+        },
+        {
+            "id": "PUT /ideas/{id} 401",
+            "setup": ["create.idea"],
+            "teardown": ["delete.idea"],
+            "request": {
+                "templates": ["idea.request", "idea.request.putBody"],
+                "method": "PUT",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["unauthorized"]
+            }
+        },
+        {
+            "id": "PUT /ideas/{id} 404",
+            "setup": ["unknownIdeaId"],
+            "teardown": [],
+            "request": {
+                "templates": ["idea.request", "token", "idea.request.putBody"],
+                "method": "PUT",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["notFound"]
+            }
+        },
+        {
+            "id": "DELETE /ideas/{id} 201",
+            "setup": ["create.idea"],
+            "teardown": ["verifyDeleted.idea"],
+            "request": {
+                "templates": ["idea.request", "token"],
+                "method": "DELETE",
+                "resource": "/ideas/${ideaId}"
+            },
+            "expectedResponse": {
+                "templates": ["noContent"]
+            }
+        },
+        {
+            "id": "DELETE /ideas/{id} 401",
+            "setup": ["create.idea"],
+            "teardown": ["delete.idea"],
+            "request": {
+                "templates": ["idea.request"],
+                "method": "DELETE",
+                "resource": "/ideas/foo"
+            },
+            "expectedResponse": {
+                "templates": ["unauthorized"]
+            }
+        },
+        {
+            "id": "DELETE /ideas/{id} 404",
+            "setup": [],
+            "teardown": [],
+            "request": {
+                "templates": ["idea.request", "token"],
+                "method": "DELETE",
+                "resource": "/ideas/foo"
+            },
+            "expectedResponse": {
+                "templates": ["notFound"]
+            }
+        },
+        {
+            "id": "POST /users 201",
+            "setup": [],
+            "teardown": ["verifyCreated.user", "delete.user"],
+            "request": {
+                "templates": ["user.request", "token", "user.request.postBody"],
+                "method": "POST",
+                "resource": "/users"
+            },
+            "expectedResponse": {
+                "templates": ["created"]
+            },
+            "actions": [{
+                "$set": {
+                    "userId": {
+                        "$replace": {
+                            "value": {
+                                "$extract": "headers.location"
+                            },
+                            "regex": "^.*/users/(.+)$",
+                            "replacement": "$1"
+                        }
+                    }
+                }
+            }]
+        },
+        {
+            "id": "POST /users 400",
+            "setup": [],
+            "teardown": [],
+            "request": {
+                "templates": ["user.request", "token", "user.request.invalidPostBody"],
+                "method": "POST",
+                "resource": "/users"
+            },
+            "expectedResponse": {
+                "templates": ["badRequest"]
+            }
+        },
+        {
+            "id": "POST /users 401",
+            "setup": [],
+            "teardown": [],
+            "request": {
+                "templates": ["user.request", "user.request.postBody"],
+                "method": "POST",
+                "resource": "/users"
+            },
+            "expectedResponse": {
+                "templates": ["unauthorized"]
+            }
+        },
+        {
+            "id": "GET /users 200",
+            "setup": ["create.user"],
+            "teardown": ["delete.user"],
+            "request": {
+                "templates": ["user.request", "token", "user.request.postBody"],
+                "method": "GET",
+                "resource": "/users"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json"]
+            }
+        },
+        {
+            "id": "GET /users 401",
+            "setup": ["create.user"],
+            "teardown": ["delete.user"],
+            "request": {
+                "templates": ["user.request", "user.request.postBody"],
+                "method": "GET",
+                "resource": "/users"
+            },
+            "expectedResponse": {
+                "templates": ["unauthorized", "json"]
+            }
+        },
+        {
+            "id": "GET /users/{id} 200",
+            "setup": ["create.user"],
+            "teardown": ["delete.user"],
+            "request": {
+                "templates": ["user.request", "token", "user.request.postBody"],
+                "method": "GET",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["ok", "json", "original.user"]
+            }
+        },
+        {
+            "id": "GET /users/{id} 404",
+            "setup": [],
+            "teardown": [],
+            "request": {
+                "templates": ["user.request", "token", "user.request.postBody"],
+                "method": "GET",
+                "resource": "/users/fnord"
+            },
+            "expectedResponse": {
+                "templates": ["notFound", "json"]
+            }
+        },
+        {
+            "id": "GET /users/{id} 401",
+            "setup": ["create.user"],
+            "teardown": ["delete.user"],
+            "request": {
+                "templates": ["user.request", "user.request.postBody"],
+                "method": "GET",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["unauthorized", "json"]
+            }
+        },
+        {
+            "id": "PUT /users/{id} 200",
+            "setup": ["create.user"],
+            "teardown": ["verifyUpdated.user", "delete.user"],
+            "request": {
+                "templates": ["user.request", "token", "user.request.putBody"],
+                "method": "PUT",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["noContent"]
+            }
+        },
+        {
+            "id": "PUT /users/{id} 400",
+            "setup": ["create.user"],
+            "teardown": ["delete.user"],
+            "request": {
+                "templates": ["user.request", "token", "user.request.invalidPostBody"],
+                "method": "PUT",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["badRequest"]
+            }
+        },
+        {
+            "id": "PUT /users/{id} 401",
+            "setup": ["create.user"],
+            "teardown": ["delete.user"],
+            "request": {
+                "templates": ["user.request", "user.request.putBody"],
+                "method": "PUT",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["unauthorized"]
+            }
+        },
+        {
+            "id": "PUT /users/{id} 404",
+            "setup": ["unknownUserId"],
+            "teardown": [],
+            "request": {
+                "templates": ["user.request", "token", "user.request.putBody"],
+                "method": "PUT",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["notFound"]
+            }
+        },
+        {
+            "id": "DELETE /users/{id} 201",
+            "setup": ["create.user"],
+            "teardown": ["verifyDeleted.user"],
+            "request": {
+                "templates": ["user.request", "token"],
+                "method": "DELETE",
+                "resource": "/users/${userId}"
+            },
+            "expectedResponse": {
+                "templates": ["noContent"]
+            }
+        },
+        {
+            "id": "DELETE /users/{id} 401",
+            "setup": ["create.user"],
+            "teardown": ["delete.user"],
+            "request": {
+                "templates": ["user.request"],
+                "method": "DELETE",
+                "resource": "/users/foo"
+            },
+            "expectedResponse": {
+                "templates": ["unauthorized"]
+            }
+        },
+        {
+            "id": "DELETE /users/{id} 404",
+            "setup": [],
+            "teardown": [],
+            "request": {
+                "templates": ["user.request", "token"],
+                "method": "DELETE",
+                "resource": "/users/foo"
+            },
+            "expectedResponse": {
+                "templates": ["notFound"]
+            }
+        }
+    ],
+	"suiteSetup": [],
+	"suiteTeardown": []
+}

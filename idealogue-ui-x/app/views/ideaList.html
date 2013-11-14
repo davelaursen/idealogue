@@ -1,0 +1,25 @@
+<div id="ideaList">
+    <nav id="ideaListAction" class="actions">
+        <ul>
+            <li><img id="ideaListAction_addnew" class="action" src="../images/add.png" height="24" width="24" ng-click="addNew()"></li>
+            <li><img class="spacer" src="../images/colon.png" height="10" width="10"></li>
+            <li><img id="ideaListAction_reload" class="action" src="../images/reload.png" height="24" width="24" ng-click="reload()"></li>
+        </ul>
+    </nav>
+    <div id="ideaListActionTip" class="actiontip"></div>
+
+    <table class="table idea-table-large">
+        <thead style="font-weight: bold;">
+        <tr>
+            <th>Name</th>
+            <th>Summary</th>
+            <th>Votes</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="idea in ideas">
+            <td><a href="" nav="{{idea.id}},ideaView">{{idea.name}}</a></td>
+            <td>{{idea.summary}}</td>
+            <td class="center">{{idea.voteCount}}</td>
+        </tr>
+    </table>
+</div>

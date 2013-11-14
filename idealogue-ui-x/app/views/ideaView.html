@@ -1,0 +1,191 @@
+<div id="ideaView" class="viewForm form-horizontal">
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="form-control3">{{idea.name}}</span>
+            <nav id="ideaViewAction" class="actions">
+                <ul>
+                    <li><img id="ideaViewAction_back" class="action" src="../images/back.png" height="24" width="24" ng-click="goToIdeas()"></li>
+                    <li><img class="spacer" src="../images/colon.png" height="10" width="10"></li>
+                    <li><img id="ideaViewAction_upvote" class="action" src="../images/thumbs-up.png" height="24" width="24" ng-click="vote()"></li>
+                    <li><img class="spacer" src="../images/colon.png" height="10" width="10"></li>
+                    <li><img id="ideaViewAction_edit" class="action" src="../images/pencil.png" height="24" width="24" ng-click="edit()"></li>
+                    <li><img class="spacer" src="../images/colon.png" height="10" width="10"></li>
+                    <li><img id="ideaViewAction_delete" class="action" src="../images/close.png" height="24" width="24" ng-click="deleteIdea()"></li>
+                </ul>
+            </nav>
+            <div id="ideaViewActionTip" class="actiontip">_test</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label3">Summary</label>
+        <div class="col-sm-10">
+            <span class="form-control2">{{idea.summary}}</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label3">Benefits</label>
+        <div class="col-sm-10">
+            <span class="form-control2">{{idea.benefits}}</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label3">Details</label>
+        <div class="col-sm-10">
+            <span class="form-control2">{{idea.details}}</span>
+        </div>
+    </div>
+
+    <div class="form-group2">
+        <label class="col-sm-2 control-label3">Proposers</label>
+        <div class="col-sm-10">
+            <span class="form-control2">{{toList(idea.proposers,'fullName')}}</span>
+        </div>
+    </div>
+
+    <div class="form-group2">
+        <label class="col-sm-2 control-label3">Skills</label>
+        <div class="col-sm-10">
+            <span class="form-control2">{{toList(idea.skills)}}</span>
+        </div>
+    </div>
+
+    <div class="form-group2">
+        <label class="col-sm-2 control-label3">Technologies</label>
+        <div class="col-sm-10">
+            <span class="form-control2">{{toList(idea.technologies)}}</span>
+        </div>
+    </div>
+
+    <div class="form-group2">
+        <label class="col-sm-2 control-label3">Tags</label>
+        <div class="col-sm-10">
+            <span class="form-control2">{{toList(idea.tags)}}</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label3">Votes</label>
+        <div class="col-sm-10">
+            <span class="form-control2">{{idea.voteCount}}</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label2" for="comments">Comments</label>
+        <div class="col-sm-10">
+            <ul id="comments" class="unstyled">
+                <li ng-repeat="comment in idea.comments">
+                    <div class="form-control2" style="margin: 5px 0 0;">
+                        <span class="comment-header">{{printDate(comment.timestamp)}}, {{comment.fullName}}</span>
+                        <br>{{comment.text}}
+                    </div>
+                </li>
+                <li id="newCommentLine" style="display: none;">
+                    <div style="margin: 5px 0 0;">
+                        <textarea ng-model="newComment" class="form-control2" id="newComment" placeholder="comment" rows="1"></textarea>
+                        <button type="button" class="btn btn-default btn-mini" ng-click="saveComment()">save</button>
+                        <button type="button" class="btn btn-default btn-mini" ng-click="cancelComment()">cancel</button>
+                    </div>
+                </li>
+            </ul>
+            <button id="addCommentButton" type="button" class="btn btn-primary btn-mini" ng-click="addComment()">add</button>
+        </div>
+    </div>
+</div>
+
+<form id="ideaForm" name="ideaForm" ng-submit="save()" class="form-horizontal">
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input ng-model="idea.name" class="form-control2 focus" id="name" placeholder="name" style="width: 300px;" required>
+            <nav id="ideaEditAction" class="actions">
+                <ul>
+                    <li><img id="ideaEditAction_back" class="action" src="../images/back.png" height="24" width="24" ng-click="cancel()"></li>
+                    <li><img class="spacer" src="../images/colon.png" height="10" width="10"></li>
+                    <li><img id="ideaEditAction_save" class="action" src="../images/save.png" height="24" width="24" ng-click="save()"></li>
+                </ul>
+            </nav>
+            <div id="ideaEditActionTip" class="actiontip">_test</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label2" for="summary">Summary</label>
+        <div class="col-sm-10">
+            <textarea ng-model="idea.summary" class="form-control2" id="summary" placeholder="summary" rows="1" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label2" for="benefits">Benefits</label>
+        <div class="col-sm-10">
+            <textarea ng-model="idea.benefits" class="form-control2" id="benefits" placeholder="benefits" rows="1" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label2" for="details">Details</label>
+        <div class="col-sm-10">
+            <textarea ng-model="idea.details" class="form-control2" id="details" placeholder="details" rows="1" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label2" for="proposers">Proposers</label>
+        <div class="col-sm-10">
+            <ul id="proposers" class="unstyled">
+                <li ng-repeat="proposer in idea.proposers">
+                    <input ng-model="proposer.fullName" class="form-control2" style="width: 200px; display: inline-block">
+                    <button type="button" class="btn btn-link btn-mini"><img src="../images/close.png" width="12" height="12"></button>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-primary btn-mini">add</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label2" for="skills">Skills</label>
+        <div class="col-sm-10">
+            <ul id="skills" class="unstyled">
+                <li ng-repeat="skill in idea.skills">
+                    <input ng-model="skill.value" class="form-control2" style="width: 200px; display: inline-block">
+                    <button type="button" class="btn btn-link btn-mini" ng-click="removeSkill($index)"><img src="../images/close.png" width="12" height="12"></button>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-primary btn-mini" ng-click="addSkill()">add</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label2" for="technologies">Technologies</label>
+        <div class="col-sm-10">
+            <ul id="technologies" class="unstyled">
+                <li ng-repeat="tech in idea.technologies">
+                    <input ng-model="tech.value" class="form-control2" style="width: 200px; display: inline-block">
+                    <button type="button" class="btn btn-link btn-mini" ng-click="removeTechnology($index)"><img src="../images/close.png" width="12" height="12"></button>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-primary btn-mini" ng-click="addTechnology()">add</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label2" for="tags">Tags</label>
+        <div class="col-sm-10">
+            <ul id="tags" class="unstyled">
+                <li ng-repeat="tag in idea.tags">
+                    <input ng-model="tag.value" class="form-control2" style="width: 200px; display: inline-block">
+                    <button type="button" class="btn btn-link btn-mini" ng-click="removeTag($index)"><img src="../images/close.png" width="12" height="12"></button>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-primary btn-mini" ng-click="addTag()">add</button>
+        </div>
+    </div>
+
+</form>
+
+<br><br>

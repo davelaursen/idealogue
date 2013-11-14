@@ -1,0 +1,9 @@
+.idea/
+*.iml
+node_modules
+*.log
+*.heapsnapshot
+.metadata
+.settings
+.project
+*coverage.*
