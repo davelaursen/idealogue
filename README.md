@@ -1,4 +1,4 @@
-I`de´a`logue
+I\`de´a\`logue
 n. One given to fanciful ideas or theories
 
 **Idealogue** is a system where ideas can be shared and voted on within a group or organization.
