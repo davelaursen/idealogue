@@ -27,6 +27,12 @@ Start the Mongo client and execute the following commands:
 > db.ideas.ensureIndex({name:"text", summary:"text", benefits:"text", details:"text", tags:"text", skills:"text", technologies:"text"});
 ```
 
+Finally, you'll need to add an API key so that the UI can communicate with the REST application:
+```
+> use Idealogue
+> db.apiKeys.insert({_id:"c4088588-3c0e-11e3-bee0-ce3f5508acd9"})
+```
+
 Once Mongo is configured, you need to install the REST application.  Pull down the latest code, navigate to
 the root directory and install its dependencies using npm:
 ```

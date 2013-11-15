@@ -133,7 +133,7 @@ directives.directive("ideaview", function($q, ConfigSvc, UtilSvc, Idea, IdeaSvc)
                 var votes = idea.votes;
                 var id = "1234567890";
 
-                if (!$.inArray(id, votes)) {
+                if ($.inArray(id, votes) === -1) {
                     votes[votes.length] = "1234567890";
                     idea.voteCount = parseInt(idea.voteCount)+1;
                     Idea.save(idea, scope.cancel);
