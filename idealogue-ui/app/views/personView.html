@@ -1,0 +1,33 @@
+<div id="viewPerson">
+    <div class="title">Person Details</div>
+
+    <div id="ideasActions">
+        <nav class="actions">
+            <ul>
+                <li><a href="javascript:" ng-click="back()">back</a></li>
+                <li class="spacer2">|</li>
+                <li><a href="javascript:" ng-click="vote()">vote</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class='view-group'>
+        <label></label>
+        <div class="view-element bottom-border"><h3>{{person.firstName}} {{person.lastName}}</h3></div>
+    </div>
+
+    <div class='view-group'>
+        <label>Username</label>
+        <div class="view-element">{{person.username}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Email</label>
+        <div class="view-element">{{person.email}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Joined</label>
+        <div class="view-element">{{printDate(person.createdDate)}}</div>
+    </div>
+</div>

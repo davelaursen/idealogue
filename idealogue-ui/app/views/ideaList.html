@@ -1,0 +1,26 @@
+<div id="ideas">
+    <div class="title">Ideas</div>
+
+    <div id="ideasActions">
+        <nav class="actions">
+            <ul>
+                <li><a href="javascript:" ng-click="addNew()">new</a></li>
+                <li class="spacer2">|</li>
+                <li><a href="javascript:" ng-click="sort()">sort</a></li>
+                <li class="spacer2">|</li>
+                <li><a href="javascript:" ng-click="filter()">filter</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <ul id="ideaList">
+        <li ng-repeat="idea in ideas" ng-click="viewIdea(idea.id)">
+            <span class="ideaListName">{{idea.name}}</span>
+            <span class="ideaListSummary">{{idea.summary}}</span>
+            <span class="ideaListInfoFirst">[votes: {{idea.voteCount}}]</span>
+            <span class="ideaListInfo">[tags: {{toList(idea.tags)}}]</span>
+            <span class="ideaListInfo">[skills: {{toList(idea.skills)}}]</span>
+            <span class="ideaListInfo">[techs: {{toList(idea.technologies)}}]</span>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,22 @@
+<div id="people">
+    <div class="title">People</div>
+
+    <div id="peopleActions">
+        <nav class="actions">
+            <ul>
+                <li><a href="javascript:" ng-click="sort()">sort</a></li>
+                <li class="spacer2">|</li>
+                <li><a href="javascript:" ng-click="filter()">filter</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="personListContainer">
+        <ul id="personList">
+            <li ng-repeat="person in people" ng-click="viewPerson(person.id)">
+                <span class="personListFullName">{{person.firstName}} {{person.lastName}}</span>
+                <span class="personListInfoFirst">[username: {{person.username}}]</span>
+            </li>
+        </ul>
+    </div>
+</div>

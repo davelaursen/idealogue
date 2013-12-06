@@ -1,0 +1,84 @@
+<div id='viewIdea'>
+    <div class="title">Idea Details</div>
+
+    <div id="ideasActions">
+        <nav class="actions">
+            <ul>
+                <li><a href="javascript:" ng-click="back()">back</a></li>
+                <li class="spacer2">|</li>
+                <li><a href="javascript:" ng-click="vote()">vote</a></li>
+                <li class="spacer2">|</li>
+                <li><a href="javascript:" ng-click="edit()">edit</a></li>
+                <li class="spacer2">|</li>
+                <li><a href="javascript:" ng-click="remove()">delete</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class='view-group'>
+        <label></label>
+        <div class="view-element bottom-border"><h3>{{idea.name}}</h3></div>
+    </div>
+
+    <div class='view-group'>
+        <label>Summary</label>
+        <div class="view-element bottom-border">{{idea.summary}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Benefits</label>
+        <div class="view-element bottom-border">{{idea.benefits}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Details</label>
+        <div class="view-element bottom-border">{{idea.details}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Proposers</label>
+        <div class="view-element">{{toList(idea.proposers,'fullName')}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Skills</label>
+        <div class="view-element">{{toList(idea.skills)}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Technologies</label>
+        <div class="view-element">{{toList(idea.technologies)}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Tags</label>
+        <div class="view-element">{{toList(idea.tags)}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Votes</label>
+        <div class="view-element bottom-border-spaced">{{idea.voteCount}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Comments</label>
+        <div class="view-element">
+            <ul id="ideaComments" class='comment-list'>
+                <li ng-repeat="comment in idea.comments">
+                    <div>
+                        <span class="comment-header">{{printDate(comment.timestamp)}}, {{comment.fullName}}</span>
+                        <br>{{comment.text}}
+                    </div>
+                </li>
+                <li id="ideaNewComment" style="display: none;">
+                    <div>
+                        <textarea ng-model="newComment" class="form-element" id="newCommentText" rows="1"></textarea>
+                        <button type="button" class="form-inline-button" ng-click="saveComment()">save</button>
+                        <button type="button" class="form-inline-button" ng-click="cancelComment()">cancel</button>
+                    </div>
+                </li>
+            </ul>
+            <button type='button' id="ideaAddCommentButton" class="form-inline-button" ng-click="addComment()">add comment</button>
+        </div>
+    </div>
+</div>
