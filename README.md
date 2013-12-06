@@ -1,10 +1,15 @@
-I\`de´a\`logue
+#I\`de´a\`logue
 n. One given to fanciful ideas or theories
 
 **Idealogue** is a system where ideas can be shared and voted on within a group or organization.
 It provides a forum for people to share new product ideas, suggest process or tool improvements,
 organize Hackathon teams and projects, share information and collaborate on side projects, and
 otherwise give people a voice to improve their organization.
+
+**CURRENTLY IN DEVELOPMENT**
+While the Idealogue REST service is fairly stable, the Idealogue UI and X-UI (experimental UI)
+are being actively developed, and currently only have limited functionality.  Please see the README
+files for each project to determine it's current state and see what's currently being worked on.
 
 Current version: **0.0.1**
 
