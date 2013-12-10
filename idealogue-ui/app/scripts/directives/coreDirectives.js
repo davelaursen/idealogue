@@ -1,4 +1,4 @@
-var coreDirectives = angular.module('idealogue.coreDirectives', ['idealogue.ideaServices','idealogue.configServices']);
+var coreDirectives = angular.module('idealogue.coreDirectives', ['idealogue.ideaServices','idealogue.configServices','idealogue.authServices']);
 
 coreDirectives.directive('focus', function () {
     return {
@@ -20,7 +20,7 @@ coreDirectives.directive('searchform', function(ConfigSvc) {
     }
 });
 
-coreDirectives.directive('searchresults', function($rootScope, ConfigSvc) {
+coreDirectives.directive('searchresults', function(ConfigSvc) {
     return {
         restrict: 'E',
         templateUrl: '/views/searchResults.html',
@@ -32,7 +32,7 @@ coreDirectives.directive('searchresults', function($rootScope, ConfigSvc) {
     }
 });
 
-coreDirectives.directive('navigation', function($rootScope, $location) {
+coreDirectives.directive('navigation', function($location, AuthSvc) {
     return {
         restrict: 'E',
         templateUrl: '/views/navigation.html',
@@ -48,6 +48,22 @@ coreDirectives.directive('navigation', function($rootScope, $location) {
             scope.goToAccount = function() {
                 $location.path('/account');
             };
+
+            scope.logout = function() {
+                AuthSvc.logout();
+            }
+        }
+    }
+});
+
+coreDirectives.directive('currentuser', function(AuthSvc) {
+    return {
+        restrict: 'E',
+        templateUrl: '/views/currentUser.html',
+        link: function(scope) {
+            scope.currentUser = function() {
+                return AuthSvc.currentUser();
+            }
         }
     }
 });

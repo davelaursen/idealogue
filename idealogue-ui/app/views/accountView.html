@@ -1,0 +1,35 @@
+<div id="viewAccount">
+    <div class="title">Account</div>
+
+    <div id="viewAccountActions">
+        <nav class="actions">
+            <ul>
+                <li><a href="javascript:" ng-click="edit()">edit</a></li>
+                <li class="spacer2">|</li>
+                <li><a href="javascript:" ng-click="changePassword()">change password</a></li>
+                <li class="spacer2">|</li>
+                <li><a href="javascript:" ng-click="remove()">delete</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class='view-group'>
+        <label></label>
+        <div class="view-element bottom-border"><h3>{{user.firstName}} {{user.lastName}}</h3></div>
+    </div>
+
+    <div class='view-group'>
+        <label>Username</label>
+        <div class="view-element">{{user.id}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Email</label>
+        <div class="view-element">{{user.email}}</div>
+    </div>
+
+    <div class='view-group'>
+        <label>Joined</label>
+        <div class="view-element">{{printDate(user.createdDate)}}</div>
+    </div>
+</div>

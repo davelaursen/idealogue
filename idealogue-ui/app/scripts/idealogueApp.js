@@ -1,8 +1,17 @@
-var app = angular.module('idealogue', ['idealogue.utilityServices','idealogue.coreDirectives','idealogue.ideaControllers','idealogue.personControllers','idealogue.ideaServices']);
+var app = angular.module('idealogue', ['ngRoute','idealogue.utilityServices','idealogue.authServices','idealogue.coreDirectives','idealogue.ideaControllers','idealogue.personControllers','idealogue.accountControllers','idealogue.loginControllers','idealogue.ideaServices','idealogue.userServices']);
 
 app.config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider
+        .when('/login', {
+            controller: 'LoginCtrl',
+            templateUrl: '/views/login.html'
+        })
+        .when('/register', {
+            controller: 'RegisterCtrl',
+            templateUrl: '/views/createAccount.html'
+        })
+
         .when('/ideas', {
             controller: 'IdeaListCtrl',
             templateUrl: '/views/ideaList.html',
@@ -16,11 +25,11 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'IdeaViewCtrl',
             templateUrl: '/views/ideaView.html',
             resolve: {
-                idea: function(IdeaLoader) {
-                    return IdeaLoader();
+                idea: function(IdeaLoader, $route) {
+                    return IdeaLoader($route.current.params.ideaId);
                 },
-                people: function(MultiPersonLoader) {
-                    return MultiPersonLoader();
+                people: function(MultiUserLoader) {
+                    return MultiUserLoader();
                 }
             }
         })
@@ -28,11 +37,11 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'IdeaEditCtrl',
             templateUrl: '/views/ideaForm.html',
             resolve: {
-                idea: function(IdeaLoader) {
-                    return IdeaLoader();
+                idea: function(IdeaLoader, $route) {
+                    return IdeaLoader($route.current.params.ideaId);
                 },
-                people: function(MultiPersonLoader) {
-                    return MultiPersonLoader();
+                people: function(MultiUserLoader) {
+                    return MultiUserLoader();
                 }
             }
         })
@@ -45,8 +54,8 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'PersonListCtrl',
             templateUrl: '/views/personList.html',
             resolve: {
-                people: function(MultiPersonLoader) {
-                    return MultiPersonLoader();
+                people: function(MultiUserLoader) {
+                    return MultiUserLoader();
                 }
             }
         })
@@ -54,8 +63,36 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'PersonViewCtrl',
             templateUrl: '/views/personView.html',
             resolve: {
-                person: function(PersonLoader) {
-                    return PersonLoader();
+                person: function(UserLoader, $route) {
+                    return UserLoader($route.current.params.personId);
+                }
+            }
+        })
+
+        .when('/account', {
+            controller: 'AccountViewCtrl',
+            templateUrl: '/views/accountView.html',
+            resolve: {
+                user: function(UserLoader, AuthSvc) {
+                    return UserLoader(AuthSvc.currentUser());
+                }
+            }
+        })
+        .when('/account/edit', {
+            controller: 'AccountEditCtrl',
+            templateUrl: '/views/accountForm.html',
+            resolve: {
+                user: function(UserLoader, AuthSvc) {
+                    return UserLoader(AuthSvc.currentUser());
+                }
+            }
+        })
+        .when('/account/password', {
+            controller: 'AccountPasswordCtrl',
+            templateUrl: '/views/changePasswordForm.html',
+            resolve: {
+                user: function(UserLoader, AuthSvc) {
+                    return UserLoader(AuthSvc.currentUser());
                 }
             }
         })

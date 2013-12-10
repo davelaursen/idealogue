@@ -15,7 +15,7 @@
         <ul id="personList">
             <li ng-repeat="person in people" ng-click="viewPerson(person.id)">
                 <span class="personListFullName">{{person.firstName}} {{person.lastName}}</span>
-                <span class="personListInfoFirst">[username: {{person.username}}]</span>
+                <span class="personListInfoFirst">[username: {{person.id}}]</span>
             </li>
         </ul>
     </div>

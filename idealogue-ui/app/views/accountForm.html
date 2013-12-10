@@ -1,0 +1,48 @@
+<div id="editAccount">
+    <div class="title">Edit Account</div>
+
+    <div id="editAccountActions">
+        <nav class="actions">
+            <ul>
+                <li><a href="javascript:" ng-click="cancel()">back</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <form ng-submit="save()">
+        <div class='view-group'>
+            <label>Username</label>
+            <div class="view-element">{{user.id}}</div>
+        </div>
+
+        <div class="edit-group">
+            <label for="userFirstName">First Name</label>
+            <input id="userFirstName" ng-model="user.firstName" class="form-element large focus" type="text">
+        </div>
+
+        <div class="edit-group">
+            <label for="userLastName">Last Name</label>
+            <input id="userLastName" ng-model="user.lastName" class="form-element large focus" type="text">
+        </div>
+
+        <div class="edit-group">
+            <label for="userEmail">Email</label>
+            <input id="userEmail" ng-model="user.email" class="form-element large focus" type="text">
+        </div>
+
+        <div class="edit-group">
+            <label for="userSkills">Skills</label>
+            <input id="userSkills" class="form-element medium" type="text">
+        </div>
+
+        <div class="edit-group">
+            <label for="userTechnologies">Technologies</label>
+            <input id="userTechnologies" class="form-element medium" type="text">
+        </div>
+
+        <div class="edit-button-group">
+            <button type="submit" class="form-button button-default">save</button>
+            <button type="button" class="form-button" ng-click="cancel()">cancel</button>
+        </div>
+    </form>
+</div>

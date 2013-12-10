@@ -10,10 +10,45 @@ html {
 
 
 
+/* Login
+*****************************************************************/
+
+#loginForm {
+    width: 100%;
+    text-align: center;
+}
+
+#loginForm form {
+    /*position: absolute;*/
+    /*float: left;*/
+    /*left: 40%;*/
+    margin-top: 75px;
+}
+
+#loginForm button {
+    width: 75px;
+    height: 27px;
+}
+
+#loginForm input {
+    height: 20px;
+    width: 200px;
+}
+
+#loginForm .errorMessage {
+    margin-top: 20px;
+    color: #84544d;
+    font-size: .8em;
+}
+
+
+
 /* Header
 *****************************************************************/
 
 #header {
+    position: fixed;
+    width: 100%;
     background-color: #bd8e84;
     height: 45px;
     border-bottom: #aaa 1px solid;
@@ -94,17 +129,36 @@ html {
     padding-top: 6px;
 }
 
+/* Current User */
+#currentUser {
+    font-size: .7em;
+    color: #555555;
+    float: right;
+    position: absolute;
+    top: 18px;
+    right: 395px;
+}
+
 
 
 /* Content
 *****************************************************************/
 
 #content {
+    position: absolute;
     float: left;
-    position: relative;
-    top: 40px;
+    top: 30px;
     left: 5%;
     width: 90%;
+}
+
+#contentWrapper {
+    position: absolute;
+    float: left;
+    top: 45px;
+    bottom: 0;
+    width: 100%;
+    overflow: scroll;
 }
 
 .title {
@@ -297,9 +351,9 @@ button.form-x-button {
 #personSearchBox {
     display: none;
     background: #ffffff;
-    position: absolute;
+    position: fixed;
     float: left;
-    top: 30%;
+    top: 150px;
     left: 30%;
     border: 1px solid #aaaaaa;
     border-radius: 6px;
@@ -453,6 +507,15 @@ nav.actions .spacer2 {
 }
 #ideaList .ideaListInfoFirst {
     margin-left: 20px;
+}
+
+
+
+/* Idea List
+*****************************************************************/
+
+#ideaNewComment {
+    display: none;
 }
 
 

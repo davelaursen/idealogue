@@ -1,7 +1,9 @@
-var personControllers = angular.module('idealogue.personControllers', ['idealogue.utilityServices','idealogue.personServices']);
+var personControllers = angular.module('idealogue.personControllers', ['idealogue.utilityServices','idealogue.userServices']);
 
-personControllers.controller('PersonListCtrl', function($scope, $location, UtilSvc, people) {
-    people.sort(UtilSvc.sortBy('username', false, function(a){return a.toUpperCase()}));
+personControllers.controller('PersonListCtrl', function($scope, $location, UtilSvc, people, AuthSvc) {
+    AuthSvc.checkIfLoggedIn();
+
+    people.sort(UtilSvc.sortBy('id', false, function(a){return a.toUpperCase()}));
     $scope.people = people;
 
     $scope.viewPerson = function(personId) {
@@ -9,7 +11,9 @@ personControllers.controller('PersonListCtrl', function($scope, $location, UtilS
     }
 });
 
-personControllers.controller('PersonViewCtrl', function($scope, $location, UtilSvc, Person, person) {
+personControllers.controller('PersonViewCtrl', function($scope, $location, UtilSvc, User, person, AuthSvc) {
+    AuthSvc.checkIfLoggedIn();
+
     $scope.person = person;
 
     $scope.back = function() {
@@ -17,16 +21,15 @@ personControllers.controller('PersonViewCtrl', function($scope, $location, UtilS
     }
 
     $scope.vote = function() {
-//        var person = $scope.person;
-//        var votes = person.votes;
-//        var id = UtilSvc.randomUUID();
-//        //TODO: replace random UUID with id of logged in user (when implemented)
+//        var user = $scope.person;
+//        var votes = user.votes;
+//        var id = AuthSvc.currentUser();
 //
 //        if ($.inArray(id, votes) === -1) {
 //            votes[votes.length] = id;
-//            person.voteCount = parseInt(person.voteCount)+1;
-//            Person.save(person, function() {
-//                $scope.person = person;
+//            user.voteCount = parseInt(user.voteCount)+1;
+//            User.save(user, function() {
+//                $scope.person = user;
 //            });
 //        }
     }
@@ -35,5 +38,6 @@ personControllers.controller('PersonViewCtrl', function($scope, $location, UtilS
         if (dateStr) {
             return UtilSvc.formatDateString(dateStr, true);
         }
+        return null;
     }
 });

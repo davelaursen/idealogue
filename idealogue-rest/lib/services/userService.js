@@ -43,43 +43,19 @@ module.exports = function(_db) {
         });
     };
 
-    this.create = function(obj, error, success) {
-        if (!error) { error = noop; }
-        if (!success) { success = noop; }
-
-        var semiRandomGuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-            var r = Math.random()*16|0, v = c === "x" ? r : (r&0x3|0x8);
-            return v.toString(16);
-        });
-
-        obj.id = semiRandomGuid;
-        dataHelper.replaceId(obj);
-
-        var collection = db.collection('users');
-        collection.insert(obj, {}, function(err, objects) {
-            if(err) {
-                error(err);
-            }
-            else {
-                dataHelper.replaceUnderscoreId(obj);
-                success(obj);
-            }
-        });
-    };
-
-    this.update = function(obj, error, success) {
+    this.save = function(obj, error, success) {
         if (!error) { error = noop; }
         if (!success) { success = noop; }
 
         dataHelper.replaceId(obj);
 
         var collection = db.collection('users');
-        collection.findAndModify({"_id": obj._id}, [['id','asc']], obj, {}, function(err, doc) {
+        collection.update({"_id": obj._id}, obj, {"upsert": true}, function(err) {
             if(err) {
                 error(err);
             }
             else {
-                success(doc);
+                success();
             }
         });
     };

@@ -1,6 +1,14 @@
 <div id="editIdea">
     <div id="editIdeaTitle" class="title">Ideas</div>
 
+    <div id="editIdeaActions">
+        <nav class="actions">
+            <ul>
+                <li><a href="javascript:" ng-click="cancel()">back</a></li>
+            </ul>
+        </nav>
+    </div>
+
     <form ng-submit="save()">
         <div class="edit-group">
             <label for="ideaName">Name</label>
@@ -22,7 +30,7 @@
             <textarea id="ideaDetails" ng-model="idea.details" class="form-element x-large"></textarea>
         </div>
 
-        <div class="edit-group">
+        <div id="proposersGroup" class="edit-group">
             <label for="ideaProposers">Proposers</label>
             <input id="ideaProposers" ng-model="idea.proposers" class="form-element medium" type="text">
             <button type="button" class="form-inline-button" ng-click="findProposer()">(lookup person)</button>
@@ -61,7 +69,7 @@
             <ul>
                 <li ng-repeat="person in personSearchResults" ng-click="selectPerson(person)">
                     <span class="personResultFullName">{{person.firstName}} {{person.lastName}}</span>
-                    <span class="personResultInfo">username: {{person.username}}</span>
+                    <span class="personResultInfo">username: {{person.id}}</span>
                     <span class="personResultInfo">{{person.email}}</span>
                 </li>
             </ul>

@@ -1,4 +1,4 @@
-var ideaServices = angular.module('idealogue.ideaServices', ['ngResource','idealogue.configServices','idealogue.utilityServices','idealogue.personServices']);
+var ideaServices = angular.module('idealogue.ideaServices', ['ngResource','idealogue.configServices','idealogue.utilityServices','idealogue.userServices']);
 
 ideaServices.config(function($httpProvider) {
     $httpProvider.defaults.headers.common.Authorization = "c4088588-3c0e-11e3-bee0-ce3f5508acd9";
@@ -42,15 +42,15 @@ ideaServices.factory('MultiIdeaLoader', function(Idea, $q) {
     }
 });
 
-ideaServices.factory('IdeaLoader', function(Idea, $q, $route) {
-    return function() {
+ideaServices.factory('IdeaLoader', function(Idea, $q) {
+    return function(ideaId) {
         var delay = $q.defer();
-        Idea.getOne($route.current.params.ideaId,
+        Idea.getOne(ideaId,
             function(response) {
                 delay.resolve(response.data);
             },
             function() {
-                delay.reject('Unable to fetch idea ' + $route.current.params.ideaId)
+                delay.reject('Unable to fetch idea ' + ideaId)
             }
         );
         return delay.promise;
@@ -130,67 +130,67 @@ ideaServices.service('IdeaSvc', function($http, $q, UtilSvc) {
         },
 
         transformIdeaForView: function(idea, people) {
-            var proposers = [];
+            var i, len, person;
+
+            var proposerNames = [];
             var index = 0;
-            for (var i = 0, len = idea.proposers.length; i < len; i++) {
-                var person = UtilSvc.findInArray(people, 'id', idea.proposers[i]);
+            for (i = 0, len = idea.proposers.length; i < len; i++) {
+                person = UtilSvc.findInArray(people, 'id', idea.proposers[i]);
                 if (person !== null) {
-                    person['fullName'] = person.firstName + ' ' + person.lastName;
-                    proposers[index++] = person;
+                    proposerNames[index++] = person.firstName + ' ' + person.lastName;
                 }
             }
-            idea.proposers = proposers;
+            idea.proposerNames = proposerNames;
+
+            for (i = 0, len = idea.comments.length; i < len; i++) {
+                person = UtilSvc.findInArray(people, 'id', idea.comments[i].id);
+                if (person !== null) {
+                    idea.comments[i]["fullName"] = person.firstName + ' ' + person.lastName;
+                }
+            }
         },
 
-        transformIdeaForEdit: function(idea, people) {
-            var proposers = [];
-            var index = 0;
-            for (var i = 0, len = idea.proposers.length; i < len; i++) {
-                var person = UtilSvc.findInArray(people, 'id', idea.proposers[i]);
-                if (person !== null) {
-//                    person['fullName'] = person.firstName + ' ' + person.lastName;
-                    proposers[index++] = person;
-                }
-            }
-
-            idea.proposers = UtilSvc.arrayToString(proposers, 'username');
+        transformIdeaForEdit: function(idea) {
+            idea.proposers = UtilSvc.arrayToString(idea.proposers);
             idea.skills = UtilSvc.arrayToString(idea.skills);
             idea.technologies = UtilSvc.arrayToString(idea.technologies);
             idea.tags = UtilSvc.arrayToString(idea.tags);
         },
 
-        transformIdeaForSave: function(idea, people) {
+        transformIdeaForSave: function(idea) {
             var i, len;
 
-            var proposers = [];
-            var index = 0;
-            idea.proposers = idea.proposers.split(',');
-            for (i = 0, len = idea.proposers.length; i < len; i++) {
-                var parts = idea.proposers[i].trim().split(' ');
-                var person = null;
-                if (parts.length === 2) {
-                    person = UtilSvc.findInArray(people, 'firstName', parts[0], 'lastName', parts[1]);
-                }
-                else if (parts.length === 1) {
-                    person = UtilSvc.findInArray(people, 'username', parts[0]);
-                }
-                if (person !== null) {
-                    proposers[index++] = person.id;
-                }
+            if (typeof idea.proposers === 'string') {
+                idea.proposers = idea.proposers.split(',');
             }
-            idea.proposers = proposers;
+            for (i = 0, len = idea.proposers.length; i < len; i++) {
+                idea.proposers[i] = idea.proposers[i].trim();
+            }
 
-            idea.skills = idea.skills.split(',');
+            if (typeof idea.skills === 'string') {
+                idea.skills = idea.skills.split(',');
+            }
             for (i = 0, len = idea.skills.length; i < len; i++) {
                 idea.skills[i] = idea.skills[i].trim();
             }
-            idea.technologies = idea.technologies.split(',');
+
+            if (typeof idea.technologies === 'string') {
+                idea.technologies = idea.technologies.split(',');
+            }
             for (i = 0, len = idea.technologies.length; i < len; i++) {
                 idea.technologies[i] = idea.technologies[i].trim();
             }
-            idea.tags = idea.tags.split(',');
+
+            if (typeof idea.tags === 'string') {
+                idea.tags = idea.tags.split(',');
+            }
             for (i = 0, len = idea.tags.length; i < len; i++) {
                 idea.tags[i] = idea.tags[i].trim();
+            }
+
+            delete idea.proposerNames;
+            for (i = 0, len = idea.comments.length; i < len; i++) {
+                delete idea.comments[i]['fullName'];
             }
         }
     }
