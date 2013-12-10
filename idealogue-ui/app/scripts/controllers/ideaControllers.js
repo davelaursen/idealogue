@@ -46,7 +46,10 @@ ideaControllers.controller('IdeaViewCtrl', function($route, $scope, $q, $locatio
         if ($.inArray(id, votes) === -1) {
             votes[votes.length] = id;
             idea.voteCount = parseInt(idea.voteCount)+1;
+            
+            IdeaSvc.transformIdeaForSave(idea);
             Idea.save(idea, function() {
+                console.log("saved");
                 $route.reload();
             });
         }
