@@ -1,7 +1,7 @@
 {
     "host": "localhost",
 	"port": 8000,
-    "mongoConnectionString" : "mongodb://127.0.0.1:27017/Idealogue",
+    "mongoConnectionString" : "mongodb://127.0.0.1:27017/idealogue",
     "controllers": ["ideaController.js", "userController.js", "tagController.js", "skillController.js", "technologyController.js"],
     "logging": {
         "name": "idealogue",

@@ -13,6 +13,7 @@ module.exports = function IdeaController(config) {
             path: '/tags',
             method: 'GET',
             handler: function(request, reply) {
+                console.log("TESTING");
                 tagSvc.getMany(
                     function(err) {
                         reply(Hapi.error.internal());

@@ -17,6 +17,7 @@ authServices.factory('AuthSvc', function($q, $location, $cookieStore, User) {
             deferred.promise.then(function(user) {
                 if (user.password === CryptoJS.MD5(password).toString()) {
                     $cookieStore.put('currentUser', user.id);
+                    $cookieStore.put('currentUserName', user.firstName + " " + user.lastName)
                     callback(true);
                 }
                 else {
@@ -27,6 +28,7 @@ authServices.factory('AuthSvc', function($q, $location, $cookieStore, User) {
 
         logout: function() {
             $cookieStore.remove('currentUser');
+            $cookieStore.remove('currentUserName');
             $location.path('/login');
         },
 
@@ -44,6 +46,10 @@ authServices.factory('AuthSvc', function($q, $location, $cookieStore, User) {
 
         currentUser: function() {
             return $cookieStore.get('currentUser');
+        },
+
+        currentUserName: function() {
+            return $cookieStore.get('currentUserName');
         }
     };
 });

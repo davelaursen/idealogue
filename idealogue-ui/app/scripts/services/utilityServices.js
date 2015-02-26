@@ -2,7 +2,7 @@ var utilityServices = angular.module('idealogue.utilityServices', []);
 
 utilityServices.service('UtilSvc', function() {
     return {
-        selectedView: 'ideaList',
+        // selectedView: 'ideaList',
 
         randomUUID: function() {
             return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
@@ -113,16 +113,4 @@ utilityServices.service('UtilSvc', function() {
             };
         })()
     }
-});
-
-utilityServices.service('LocationSvc', function($location, $route, $rootScope) {
-    $location.skipReload = function() {
-        var lastRoute = $route.current;
-        var un = $rootScope.$on('$locationChangeSuccess', function() {
-            $route.current = lastRoute;
-            un();
-        });
-        return $location;
-    };
-    return $location;
 });

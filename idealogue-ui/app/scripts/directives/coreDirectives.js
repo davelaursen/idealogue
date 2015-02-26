@@ -14,7 +14,7 @@ coreDirectives.directive('searchform', function(ConfigSvc) {
         templateUrl: '/views/searchForm.html',
         link: function(scope) {
             scope.executeSearch = function() {
-                $('#searchResults').fadeIn(ConfigSvc.searchResultsShowTime);
+                $('.search-results').fadeIn(ConfigSvc.searchResultsShowTime);
             }
         }
     }
@@ -26,7 +26,7 @@ coreDirectives.directive('searchresults', function(ConfigSvc) {
         templateUrl: '/views/searchResults.html',
         link: function(scope) {
             scope.close = function() {
-                $('#searchResults').fadeOut(ConfigSvc.searchResultsShowTime);
+                $('.search-results').fadeOut(ConfigSvc.searchResultsShowTime);
             }
         }
     }
@@ -62,7 +62,7 @@ coreDirectives.directive('currentuser', function(AuthSvc) {
         templateUrl: '/views/currentUser.html',
         link: function(scope) {
             scope.currentUser = function() {
-                return AuthSvc.currentUser();
+                return AuthSvc.currentUserName();
             }
         }
     }

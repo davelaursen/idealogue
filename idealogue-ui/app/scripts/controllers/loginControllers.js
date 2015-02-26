@@ -3,9 +3,9 @@ var loginControllers = angular.module('idealogue.loginControllers', ['idealogue.
 loginControllers.controller('LoginCtrl', function($scope, $location, AuthSvc) {
     $scope.login = { };
 
-    $('#search').hide();
-    $('#nav').hide();
-    $('#currentUser').hide();
+    $('.search').hide();
+    $('.nav').hide();
+    $('.current-user').hide();
 
     $('#loginUsername').focus();
 
@@ -14,9 +14,9 @@ loginControllers.controller('LoginCtrl', function($scope, $location, AuthSvc) {
             function(result, message) {
                 if(result === true) {
                     $location.path('/ideas');
-                    $('#search').fadeIn(100);
-                    $('#nav').fadeIn(100);
-                    $('#currentUser').fadeIn(100);
+                    $('.search').fadeIn(100);
+                    $('.nav').fadeIn(100);
+                    $('.current-user').fadeIn(100);
                 }
                 else {
                     $scope.login.message = message;
@@ -34,13 +34,14 @@ loginControllers.controller('RegisterCtrl', function($scope, $q, $location, User
     $scope.user = { };
     $scope.password = { };
 
-    $('#search').hide();
-    $('#nav').hide();
-    $('#currentUser').hide();
+    $('.search').hide();
+    $('.nav').hide();
+    $('.current-user').hide();
 
     $('#username').focus();
 
     $scope.save = function() {
+        console.log("test");
         var rawPass = $scope.password.new;
         var newPass = CryptoJS.MD5(rawPass).toString();
         var confirm = CryptoJS.MD5($scope.password.confirm).toString();
@@ -66,9 +67,9 @@ loginControllers.controller('RegisterCtrl', function($scope, $q, $location, User
                     function(result, message) {
                         if(result === true) {
                             $location.path('/ideas');
-                            $('#search').fadeIn(100);
-                            $('#nav').fadeIn(100);
-                            $('#currentUser').fadeIn(100);
+                            $('.search').fadeIn(100);
+                            $('.nav').fadeIn(100);
+                            $('.current-user').fadeIn(100);
                         }
                         else {
                             alert(message);

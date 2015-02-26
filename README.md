@@ -16,26 +16,17 @@ Current version: **0.0.1**
 Node version: **0.10** required
 
 ## Getting Started
-Idealogue requires that MongoDB version 2.4.x or newer be installed and running with text search enabled
-and the ideas collection properly indexed.  At the time of this writing, the MongoDB node client does
-not yet support the ability to create full text indexes through code, so it must be created manually.
-If this step is skipped, Idealogue's search functionality will not work properly.
+Idealogue requires that MongoDB version 2.6.x or newer be installed.
 
-Start up MongoDB using the following command:
-```
-./mongod --setParameter textSearchEnabled=true
-```
-
-Start the Mongo client and execute the following commands:
+Start the Mongo server, then use the client to execute the following commands:
 ```
 > use idealogue;
 > db.ideas.ensureIndex({name:"text", summary:"text", benefits:"text", details:"text", tags:"text", skills:"text", technologies:"text"});
 ```
 
-Finally, you'll need to add an API key so that the UI can communicate with the REST application:
+You'll need to add an API key so that the UI can communicate with the REST application:
 ```
-> use Idealogue
-> db.apiKeys.insert({_id:"c4088588-3c0e-11e3-bee0-ce3f5508acd9"})
+> db.apiKeys.insert({_id:"c4088588-3c0e-11e3-bee0-ce3f5508acd9"});
 ```
 
 Once Mongo is configured, you need to install the REST application.  Pull down the latest code, navigate to
@@ -50,10 +41,9 @@ You can then start up the application (listens on port 8000):
 node app.js
 ```
 
-To install the experimental UI (only partially implemented at this time), pull down the latest code, navigate to
-the root directory and install it's dependencies using npm:
+To install the UI, navigate to the idealogue-ui directory and install it's dependencies using npm:
 ```
-cd idealogue-ui-x
+cd idealogue-ui
 npm install
 ```
 
