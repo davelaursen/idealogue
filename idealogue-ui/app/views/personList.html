@@ -1,21 +1,17 @@
-<div>
-    <div class="title">People</div>
+<section>
+    <h1 class="title">People</h1>
 
-    <div>
-        <ul class="actions">
-            <li><a href="javascript:" ng-click="sort()">sort</a></li>
-            <li><a href="javascript:" ng-click="filter()">filter</a></li>
-        </ul>
-    </div>
+    <ul class="actions">
+        <li><a href="javascript:" ng-click="sort()">sort</a></li>
+        <li><a href="javascript:" ng-click="filter()">filter</a></li>
+    </ul>
 
-    <div class="person-list-container">
-        <ul class="person-list">
-            <li ng-repeat="person in people">
-                <button ng-click="viewPerson(person.id)">
-                    <span class="person-list-full-name">{{person.firstName}} {{person.lastName}}</span>
-                    <span class="person-list-info person-list-info-first">username: {{person.id}}</span>
-                </button>
-            </li>
-        </ul>
-    </div>
-</div>
+    <ul class="person-list">
+        <li ng-repeat="person in people">
+            <button ng-click="viewPerson(person.id)">
+                <span class="person-list-full-name">{{person.firstName}} {{person.lastName}}</span>
+                <span class="person-list-info person-list-info-first">username: {{person.id}}</span>
+            </button>
+        </li>
+    </ul>
+</section>

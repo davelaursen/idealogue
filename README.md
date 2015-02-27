@@ -8,7 +8,7 @@ otherwise give people a voice to improve their organization.
 
 **CURRENTLY IN DEVELOPMENT**
 While the Idealogue REST service is fairly stable, the Idealogue UI and X-UI (experimental UI)
-are being actively developed, and currently only have limited functionality.  Please see the README
+are being actively developed, and currently only have limited functionality. Please see the README
 files for each project to determine it's current state and see what's currently being worked on.
 
 Current version: **0.0.1**
@@ -18,7 +18,7 @@ Node version: **0.10** required
 ## Getting Started
 Idealogue requires that MongoDB version 2.6.x or newer be installed.
 
-Start the Mongo server, then use the client to execute the following commands:
+Start the Mongo server, then use the Mongo client to execute the following commands:
 ```
 > use idealogue;
 > db.ideas.ensureIndex({name:"text", summary:"text", benefits:"text", details:"text", tags:"text", skills:"text", technologies:"text"});
@@ -29,7 +29,7 @@ You'll need to add an API key so that the UI can communicate with the REST appli
 > db.apiKeys.insert({_id:"c4088588-3c0e-11e3-bee0-ce3f5508acd9"});
 ```
 
-Once Mongo is configured, you need to install the REST application.  Pull down the latest code, navigate to
+Once Mongo is configured, you need to install the REST application. Pull down the latest code, navigate to
 the root directory and install its dependencies using npm:
 ```
 cd idealogue-rest

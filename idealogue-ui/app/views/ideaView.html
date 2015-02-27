@@ -1,14 +1,12 @@
-<div>
-    <div class="title">Idea Details</div>
+<section>
+    <h1 class="title">Idea Details</h1>
 
-    <div>
-        <ul class="actions">
-            <li><a href="javascript:" ng-click="back()">back</a></li>
-            <li><a href="javascript:" ng-click="vote()">vote</a></li>
-            <li><a href="javascript:" ng-click="edit()">edit</a></li>
-            <li><a href="javascript:" ng-click="remove()">delete</a></li>
-        </ul>
-    </div>
+    <ul class="actions">
+        <li><a href="javascript:" ng-click="back()">back</a></li>
+        <li><a href="javascript:" ng-click="vote()">vote</a></li>
+        <li><a href="javascript:" ng-click="edit()">edit</a></li>
+        <li><a href="javascript:" ng-click="remove()">delete</a></li>
+    </ul>
 
     <div class='view-group'>
         <label></label>
@@ -57,23 +55,6 @@
 
     <div class='view-group'>
         <label>Comments</label>
-        <div class="view-element comment-list">
-            <ul>
-                <li ng-repeat="comment in idea.comments">
-                    <div>
-                        <span class="comment-header">{{printDate(comment.timestamp)}}, {{comment.fullName}}</span>
-                        <span class="comment-text">{{comment.text}}</span>
-                    </div>
-                </li>
-                <li class="comment-new" id="ideaNewComment">
-                    <div>
-                        <textarea ng-model="newComment" class="form-element comment-new-text" id="newCommentText" rows="1"></textarea>
-                        <button type="button" class="form-inline-button" ng-click="saveComment()">save</button>
-                        <button type="button" class="form-inline-button" ng-click="cancelComment()">cancel</button>
-                    </div>
-                </li>
-            </ul>
-            <button type='button' id="ideaAddCommentButton" class="form-inline-button add-comment-button" ng-click="addComment()">add comment</button>
-        </div>
+        <newcomment class="view-element"></newcomment>
     </div>
-</div>
+</section>

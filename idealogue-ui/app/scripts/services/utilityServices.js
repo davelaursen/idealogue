@@ -1,6 +1,8 @@
-var utilityServices = angular.module('idealogue.utilityServices', []);
+'use strict';
 
-utilityServices.service('UtilSvc', function() {
+angular.module('idealogue.utilityServices', [])
+
+.service('UtilSvc', function() {
     return {
         // selectedView: 'ideaList',
 
@@ -103,6 +105,26 @@ utilityServices.service('UtilSvc', function() {
                 }
             }
             return null;
+        },
+
+        disableMainUIElements: function(callback) {
+            $('.header *').attr("disabled", "disabled");
+            $('.header a').removeAttr("href");
+            $('.content *').attr("disabled", "disabled");
+            $('.content a').removeAttr("href");
+            if (callback) {
+                callback();
+            }
+        },
+
+        enableMainUIElements: function(callback) {
+            $('.header *').removeAttr("disabled");
+            $('.header a').attr("href", "javascript:");
+            $('.content *').removeAttr("disabled");
+            $('.content a').attr("href", "javascript:");
+            if (callback) {
+                callback();
+            }
         },
 
         delay: (function(){

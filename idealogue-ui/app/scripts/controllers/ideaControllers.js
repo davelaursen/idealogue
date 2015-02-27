@@ -1,6 +1,14 @@
-var ideaControllers = angular.module('idealogue.ideaControllers', ['ngRoute','idealogue.utilityServices','idealogue.coreDirectives','idealogue.ideaServices','idealogue.authServices']);
+'use strict';
 
-ideaControllers.controller('IdeaListCtrl', function($scope, $q, $location, UtilSvc, ideas, AuthSvc) {
+angular.module('idealogue.ideaControllers', [
+    'ngRoute',
+    'idealogue.utilityServices',
+    'idealogue.coreDirectives',
+    'idealogue.ideaServices',
+    'idealogue.authServices'
+])
+
+.controller('IdeaListCtrl', function($scope, $q, $location, UtilSvc, AuthSvc, ideas) {
     AuthSvc.checkIfLoggedIn();
 
     ideas.sort(UtilSvc.sortBy('name', false, function(a){return a.toUpperCase()}));
@@ -23,14 +31,13 @@ ideaControllers.controller('IdeaListCtrl', function($scope, $q, $location, UtilS
         $scope.desc = $scope.desc ? false : true;
         ideas.sort(UtilSvc.sortBy('name', $scope.desc, function(a){return a.toUpperCase()}));
     };
-});
+})
 
-ideaControllers.controller('IdeaViewCtrl', function($route, $scope, $q, $location, UtilSvc, Idea, IdeaSvc, idea, people, AuthSvc) {
+.controller('IdeaViewCtrl', function($route, $scope, $q, $location, UtilSvc, AuthSvc, IdeaSvc, Idea, idea, people) {
     AuthSvc.checkIfLoggedIn();
 
     IdeaSvc.transformIdeaForView(idea, people);
     $scope.idea = idea;
-    $('.comment-new-text').autoSize();
 
     $scope.back = function() {
         $location.path('/ideas');
@@ -61,19 +68,7 @@ ideaControllers.controller('IdeaViewCtrl', function($route, $scope, $q, $locatio
         }
     }
 
-    $scope.addComment = function() {
-        $('.comment-new').show();
-        $('.add-comment-button').hide();
-        $('.comment-new-text').focus();
-    }
-
-    $scope.cancelComment = function() {
-        $scope.newComment = null;
-        $('.comment-new').hide();
-        $('.add-comment-button').show();
-    }
-
-    $scope.saveComment = function() {
+    $scope.save = function() {
         var newComment = $scope.newComment;
         var idea = $scope.idea;
 
@@ -87,8 +82,6 @@ ideaControllers.controller('IdeaViewCtrl', function($route, $scope, $q, $locatio
         Idea.save(idea, function() {
             $route.reload();
         });
-
-        $scope.cancelComment();
     }
 
     $scope.toList = function(arr, prop) {
@@ -101,12 +94,10 @@ ideaControllers.controller('IdeaViewCtrl', function($route, $scope, $q, $locatio
         }
         return null;
     }
-});
+})
 
-ideaControllers.controller('IdeaEditCtrl', function($scope, $q, $location, UtilSvc, IdeaSvc, Idea, idea, people, AuthSvc) {
+.controller('IdeaEditCtrl', function($scope, $q, $location, UtilSvc, AuthSvc, IdeaSvc, Idea, idea, people) {
     AuthSvc.checkIfLoggedIn();
-
-    $('.edit-idea-title').text('Edit Idea');
 
     $scope.idea = idea;
     $scope.people = people;
@@ -138,44 +129,20 @@ ideaControllers.controller('IdeaEditCtrl', function($scope, $q, $location, UtilS
     };
 
     $scope.findProposer = function() {
-        $('.shadow').fadeIn(100);
-        $('#personSearchBox').fadeIn(100);
-        $('#personSearch').focus();
-        $('#personSearchFieldName').val('proposers');
-    }
+        $scope.openPersonSearchBox();
+    };
 
-    $scope.closePersonSearchBox = function() {
-        $('.shadow').fadeOut(100);
-        $('#personSearchBox').fadeOut(100);
-        $scope.personSearchResults = [];
-    }
-
-    $scope.executePersonSearch = function() {
-        var text = $('#personSearch').val();
-        var results;
-        if (text === "") {
-            results = $scope.people;
-        }
-        else {
-            results = UtilSvc.findMultipleInArray($scope.people, ['firstName','lastName','id'], text);
-        }
-        results.sort(UtilSvc.sortBy('id', false, function(a){return a.toUpperCase()}));
-        $scope.personSearchResults = results;
-    }
-
-    $scope.selectPerson = function(person) {
-        var field = $('#personSearchFieldName').val();
-        var value = $scope.idea[field];
+    $scope.onPersonSelected = function(person) {
+        var value = $scope.idea.proposers
         if (value.length > 0) {
             value += ", ";
         }
-        value += person.username;
-        $scope.idea[field] = value;
-        $scope.closePersonSearchBox();
-    }
-});
+        value += person.id;
+        $scope.idea.proposers = value;
+    };
+})
 
-ideaControllers.controller('IdeaNewCtrl', function($scope, $q, $location, UtilSvc, IdeaSvc, Idea, AuthSvc) {
+.controller('IdeaNewCtrl', function($scope, $q, $location, UtilSvc, AuthSvc, IdeaSvc, Idea) {
     AuthSvc.checkIfLoggedIn();
 
     $scope.save = function() {
@@ -205,9 +172,6 @@ ideaControllers.controller('IdeaNewCtrl', function($scope, $q, $location, UtilSv
     $scope.cancel = function() {
         $location.path('/ideas');
     };
-
-    $('.edit-idea-title').text('New Idea');
-    $('.proposers-group').hide();
 
     var dateStr = UtilSvc.getISO8601DateString();
     $scope.idea = {

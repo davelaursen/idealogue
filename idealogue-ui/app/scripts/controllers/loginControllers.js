@@ -1,6 +1,11 @@
-var loginControllers = angular.module('idealogue.loginControllers', ['idealogue.utilityServices','idealogue.authServices']);
+'use strict';
 
-loginControllers.controller('LoginCtrl', function($scope, $location, AuthSvc) {
+angular.module('idealogue.loginControllers', [
+    'idealogue.utilityServices',
+    'idealogue.authServices'
+])
+
+.controller('LoginCtrl', function($scope, $location, AuthSvc) {
     $scope.login = { };
 
     $('.search').hide();
@@ -28,9 +33,9 @@ loginControllers.controller('LoginCtrl', function($scope, $location, AuthSvc) {
     $scope.register = function() {
         $location.path('/register');
     }
-});
+})
 
-loginControllers.controller('RegisterCtrl', function($scope, $q, $location, User, AuthSvc, UtilSvc) {
+.controller('RegisterCtrl', function($scope, $q, $location, UtilSvc, AuthSvc, User) {
     $scope.user = { };
     $scope.password = { };
 

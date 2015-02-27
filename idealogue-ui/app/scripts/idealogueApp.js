@@ -1,6 +1,20 @@
-var app = angular.module('idealogue', ['ngRoute','idealogue.utilityServices','idealogue.authServices','idealogue.coreDirectives','idealogue.ideaControllers','idealogue.personControllers','idealogue.accountControllers','idealogue.loginControllers','idealogue.ideaServices','idealogue.userServices']);
+'use strict';
 
-app.config(function($routeProvider, $locationProvider) {
+angular.module('idealogue', [
+    'ngRoute',
+    'idealogue.utilityServices',
+    'idealogue.authServices',
+    'idealogue.ideaServices',
+    'idealogue.userServices',
+    'idealogue.coreDirectives',
+    'idealogue.ideaDirectives',
+    'idealogue.ideaControllers',
+    'idealogue.personControllers',
+    'idealogue.accountControllers',
+    'idealogue.loginControllers'
+])
+
+.config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider
         .when('/login', {
@@ -35,7 +49,7 @@ app.config(function($routeProvider, $locationProvider) {
         })
         .when('/ideas/edit/:ideaId', {
             controller: 'IdeaEditCtrl',
-            templateUrl: '/views/ideaForm.html',
+            templateUrl: '/views/ideaEdit.html',
             resolve: {
                 idea: function(IdeaLoader, $route) {
                     return IdeaLoader($route.current.params.ideaId);
@@ -47,7 +61,7 @@ app.config(function($routeProvider, $locationProvider) {
         })
         .when('/ideas/new', {
             controller: 'IdeaNewCtrl',
-            templateUrl: '/views/ideaForm.html'
+            templateUrl: '/views/ideaNew.html'
         })
 
         .when('/people', {

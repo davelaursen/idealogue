@@ -1,38 +1,50 @@
-var coreDirectives = angular.module('idealogue.coreDirectives', ['idealogue.ideaServices','idealogue.configServices','idealogue.authServices']);
+'use strict';
 
-coreDirectives.directive('focus', function () {
+angular.module('idealogue.coreDirectives', [
+    'idealogue.utilityServices',
+    'idealogue.ideaServices',
+    'idealogue.configServices',
+    'idealogue.authServices'
+])
+
+.directive('focus', function () {
     return {
         link: function (scope, element) {
             element[0].focus();
         }
     }
-});
+})
 
-coreDirectives.directive('searchform', function(ConfigSvc) {
+.directive('searchform', function(ConfigSvc, UtilSvc) {
     return {
         restrict: 'E',
         templateUrl: '/views/searchForm.html',
         link: function(scope) {
             scope.executeSearch = function() {
                 $('.search-results').fadeIn(ConfigSvc.searchResultsShowTime);
+                $('.shadow').fadeIn(ConfigSvc.searchResultsShowTime);
+                UtilSvc.disableMainUIElements();
             }
         }
     }
-});
+})
 
-coreDirectives.directive('searchresults', function(ConfigSvc) {
+.directive('searchresults', function(ConfigSvc, UtilSvc) {
     return {
         restrict: 'E',
         templateUrl: '/views/searchResults.html',
-        link: function(scope) {
+        link: function(scope, element) {
             scope.close = function() {
-                $('.search-results').fadeOut(ConfigSvc.searchResultsShowTime);
+                // $('.search-results').fadeOut(ConfigSvc.searchResultsShowTime);
+                element.fadeOut(ConfigSvc.searchResultsShowTime);
+                $('.shadow').fadeOut(ConfigSvc.searchResultsShowTime);
+                UtilSvc.enableMainUIElements();
             }
         }
     }
-});
+})
 
-coreDirectives.directive('navigation', function($location, AuthSvc) {
+.directive('navigation', function($location, AuthSvc) {
     return {
         restrict: 'E',
         templateUrl: '/views/navigation.html',
@@ -54,9 +66,9 @@ coreDirectives.directive('navigation', function($location, AuthSvc) {
             }
         }
     }
-});
+})
 
-coreDirectives.directive('currentuser', function(AuthSvc) {
+.directive('currentuser', function(AuthSvc) {
     return {
         restrict: 'E',
         templateUrl: '/views/currentUser.html',

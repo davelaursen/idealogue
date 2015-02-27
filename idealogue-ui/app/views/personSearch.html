@@ -1,0 +1,20 @@
+<div class="person-search-box">
+	<form ng-submit="executePersonSearch()">
+	    <input id="personSearchFieldName" type="hidden">
+	    <input id="personSearch" class="form-element small" type="text">
+	    <button type="submit" class="hidden"></button>
+	    <button type="button" class="form-inline-button" ng-click="closePersonSearchBox()">(close)</button>
+	</form>
+
+	<div class="person-result-box">
+	    <ul>
+	        <li ng-repeat="person in personSearchResults">
+	            <button ng-click="selectPerson(person)">
+	                <span class="person-result-full-name">{{person.firstName}} {{person.lastName}}</span>
+	                <span class="person-result-info">username: {{person.id}}</span>
+	                <span class="person-result-info">{{person.email}}</span>
+	            </button>
+	        </li>
+	    </ul>
+	</div>
+</div>

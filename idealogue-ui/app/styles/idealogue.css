@@ -88,7 +88,6 @@ input, textarea {
 
 .login-form button {
     width: 75px;
-    height: 30px;
 }
 
 .login-form input {
@@ -97,6 +96,7 @@ input, textarea {
 }
 
 .login-form .error-message {
+    display: block;
     margin-top: 20px;
     color: #84544d;
     font-size: .8em;
@@ -121,7 +121,7 @@ input, textarea {
 }
 
 /* Search */
-.search div {
+.search {
     float: left;
     position: absolute;
     top: 8px;
@@ -147,10 +147,6 @@ input, textarea {
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
-}
-
-.search-inner {
-    margin: 25px;
 }
 
 /* Navigation */
@@ -361,7 +357,8 @@ input, textarea {
     width: 100%;
     z-index: 100;
 }
-#personSearchBox {
+
+.person-search-box {
     display: none;
     background: #ffffff;
     position: fixed;
@@ -374,31 +371,43 @@ input, textarea {
     height: 250px;
     z-index: 150;
 }
-#personResultBox {
-    overflow: scroll;
-    width: 100%;
-    height: 90%;
-    margin-top: 10%;
-}
-#personSearchBox li:hover {
+
+.person-search-box li:hover {
     background-color: rgba(195, 123, 111, 0.25);
     cursor: pointer
 }
-#personSearchBox li {
+
+.person-search-box li {
     border: 1px #aaaaaa solid;
     border-radius: 6px;
     margin: 2px 0;
-    padding: 5px 7px 4px;
     width: 190px;
-    font-size: .9em;
 }
-#personSearchBox .personResultInfo {
+
+.person-search-box li button {
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    padding: 5px 7px 4px;
+    font-size: .9em;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.person-result-info {
     display: block;
     margin-left: 6px;
     margin-top: 5px;
     font-weight: 300;
     font-size: .7em;
-    /*font-style: italic;*/
+}
+
+.person-result-box {
+    overflow-y: scroll;
+    width: 100%;
+    height: 90%;
+    margin-top: 10%;
 }
 
 
@@ -459,8 +468,7 @@ input, textarea {
     top: 5%;
     left: 3%;
     position: absolute;
-    background-color: rgba(230,230,230,0.90);
-    box-shadow: 0 0 15px 10px rgba(200, 200, 200, .8);
+    background-color: rgba(230,230,230,0.8);
     border: 1px #AAA solid;
     overflow: scroll;
     z-index: 200;
@@ -469,18 +477,15 @@ input, textarea {
     border-radius: 10px;
 }
 
-.search-results img {
+.search-results-close {
     position: relative;
     float:right;
     top: -15px;
     right: -10px;
-    opacity:0.4;
-    filter:alpha(opacity=40); /* for older IE versions */
 }
-.search-results img:hover {
-    opacity:1;
-    filter:alpha(opacity=100); /* for older IE versions */
-    cursor: pointer
+
+.search-results-container {
+    margin: 25px;
 }
 
 
@@ -552,7 +557,7 @@ input, textarea {
 /* Person List
 *****************************************************************/
 
-.person-list-container{
+.person-list {
     margin-left: 75px;
 }
 

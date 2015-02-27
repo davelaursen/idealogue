@@ -1,10 +1,14 @@
-var ideaServices = angular.module('idealogue.ideaServices', ['ngResource','idealogue.configServices','idealogue.utilityServices','idealogue.userServices']);
+'use strict';
 
-ideaServices.config(function($httpProvider) {
-    $httpProvider.defaults.headers.common.Authorization = "c4088588-3c0e-11e3-bee0-ce3f5508acd9";
-});
+angular.module('idealogue.ideaServices', [
+    'ngResource',
+    'idealogue.configServices',
+    'idealogue.utilityServices',
+    'idealogue.userServices'
+])
 
-ideaServices.factory('Idea', function($http, ConfigSvc) {
+.factory('Idea', function($http, ConfigSvc) {
+    $http.defaults.headers.common.Authorization = ConfigSvc.apiToken;
     var baseUrl = ConfigSvc.restBaseUrl + '/ideas';
     return {
         getMany: function(success, error) {
@@ -25,9 +29,9 @@ ideaServices.factory('Idea', function($http, ConfigSvc) {
             return $http.delete(baseUrl + '/' + ideaId).then(success, error);
         }
     }
-});
+})
 
-ideaServices.factory('MultiIdeaLoader', function(Idea, $q) {
+.factory('MultiIdeaLoader', function($q, Idea) {
     return function() {
         var delay = $q.defer();
         Idea.getMany(
@@ -40,9 +44,9 @@ ideaServices.factory('MultiIdeaLoader', function(Idea, $q) {
         );
         return delay.promise;
     }
-});
+})
 
-ideaServices.factory('IdeaLoader', function(Idea, $q) {
+.factory('IdeaLoader', function($q, Idea) {
     return function(ideaId) {
         var delay = $q.defer();
         Idea.getOne(ideaId,
@@ -55,9 +59,9 @@ ideaServices.factory('IdeaLoader', function(Idea, $q) {
         );
         return delay.promise;
     }
-});
+})
 
-ideaServices.service('IdeaSvc', function($http, $q, UtilSvc) {
+.service('IdeaSvc', function(UtilSvc) {
     return {
         initializeIdeaForm: function(delay) {
             var $name = $('#ideaName'),

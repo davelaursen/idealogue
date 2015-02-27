@@ -1,6 +1,11 @@
-var authServices = angular.module('idealogue.authServices', ['ngCookies','idealogue.userServices']);
+'use strict';
 
-authServices.factory('AuthSvc', function($q, $location, $cookieStore, User) {
+angular.module('idealogue.authServices', [
+    'ngCookies',
+    'idealogue.userServices'
+])
+
+.factory('AuthSvc', function($q, $location, $cookieStore, User) {
     return {
         login: function(username, password, callback) {
             var deferred = $q.defer();

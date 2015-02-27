@@ -1,11 +1,9 @@
-<div>
-    <div class="title edit-idea-title">Ideas</div>
+<section>
+    <h1 class="title">New Idea</h1>
 
-    <div>
-        <ul class="actions">
-            <li><a href="javascript:" ng-click="cancel()">back</a></li>
-        </ul>
-    </div>
+    <ul class="actions">
+        <li><a href="javascript:" ng-click="cancel()">back</a></li>
+    </ul>
 
     <form ng-submit="save()">
         <div class="edit-group">
@@ -28,12 +26,6 @@
             <textarea id="ideaDetails" ng-model="idea.details" class="form-element x-large"></textarea>
         </div>
 
-        <div class="edit-group proposers-group">
-            <label for="ideaProposers">Proposers</label>
-            <input id="ideaProposers" ng-model="idea.proposers" class="form-element medium" type="text">
-            <button type="button" class="form-inline-button" ng-click="findProposer()">(lookup person)</button>
-        </div>
-
         <div class="edit-group">
             <label for="ideaSkills">Skills</label>
             <input id="ideaSkills" ng-model="idea.skills" class="form-element medium" type="text">
@@ -54,23 +46,4 @@
             <button type="button" class="form-button" ng-click="cancel()">cancel</button>
         </div>
     </form>
-
-    <div id="personSearchBox">
-        <form ng-submit="executePersonSearch()">
-            <input id="personSearchFieldName" type="hidden">
-            <input id="personSearch" class="form-element small" type="text">
-            <button type="submit" class="hidden"></button>
-            <button type="button" class="form-inline-button" ng-click="closePersonSearchBox()">(close)</button>
-        </form>
-
-        <div id="personResultBox">
-            <ul>
-                <li ng-repeat="person in personSearchResults" ng-click="selectPerson(person)">
-                    <span class="personResultFullName">{{person.firstName}} {{person.lastName}}</span>
-                    <span class="personResultInfo">username: {{person.id}}</span>
-                    <span class="personResultInfo">{{person.email}}</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+</section>

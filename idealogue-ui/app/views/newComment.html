@@ -1,0 +1,12 @@
+<ul class="comment-list">
+    <li ng-repeat="comment in idea.comments">
+        <span class="comment-header">{{printDate(comment.timestamp)}}, {{comment.fullName}}</span>
+        <span class="comment-text">{{comment.text}}</span>
+    </li>
+    <li class="comment-new" id="ideaNewComment">
+        <textarea ng-model="newComment" class="form-element comment-new-text" id="newCommentText" rows="1"></textarea>
+        <button type="button" class="form-inline-button" ng-click="saveComment()">save</button>
+        <button type="button" class="form-inline-button" ng-click="cancelComment()">cancel</button>
+    </li>
+</ul>
+<button type='button' id="ideaAddCommentButton" class="form-inline-button add-comment-button" ng-click="addComment()">add comment</button>

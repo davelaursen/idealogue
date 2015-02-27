@@ -1,10 +1,13 @@
-var userServices = angular.module('idealogue.userServices', ['ngResource','idealogue.configServices','idealogue.utilityServices']);
+'use strict';
 
-userServices.config(function($httpProvider) {
-    $httpProvider.defaults.headers.common.Authorization = "c4088588-3c0e-11e3-bee0-ce3f5508acd9";
-});
+angular.module('idealogue.userServices', [
+    'ngResource',
+    'idealogue.configServices',
+    'idealogue.utilityServices'
+])
 
-userServices.factory('User', function($http, $q, ConfigSvc) {
+.factory('User', function($http, ConfigSvc) {
+    $http.defaults.headers.common.Authorization = ConfigSvc.apiToken;
     var baseUrl = ConfigSvc.restBaseUrl + '/users';
     return {
         getMany: function(success, error) {
@@ -20,9 +23,9 @@ userServices.factory('User', function($http, $q, ConfigSvc) {
             return $http.delete(baseUrl + '/' + userId).then(success, error);
         }
     }
-});
+})
 
-userServices.factory('MultiUserLoader', function($q, User) {
+.factory('MultiUserLoader', function($q, User) {
     return function() {
         var delay = $q.defer();
         User.getMany(
@@ -35,9 +38,9 @@ userServices.factory('MultiUserLoader', function($q, User) {
         );
         return delay.promise;
     }
-});
+})
 
-userServices.factory('UserLoader', function($q, $route, User) {
+.factory('UserLoader', function($q, User) {
     return function(userId) {
         var delay = $q.defer();
         User.getOne(userId,

@@ -40,33 +40,34 @@
 </head>
 <body ng-app="idealogue">
 
-<div class="header">
-    <searchform class="search"></searchform>
-    <navigation class="nav"></navigation>
-    <currentuser class="current-user"></currentuser>
-</div>
+    <header class="header">
+        <searchform class="search"></searchform>
+        <navigation class="nav"></navigation>
+        <currentuser class="current-user"></currentuser>
+    </header>
 
-<div class="content-wrapper">
-    <div class="content" ng-view></div>
-</div>
+    <div class="content-wrapper">
+        <div class="content" ng-view></div>
+    </div>
 
-<div class="shadow"></div>
-<searchresults class="search-results"></searchresults>
+    <div class="shadow"></div>
+    <searchresults class="search-results"></searchresults>
 
-<script src="components/angular/angular.min.js"></script>
-<script src="components/angular-route/angular-route.min.js"></script>
-<script src="components/angular-resource/angular-resource.min.js"></script>
-<script src="components/angular-cookies/angular-cookies.min.js"></script>
-<script src="scripts/idealogueApp.js"></script>
-<script src="scripts/controllers/ideaControllers.js"></script>
-<script src="scripts/controllers/loginControllers.js"></script>
-<script src="scripts/controllers/personControllers.js"></script>
-<script src="scripts/controllers/accountControllers.js"></script>
-<script src="scripts/directives/coreDirectives.js"></script>
-<script src="scripts/services/authServices.js"></script>
-<script src="scripts/services/configServices.js"></script>
-<script src="scripts/services/ideaServices.js"></script>
-<script src="scripts/services/userServices.js"></script>
-<script src="scripts/services/utilityServices.js"></script>
+    <script src="components/angular/angular.min.js"></script>
+    <script src="components/angular-route/angular-route.min.js"></script>
+    <script src="components/angular-resource/angular-resource.min.js"></script>
+    <script src="components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="scripts/idealogueApp.js"></script>
+    <script src="scripts/controllers/ideaControllers.js"></script>
+    <script src="scripts/controllers/loginControllers.js"></script>
+    <script src="scripts/controllers/personControllers.js"></script>
+    <script src="scripts/controllers/accountControllers.js"></script>
+    <script src="scripts/directives/coreDirectives.js"></script>
+    <script src="scripts/directives/ideaDirectives.js"></script>
+    <script src="scripts/services/authServices.js"></script>
+    <script src="scripts/services/configServices.js"></script>
+    <script src="scripts/services/ideaServices.js"></script>
+    <script src="scripts/services/userServices.js"></script>
+    <script src="scripts/services/utilityServices.js"></script>
 </body>
 </html>

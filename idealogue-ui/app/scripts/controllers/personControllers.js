@@ -1,6 +1,11 @@
-var personControllers = angular.module('idealogue.personControllers', ['idealogue.utilityServices','idealogue.userServices']);
+'use strict';
 
-personControllers.controller('PersonListCtrl', function($scope, $location, UtilSvc, people, AuthSvc) {
+angular.module('idealogue.personControllers', [
+    'idealogue.utilityServices',
+    'idealogue.userServices'
+])
+
+.controller('PersonListCtrl', function($scope, $location, UtilSvc, AuthSvc, people) {
     AuthSvc.checkIfLoggedIn();
 
     people.sort(UtilSvc.sortBy('id', false, function(a){return a.toUpperCase()}));
@@ -9,9 +14,9 @@ personControllers.controller('PersonListCtrl', function($scope, $location, UtilS
     $scope.viewPerson = function(personId) {
         $location.path('/people/view/' + personId);
     }
-});
+})
 
-personControllers.controller('PersonViewCtrl', function($scope, $location, UtilSvc, User, person, AuthSvc) {
+.controller('PersonViewCtrl', function($scope, $location, UtilSvc, AuthSvc, User, person) {
     AuthSvc.checkIfLoggedIn();
 
     $scope.person = person;
