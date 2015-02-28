@@ -1,9 +1,9 @@
 <section class='login-form'>
     <form ng-submit="login()">
-        <div class="edit-group">
-        	<input id="loginUsername" class="form-element" ng-model="login.username" type='text' placeholder='username'>
+        <div class="form-group">
+        	<input id="loginUsername" class="form-element" ng-model="login.username" type='text' placeholder='username' autofocus>
         </div>
-        <div class="edit-group">
+        <div class="form-group">
         	<input class="form-element" ng-model="login.password" type='password' placeholder='password'>
         </div>
         <button class="form-button" type="submit">login</button>

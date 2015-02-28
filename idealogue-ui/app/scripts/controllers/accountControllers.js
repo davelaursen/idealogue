@@ -74,21 +74,21 @@ angular.module('idealogue.accountControllers', [
     };
 })
 
-.controller('AccountEditCtrl', function($route, $scope, $q, $location, UtilSvc, AuthSvc, User, user) {
+.controller('AccountEditCtrl', function($route, $scope, $q, $location, UtilSvc, AuthSvc, UserSvc, User, user) {
     AuthSvc.checkIfLoggedIn();
 
     $scope.user = user;
+//    UserSvc.transformUserForEdit($scope.user);
+    UserSvc.initializeUserForm();
 
-//    IdeaSvc.transformIdeaForEdit($scope.idea);
-//    IdeaSvc.initializeIdeaForm();
 
     $scope.save = function() {
-//        UserSvc.transformIdeaForSave($scope.idea);
+//        UserSvc.transformUserForSave($scope.user);
 
         // validate data
-//        if (!UserSvc.validateIdeaForm($scope)) {
-//            return;
-//        }
+        if (!UserSvc.validateUserForm($scope)) {
+            return;
+        }
 
         // save data
         var deferred = $q.defer();

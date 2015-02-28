@@ -2,10 +2,10 @@
 
 angular.module('idealogue.ideaDirectives', [])
 
-.directive('newcomment', function(){
+.directive('comments', function(){
 	return {
 		restrict: 'E',
-		templateUrl: '/views/newComment.html',
+		templateUrl: '/views/comments.html',
 		link: function(scope, element) {
     		element.find('.comment-new-text').autoSize();
 

@@ -9,52 +9,52 @@
     </ul>
 
     <div class='view-group'>
-        <label></label>
-        <div class="view-element bottom-border"><h3>{{idea.name}}</h3></div>
+        <div class="view-label"></div>
+        <div class="view-element bottom-border"><h2>{{idea.name}}</h2></div>
     </div>
 
     <div class='view-group'>
-        <label>Summary</label>
+        <div class="view-label">Summary</div>
         <div class="view-element bottom-border">{{idea.summary}}</div>
     </div>
 
     <div class='view-group'>
-        <label>Benefits</label>
+        <div class="view-label">Benefits</div>
         <div class="view-element bottom-border">{{idea.benefits}}</div>
     </div>
 
     <div class='view-group'>
-        <label>Details</label>
+        <div class="view-label">Details</div>
         <div class="view-element bottom-border">{{idea.details}}</div>
     </div>
 
     <div class='view-group'>
-        <label>Proposers</label>
+        <div class="view-label">Proposers</div>
         <div class="view-element">{{toList(idea.proposerNames)}}</div>
     </div>
 
     <div class='view-group'>
-        <label>Skills</label>
+        <div class="view-label">Skills</div>
         <div class="view-element">{{toList(idea.skills)}}</div>
     </div>
 
     <div class='view-group'>
-        <label>Technologies</label>
+        <div class="view-label">Technologies</div>
         <div class="view-element">{{toList(idea.technologies)}}</div>
     </div>
 
     <div class='view-group'>
-        <label>Tags</label>
+        <div class="view-label">Tags</div>
         <div class="view-element">{{toList(idea.tags)}}</div>
     </div>
 
     <div class='view-group'>
-        <label>Votes</label>
+        <div class="view-label">Votes</div>
         <div class="view-element bottom-border-spaced">{{idea.voteCount}}</div>
     </div>
 
     <div class='view-group'>
-        <label>Comments</label>
-        <newcomment class="view-element"></newcomment>
+        <div class="view-label">Comments</div>
+        <comments class="view-element"></comments>
     </div>
 </section>

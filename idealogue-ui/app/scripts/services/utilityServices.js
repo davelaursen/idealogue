@@ -127,6 +127,18 @@ angular.module('idealogue.utilityServices', [])
             }
         },
 
+        hideHeader: function() {
+            $('.search').hide();
+            $('.nav').hide();
+            $('.current-user').hide();
+        },
+
+        showHeader: function() {
+            $('.search').fadeIn(100);
+            $('.nav').fadeIn(100);
+            $('.current-user').fadeIn(100);
+        },
+
         delay: (function(){
             var timer = 0;
             return function(callback, ms) {

@@ -8,22 +8,22 @@
     </ul>
 
     <div class='view-group'>
-        <label></label>
-        <div class="view-element bottom-border"><h3>{{user.firstName}} {{user.lastName}}</h3></div>
+        <div class="view-label"></div>
+        <div class="view-element bottom-border"><h2>{{user.firstName}} {{user.lastName}}</h2></div>
     </div>
 
     <div class='view-group'>
-        <label>Username</label>
+        <div class="view-label">Username</div>
         <div class="view-element">{{user.id}}</div>
     </div>
 
     <div class='view-group'>
-        <label>Email</label>
+        <div class="view-label">Email</div>
         <div class="view-element">{{user.email}}</div>
     </div>
 
     <div class='view-group'>
-        <label>Joined</label>
+        <div class="view-label">Joined</div>
         <div class="view-element">{{printDate(user.createdDate)}}</div>
     </div>
 </section>

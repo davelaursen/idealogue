@@ -5,23 +5,17 @@ angular.module('idealogue.loginControllers', [
     'idealogue.authServices'
 ])
 
-.controller('LoginCtrl', function($scope, $location, AuthSvc) {
+.controller('LoginCtrl', function($scope, $location, AuthSvc, UtilSvc) {
     $scope.login = { };
 
-    $('.search').hide();
-    $('.nav').hide();
-    $('.current-user').hide();
-
-    $('#loginUsername').focus();
+    UtilSvc.hideHeader();
 
     $scope.login = function() {
         AuthSvc.login($scope.login.username, $scope.login.password,
             function(result, message) {
                 if(result === true) {
                     $location.path('/ideas');
-                    $('.search').fadeIn(100);
-                    $('.nav').fadeIn(100);
-                    $('.current-user').fadeIn(100);
+                    UtilSvc.showHeader();
                 }
                 else {
                     $scope.login.message = message;
@@ -35,25 +29,26 @@ angular.module('idealogue.loginControllers', [
     }
 })
 
-.controller('RegisterCtrl', function($scope, $q, $location, UtilSvc, AuthSvc, User) {
+.controller('RegisterCtrl', function($scope, $q, $location, UtilSvc, AuthSvc, UserSvc, User) {
     $scope.user = { };
     $scope.password = { };
 
-    $('.search').hide();
-    $('.nav').hide();
-    $('.current-user').hide();
-
-    $('#username').focus();
+    UtilSvc.hideHeader();
+    // UserSvc.initializeUserForm();
 
     $scope.save = function() {
-        console.log("test");
-        var rawPass = $scope.password.new;
-        var newPass = CryptoJS.MD5(rawPass).toString();
-        var confirm = CryptoJS.MD5($scope.password.confirm).toString();
-        if (newPass !== confirm) {
-            alert('passwords do not match');
+        // validate data
+        if (!UserSvc.validateUserForm($scope)) {
             return;
         }
+
+        var rawPass = $scope.password.new;
+        var newPass = CryptoJS.MD5(rawPass).toString();
+        // var confirm = CryptoJS.MD5($scope.password.confirm).toString();
+        // if (newPass !== confirm) {
+        //     alert('passwords do not match');
+        //     return;
+        // }
 
         $scope.user.password = newPass;
         $scope.user.isEnabled = true;
@@ -72,9 +67,7 @@ angular.module('idealogue.loginControllers', [
                     function(result, message) {
                         if(result === true) {
                             $location.path('/ideas');
-                            $('.search').fadeIn(100);
-                            $('.nav').fadeIn(100);
-                            $('.current-user').fadeIn(100);
+                            UtilSvc.showHeader();
                         }
                         else {
                             alert(message);

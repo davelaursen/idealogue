@@ -6,39 +6,39 @@
     </ul>
 
     <form ng-submit="save()">
-        <div class='view-group'>
-            <label for="username">Username</label>
-            <input id="username" ng-model="user.id" class="form-element large focus" type="text">
-        </div>
+        <fieldset class="form-group">
+            <label class="form-label" for="userId">Username</label>
+            <input id="userId" ng-model="user.id" class="form-element id" type="text" autofocus>
+        </fieldset>
 
-        <div class="edit-group">
-            <label for="userFirstName">First Name</label>
-            <input id="userFirstName" ng-model="user.firstName" class="form-element large focus" type="text">
-        </div>
+        <fieldset class="form-group">
+            <label class="form-label" for="userFirstName">First Name</label>
+            <input id="userFirstName" ng-model="user.firstName" class="form-element name" type="text">
+        </fieldset>
 
-        <div class="edit-group">
-            <label for="userLastName">Last Name</label>
-            <input id="userLastName" ng-model="user.lastName" class="form-element large focus" type="text">
-        </div>
+        <fieldset class="form-group">
+            <label class="form-label" for="userLastName">Last Name</label>
+            <input id="userLastName" ng-model="user.lastName" class="form-element name" type="text">
+        </fieldset>
 
-        <div class="edit-group">
-            <label for="userEmail">Email</label>
-            <input id="userEmail" ng-model="user.email" class="form-element large focus" type="text">
-        </div>
+        <fieldset class="form-group">
+            <label class="form-label" for="userEmail">Email</label>
+            <input id="userEmail" ng-model="user.email" class="form-element email" type="text">
+        </fieldset>
 
-        <div class="edit-group">
-            <label for="newPassword">Password</label>
-            <input id="newPassword" ng-model="password.new" class="form-element medium" type="password">
-        </div>
+        <fieldset class="form-group">
+            <label class="form-label" for="newPassword">Password</label>
+            <input id="newPassword" ng-model="password.new" class="form-element password" type="password">
+        </fieldset>
 
-        <div class="edit-group">
-            <label for="confirmPassword">Confirm</label>
-            <input id="confirmPassword" ng-model="password.confirm" class="form-element medium" type="password">
-        </div>
+        <fieldset class="form-group">
+            <label class="form-label" for="confirmPassword">Confirm</label>
+            <input id="confirmPassword" ng-model="password.confirm" class="form-element password" type="password">
+        </fieldset>
 
-        <div class="edit-button-group">
+        <fieldset class="form-button-group">
             <button type="submit" class="form-button button-default">create</button>
             <button type="button" class="form-button" ng-click="cancel()">cancel</button>
-        </div>
+        </fieldset>
     </form>
 </section>
