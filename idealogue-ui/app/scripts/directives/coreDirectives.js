@@ -15,29 +15,28 @@ angular.module('idealogue.coreDirectives', [
     }
 })
 
-.directive('searchform', function(ConfigSvc, UtilSvc) {
+.directive('searchform', function(UtilSvc, config) {
     return {
         restrict: 'E',
         templateUrl: '/views/searchForm.html',
         link: function(scope) {
             scope.executeSearch = function() {
-                $('.search-results').fadeIn(ConfigSvc.searchResultsShowTime);
-                $('.shadow').fadeIn(ConfigSvc.searchResultsShowTime);
+                $('.search-results').fadeIn(config.searchResultsShowTime);
+                $('.shadow').fadeIn(config.searchResultsShowTime);
                 UtilSvc.disableMainUIElements();
             }
         }
     }
 })
 
-.directive('searchresults', function(ConfigSvc, UtilSvc) {
+.directive('searchresults', function(UtilSvc, config) {
     return {
         restrict: 'E',
         templateUrl: '/views/searchResults.html',
         link: function(scope, element) {
             scope.close = function() {
-                // $('.search-results').fadeOut(ConfigSvc.searchResultsShowTime);
-                element.fadeOut(ConfigSvc.searchResultsShowTime);
-                $('.shadow').fadeOut(ConfigSvc.searchResultsShowTime);
+                element.fadeOut(config.searchResultsShowTime);
+                $('.shadow').fadeOut(config.searchResultsShowTime);
                 UtilSvc.enableMainUIElements();
             }
         }

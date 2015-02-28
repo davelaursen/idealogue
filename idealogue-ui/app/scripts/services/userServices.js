@@ -6,9 +6,9 @@ angular.module('idealogue.userServices', [
     'idealogue.utilityServices'
 ])
 
-.factory('User', function($http, ConfigSvc) {
-    $http.defaults.headers.common.Authorization = ConfigSvc.apiToken;
-    var baseUrl = ConfigSvc.restBaseUrl + '/users';
+.factory('User', function($http, config) {
+    $http.defaults.headers.common.Authorization = config.apiToken;
+    var baseUrl = config.apiUrl + '/users';
     return {
         getMany: function(success, error) {
             return $http.get(baseUrl).then(success, error);
@@ -55,7 +55,7 @@ angular.module('idealogue.userServices', [
     }
 })
 
-.service('UserSvc', function() {
+.factory('UserSvc', function() {
     return {
         initializeUserForm: function() {
             var $id = $('#userId'),

@@ -5,7 +5,7 @@ angular.module('idealogue.accountControllers', [
     'idealogue.userServices'
 ])
 
-.controller('AccountViewCtrl', function($scope, $location, UtilSvc, AuthSvc, User, user) {
+.controller('AccountViewCtrl', ['$scope', '$location', 'UtilSvc', 'AuthSvc', 'User', 'user', function($scope, $location, UtilSvc, AuthSvc, User, user) {
     AuthSvc.checkIfLoggedIn();
 
     $scope.user = user;
@@ -34,9 +34,9 @@ angular.module('idealogue.accountControllers', [
     $scope.changePassword = function() {
         $location.path('/account/password');
     }
-})
+}])
 
-.controller('AccountPasswordCtrl', function($route, $scope, $q, $location, UtilSvc, AuthSvc, User, user) {
+.controller('AccountPasswordCtrl', ['$route', '$scope', '$q', '$location', 'UtilSvc', 'AuthSvc', 'User', 'user', function($route, $scope, $q, $location, UtilSvc, AuthSvc, User, user) {
     AuthSvc.checkIfLoggedIn();
 
     $scope.user = user;
@@ -72,9 +72,9 @@ angular.module('idealogue.accountControllers', [
     $scope.cancel = function() {
         $location.path('/account');
     };
-})
+}])
 
-.controller('AccountEditCtrl', function($route, $scope, $q, $location, UtilSvc, AuthSvc, UserSvc, User, user) {
+.controller('AccountEditCtrl', ['$route', '$scope', '$q', '$location', 'UtilSvc', 'AuthSvc', 'UserSvc', 'User', 'user', function($route, $scope, $q, $location, UtilSvc, AuthSvc, UserSvc, User, user) {
     AuthSvc.checkIfLoggedIn();
 
     $scope.user = user;
@@ -103,4 +103,4 @@ angular.module('idealogue.accountControllers', [
     $scope.cancel = function() {
         $location.path('/account');
     };
-});
+}]);

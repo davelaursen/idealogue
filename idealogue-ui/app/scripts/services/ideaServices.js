@@ -7,9 +7,9 @@ angular.module('idealogue.ideaServices', [
     'idealogue.userServices'
 ])
 
-.factory('Idea', function($http, ConfigSvc) {
-    $http.defaults.headers.common.Authorization = ConfigSvc.apiToken;
-    var baseUrl = ConfigSvc.restBaseUrl + '/ideas';
+.factory('Idea', function($http, config) {
+    $http.defaults.headers.common.Authorization = config.apiToken;
+    var baseUrl = config.apiUrl + '/ideas';
     return {
         getMany: function(success, error) {
             return $http.get(baseUrl).then(success, error);
@@ -61,7 +61,7 @@ angular.module('idealogue.ideaServices', [
     }
 })
 
-.service('IdeaSvc', function(UtilSvc) {
+.factory('IdeaSvc', function(UtilSvc) {
     return {
         initializeIdeaForm: function(delay) {
             var $name = $('#ideaName'),

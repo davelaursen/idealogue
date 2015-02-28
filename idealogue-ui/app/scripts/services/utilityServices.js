@@ -2,7 +2,7 @@
 
 angular.module('idealogue.utilityServices', [])
 
-.service('UtilSvc', function() {
+.factory('UtilSvc', function() {
     return {
         // selectedView: 'ideaList',
 
