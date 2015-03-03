@@ -5,17 +5,16 @@ angular.module('idealogue.loginControllers', [
     'idealogue.authServices'
 ])
 
-.controller('LoginCtrl', function($scope, $location, AuthSvc, UtilSvc) {
+.controller('LoginCtrl', ['$scope', '$location', 'Auth', 'UtilSvc', function($scope, $location, Auth, UtilSvc) {
     $scope.login = { };
-
-    UtilSvc.hideHeader();
+    $scope.hideHeader();
 
     $scope.login = function() {
-        AuthSvc.login($scope.login.username, $scope.login.password,
+        Auth.login($scope.login.username, $scope.login.password,
             function(result, message) {
                 if(result === true) {
                     $location.path('/ideas');
-                    UtilSvc.showHeader();
+                    $scope.showHeader();
                 }
                 else {
                     $scope.login.message = message;
@@ -27,28 +26,20 @@ angular.module('idealogue.loginControllers', [
     $scope.register = function() {
         $location.path('/register');
     }
-})
+}])
 
-.controller('RegisterCtrl', function($scope, $q, $location, UtilSvc, AuthSvc, UserSvc, User) {
+.controller('RegisterCtrl', ['$scope', '$q', '$location', 'UtilSvc', 'Auth', 'UserSvc', 'User', function($scope, $q, $location, UtilSvc, Auth, UserSvc, User) {
     $scope.user = { };
     $scope.password = { };
-
-    UtilSvc.hideHeader();
-    // UserSvc.initializeUserForm();
+    $scope.hideHeader();
 
     $scope.save = function() {
-        // validate data
         if (!UserSvc.validateUserForm($scope)) {
             return;
         }
 
         var rawPass = $scope.password.new;
         var newPass = CryptoJS.MD5(rawPass).toString();
-        // var confirm = CryptoJS.MD5($scope.password.confirm).toString();
-        // if (newPass !== confirm) {
-        //     alert('passwords do not match');
-        //     return;
-        // }
 
         $scope.user.password = newPass;
         $scope.user.isEnabled = true;
@@ -63,11 +54,11 @@ angular.module('idealogue.loginControllers', [
                 deferred.resolve(response.data);
             });
             deferred.promise.then(function() {
-                AuthSvc.login(user.id, password,
+                Auth.login(user.id, password,
                     function(result, message) {
                         if(result === true) {
                             $location.path('/ideas');
-                            UtilSvc.showHeader();
+                            $scope.showHeader();
                         }
                         else {
                             alert(message);
@@ -90,4 +81,4 @@ angular.module('idealogue.loginControllers', [
     $scope.cancel = function() {
         $location.path('/login');
     }
-});
+}]);

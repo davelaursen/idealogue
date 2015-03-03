@@ -8,13 +8,15 @@ angular.module('idealogue', [
     'idealogue.userServices',
     'idealogue.coreDirectives',
     'idealogue.ideaDirectives',
+    'idealogue.coreControllers',
     'idealogue.ideaControllers',
     'idealogue.personControllers',
     'idealogue.accountControllers',
     'idealogue.loginControllers'
 ])
 
-.config(function($routeProvider, $locationProvider) {
+.config(['$routeProvider', '$locationProvider', '$httpProvider', 'config', function($routeProvider, $locationProvider, $httpProvider, config) {
+    $httpProvider.defaults.headers.common.Authorization = config.apiToken;
     $locationProvider.html5Mode(true);
     $routeProvider
         .when('/login', {
@@ -53,9 +55,6 @@ angular.module('idealogue', [
             resolve: {
                 idea: function(IdeaLoader, $route) {
                     return IdeaLoader($route.current.params.ideaId);
-                },
-                people: function(MultiUserLoader) {
-                    return MultiUserLoader();
                 }
             }
         })
@@ -87,8 +86,8 @@ angular.module('idealogue', [
             controller: 'AccountViewCtrl',
             templateUrl: '/views/accountView.html',
             resolve: {
-                user: function(UserLoader, AuthSvc) {
-                    return UserLoader(AuthSvc.currentUser());
+                user: function(UserLoader, Auth) {
+                    return UserLoader(Auth.currentUser().id);
                 }
             }
         })
@@ -96,8 +95,8 @@ angular.module('idealogue', [
             controller: 'AccountEditCtrl',
             templateUrl: '/views/accountForm.html',
             resolve: {
-                user: function(UserLoader, AuthSvc) {
-                    return UserLoader(AuthSvc.currentUser());
+                user: function(UserLoader, Auth) {
+                    return UserLoader(Auth.currentUser().id);
                 }
             }
         })
@@ -105,11 +104,11 @@ angular.module('idealogue', [
             controller: 'AccountPasswordCtrl',
             templateUrl: '/views/changePasswordForm.html',
             resolve: {
-                user: function(UserLoader, AuthSvc) {
-                    return UserLoader(AuthSvc.currentUser());
+                user: function(UserLoader, Auth) {
+                    return UserLoader(Auth.currentUser().id);
                 }
             }
         })
 
         .otherwise({redirectTo:'/ideas'});
-});
+}]);

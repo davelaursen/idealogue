@@ -5,8 +5,8 @@ angular.module('idealogue.personControllers', [
     'idealogue.userServices'
 ])
 
-.controller('PersonListCtrl', function($scope, $location, UtilSvc, AuthSvc, people) {
-    AuthSvc.checkIfLoggedIn();
+.controller('PersonListCtrl', ['$scope', '$location', 'UtilSvc', 'Auth', 'people', function($scope, $location, UtilSvc, Auth, people) {
+    Auth.checkIfLoggedIn();
 
     people.sort(UtilSvc.sortBy('id', false, function(a){return a.toUpperCase()}));
     $scope.people = people;
@@ -14,10 +14,10 @@ angular.module('idealogue.personControllers', [
     $scope.viewPerson = function(personId) {
         $location.path('/people/view/' + personId);
     }
-})
+}])
 
-.controller('PersonViewCtrl', function($scope, $location, UtilSvc, AuthSvc, User, person) {
-    AuthSvc.checkIfLoggedIn();
+.controller('PersonViewCtrl', ['$scope', '$location', 'UtilSvc', 'Auth', 'User', 'person', function($scope, $location, UtilSvc, Auth, User, person) {
+    Auth.checkIfLoggedIn();
 
     $scope.person = person;
 
@@ -28,7 +28,7 @@ angular.module('idealogue.personControllers', [
     $scope.vote = function() {
 //        var user = $scope.person;
 //        var votes = user.votes;
-//        var id = AuthSvc.currentUser();
+//        var id = Auth.currentUser();
 //
 //        if ($.inArray(id, votes) === -1) {
 //            votes[votes.length] = id;
@@ -45,4 +45,4 @@ angular.module('idealogue.personControllers', [
         }
         return null;
     }
-});
+}]);

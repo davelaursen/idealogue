@@ -7,8 +7,7 @@ angular.module('idealogue.ideaServices', [
     'idealogue.userServices'
 ])
 
-.factory('Idea', function($http, config) {
-    $http.defaults.headers.common.Authorization = config.apiToken;
+.factory('Idea', ['$http', 'config', function($http, config) {
     var baseUrl = config.apiUrl + '/ideas';
     return {
         getMany: function(success, error) {
@@ -29,9 +28,9 @@ angular.module('idealogue.ideaServices', [
             return $http.delete(baseUrl + '/' + ideaId).then(success, error);
         }
     }
-})
+}])
 
-.factory('MultiIdeaLoader', function($q, Idea) {
+.factory('MultiIdeaLoader', ['$q', 'Idea', function($q, Idea) {
     return function() {
         var delay = $q.defer();
         Idea.getMany(
@@ -44,9 +43,9 @@ angular.module('idealogue.ideaServices', [
         );
         return delay.promise;
     }
-})
+}])
 
-.factory('IdeaLoader', function($q, Idea) {
+.factory('IdeaLoader', ['$q', 'Idea', function($q, Idea) {
     return function(ideaId) {
         var delay = $q.defer();
         Idea.getOne(ideaId,
@@ -59,10 +58,11 @@ angular.module('idealogue.ideaServices', [
         );
         return delay.promise;
     }
-})
+}])
 
-.factory('IdeaSvc', function(UtilSvc) {
+.factory('IdeaSvc', ['UtilSvc', function(UtilSvc) {
     return {
+        //TODO: move into a directive
         initializeIdeaForm: function(delay) {
             var $name = $('#ideaName'),
                 $summary = $('#ideaSummary'),
@@ -86,6 +86,7 @@ angular.module('idealogue.ideaServices', [
             }, delay || 1);
         },
 
+        //TODO: move view-specific logic into a directive
         validateIdeaForm: function(scope) {
             var $name = $('#ideaName'),
                 $summary = $('#ideaSummary'),
@@ -198,4 +199,4 @@ angular.module('idealogue.ideaServices', [
             }
         }
     }
-});
+}]);

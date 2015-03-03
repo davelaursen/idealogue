@@ -5,7 +5,7 @@ angular.module('idealogue.authServices', [
     'idealogue.userServices'
 ])
 
-.factory('AuthSvc', function($q, $location, $cookieStore, User) {
+.factory('Auth', ['$q', '$location', '$cookieStore', 'User', function AuthFactory($q, $location, $cookieStore, User) {
     return {
         login: function(username, password, callback) {
             var deferred = $q.defer();
@@ -21,7 +21,7 @@ angular.module('idealogue.authServices', [
 
             deferred.promise.then(function(user) {
                 if (user.password === CryptoJS.MD5(password).toString()) {
-                    $cookieStore.put('currentUser', user.id);
+                    $cookieStore.put('currentUser', user);
                     $cookieStore.put('currentUserName', user.firstName + " " + user.lastName)
                     callback(true);
                 }
@@ -57,4 +57,4 @@ angular.module('idealogue.authServices', [
             return $cookieStore.get('currentUserName');
         }
     };
-});
+}]);

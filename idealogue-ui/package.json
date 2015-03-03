@@ -4,7 +4,7 @@
     "description": "UI for Idealogue",
     "main": "app.js",
     "dependencies": {
-        "express": "~3.4.4"
+        "express": "~4.12.2"
     },
     "keywords": [
         "idea",

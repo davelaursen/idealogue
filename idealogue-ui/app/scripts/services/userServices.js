@@ -6,8 +6,7 @@ angular.module('idealogue.userServices', [
     'idealogue.utilityServices'
 ])
 
-.factory('User', function($http, config) {
-    $http.defaults.headers.common.Authorization = config.apiToken;
+.factory('User', ['$http', 'config', function UserFactory($http, config) {
     var baseUrl = config.apiUrl + '/users';
     return {
         getMany: function(success, error) {
@@ -23,9 +22,9 @@ angular.module('idealogue.userServices', [
             return $http.delete(baseUrl + '/' + userId).then(success, error);
         }
     }
-})
+}])
 
-.factory('MultiUserLoader', function($q, User) {
+.factory('MultiUserLoader', ['$q', 'User', function($q, User) {
     return function() {
         var delay = $q.defer();
         User.getMany(
@@ -38,9 +37,9 @@ angular.module('idealogue.userServices', [
         );
         return delay.promise;
     }
-})
+}])
 
-.factory('UserLoader', function($q, User) {
+.factory('UserLoader', ['$q', 'User', function($q, User) {
     return function(userId) {
         var delay = $q.defer();
         User.getOne(userId,
@@ -53,10 +52,11 @@ angular.module('idealogue.userServices', [
         );
         return delay.promise;
     }
-})
+}])
 
 .factory('UserSvc', function() {
     return {
+        //TODO: move into a directive
         initializeUserForm: function() {
             var $id = $('#userId'),
                 $firstName = $('#userFirstName'),
@@ -73,6 +73,7 @@ angular.module('idealogue.userServices', [
             $confirmPass.removeClass('has-error');
         },
 
+        //TODO: move view-specific logic into a directive
         validateUserForm: function(scope) {
             var $id = $('#userId'),
                 $firstName = $('#userFirstName'),

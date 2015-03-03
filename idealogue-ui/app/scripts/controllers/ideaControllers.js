@@ -8,8 +8,8 @@ angular.module('idealogue.ideaControllers', [
     'idealogue.authServices'
 ])
 
-.controller('IdeaListCtrl', function($scope, $q, $location, UtilSvc, AuthSvc, ideas) {
-    AuthSvc.checkIfLoggedIn();
+.controller('IdeaListCtrl', ['$scope', '$q', '$location', 'UtilSvc', 'Auth', 'ideas', function($scope, $q, $location, UtilSvc, Auth, ideas) {
+    Auth.checkIfLoggedIn();
 
     ideas.sort(UtilSvc.sortBy('name', false, function(a){return a.toUpperCase()}));
     $scope.ideas = ideas;
@@ -31,10 +31,10 @@ angular.module('idealogue.ideaControllers', [
         $scope.desc = $scope.desc ? false : true;
         ideas.sort(UtilSvc.sortBy('name', $scope.desc, function(a){return a.toUpperCase()}));
     };
-})
+}])
 
-.controller('IdeaViewCtrl', function($route, $scope, $q, $location, UtilSvc, AuthSvc, IdeaSvc, Idea, idea, people) {
-    AuthSvc.checkIfLoggedIn();
+.controller('IdeaViewCtrl', ['$route', '$scope', '$q', '$location', 'UtilSvc', 'Auth', 'IdeaSvc', 'Idea', 'idea', 'people', function($route, $scope, $q, $location, UtilSvc, Auth, IdeaSvc, Idea, idea, people) {
+    Auth.checkIfLoggedIn();
 
     IdeaSvc.transformIdeaForView(idea, people);
     $scope.idea = idea;
@@ -54,7 +54,7 @@ angular.module('idealogue.ideaControllers', [
     $scope.vote = function() {
         var idea = $scope.idea;
         var votes = idea.votes;
-        var id = AuthSvc.currentUser();
+        var id = Auth.currentUser();
 
         if ($.inArray(id, votes) === -1) {
             votes[votes.length] = id;
@@ -75,7 +75,7 @@ angular.module('idealogue.ideaControllers', [
         IdeaSvc.transformIdeaForSave(idea);
 
         idea.comments[idea.comments.length] = {
-            id: AuthSvc.currentUser(),
+            id: Auth.currentUser(),
             text: newComment,
             timestamp: UtilSvc.getISO8601DateString()
         };
@@ -94,13 +94,12 @@ angular.module('idealogue.ideaControllers', [
         }
         return null;
     }
-})
+}])
 
-.controller('IdeaEditCtrl', function($scope, $q, $location, UtilSvc, AuthSvc, IdeaSvc, Idea, idea, people) {
-    AuthSvc.checkIfLoggedIn();
+.controller('IdeaEditCtrl', ['$scope', '$q', '$location', 'UtilSvc', 'Auth', 'IdeaSvc', 'Idea', 'idea', function($scope, $q, $location, UtilSvc, Auth, IdeaSvc, Idea, idea) {
+    Auth.checkIfLoggedIn();
 
     $scope.idea = idea;
-    $scope.people = people;
     IdeaSvc.transformIdeaForEdit($scope.idea);
     IdeaSvc.initializeIdeaForm();
 
@@ -129,7 +128,23 @@ angular.module('idealogue.ideaControllers', [
     };
 
     $scope.findProposer = function() {
-        $scope.openPersonSearchBox();
+        $scope.openPersonSearchBox(
+            100,
+            function() {
+                $scope.disableMainUIElements();
+            },
+            function() {
+                $scope.enableMainUIElements();
+            },
+            function(person) {
+                var value = $scope.idea.proposers
+                if (value.length > 0) {
+                    value += ", ";
+                }
+                value += person.id;
+                $scope.idea.proposers = value;
+            }
+        );
     };
 
     $scope.onPersonSelected = function(person) {
@@ -140,10 +155,10 @@ angular.module('idealogue.ideaControllers', [
         value += person.id;
         $scope.idea.proposers = value;
     };
-})
+}])
 
-.controller('IdeaNewCtrl', function($scope, $q, $location, UtilSvc, AuthSvc, IdeaSvc, Idea) {
-    AuthSvc.checkIfLoggedIn();
+.controller('IdeaNewCtrl', ['$scope', '$q', '$location', 'UtilSvc', 'Auth', 'IdeaSvc', 'Idea', function($scope, $q, $location, UtilSvc, Auth, IdeaSvc, Idea) {
+    Auth.checkIfLoggedIn();
 
     $scope.save = function() {
         IdeaSvc.transformIdeaForSave($scope.idea);
@@ -184,7 +199,7 @@ angular.module('idealogue.ideaControllers', [
         skills: [],
         technologies: [],
         repo: "myrepo",
-        proposers: [ AuthSvc.currentUser() ],
+        proposers: [ Auth.currentUser() ],
         contributors: [],
         contributorRequests: [],
         isPublic: false,
@@ -197,4 +212,4 @@ angular.module('idealogue.ideaControllers', [
 
     IdeaSvc.transformIdeaForEdit($scope.idea);
     IdeaSvc.initializeIdeaForm();
-});
+}]);

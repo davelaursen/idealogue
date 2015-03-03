@@ -107,38 +107,6 @@ angular.module('idealogue.utilityServices', [])
             return null;
         },
 
-        disableMainUIElements: function(callback) {
-            $('.header *').attr("disabled", "disabled");
-            $('.header a').removeAttr("href");
-            $('.content *').attr("disabled", "disabled");
-            $('.content a').removeAttr("href");
-            if (callback) {
-                callback();
-            }
-        },
-
-        enableMainUIElements: function(callback) {
-            $('.header *').removeAttr("disabled");
-            $('.header a').attr("href", "javascript:");
-            $('.content *').removeAttr("disabled");
-            $('.content a').attr("href", "javascript:");
-            if (callback) {
-                callback();
-            }
-        },
-
-        hideHeader: function() {
-            $('.search').hide();
-            $('.nav').hide();
-            $('.current-user').hide();
-        },
-
-        showHeader: function() {
-            $('.search').fadeIn(100);
-            $('.nav').fadeIn(100);
-            $('.current-user').fadeIn(100);
-        },
-
         delay: (function(){
             var timer = 0;
             return function(callback, ms) {
