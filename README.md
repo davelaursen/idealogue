@@ -18,19 +18,15 @@ Node version: **0.10** required
 ## Getting Started
 Idealogue requires that MongoDB version 2.6.x or newer be installed.
 
-Start the Mongo server, then use the Mongo client to execute the following commands:
+Start the Mongo server, then use the Mongo client to add an API key so that the UI can communicate
+with the REST application:
 ```
 > use idealogue;
-> db.ideas.ensureIndex({name:"text", summary:"text", benefits:"text", details:"text", tags:"text", skills:"text", technologies:"text"});
-```
-
-You'll need to add an API key so that the UI can communicate with the REST application:
-```
 > db.apiKeys.insert({_id:"c4088588-3c0e-11e3-bee0-ce3f5508acd9"});
 ```
 
-Once Mongo is configured, you need to install the REST application. Pull down the latest code, navigate to
-the root directory and install its dependencies using npm:
+Next you need to install the REST application. Pull down the latest code, navigate to the root
+directory and install its dependencies using npm:
 ```
 cd idealogue-rest
 npm install
@@ -41,7 +37,8 @@ You can then start up the application (listens on port 8000):
 node app.js
 ```
 
-To install the UI, navigate to the idealogue-ui directory and install it's dependencies using npm and bower:
+To install the UI, navigate to the idealogue-ui directory and install it's dependencies using npm
+and bower:
 ```
 cd idealogue-ui
 npm install

@@ -76,6 +76,37 @@ var initDbConnection = function(callback) {
             throw new Error(message);
         }
         db = _db;
+
+        // make sure ideas collection exists
+        db.collection('ideas', { }, function(err, coll) {
+            if (err != null) {
+                db.createCollection('ideas', function(err, result) {
+                    if (err) {
+                        var message = 'Error creating Ideas collection: ' + err;
+                        logger.fatal(message);
+                        throw new Error(message);
+                    }
+                });
+            }
+        });
+
+        // ensure full text index on ideas collection exists
+        db.ensureIndex('ideas', {
+            name: 'text',
+            summary: 'text',
+            benefits: 'text',
+            details: 'text',
+            tags: 'text',
+            skills: 'text',
+            technologies: 'text'
+        }, function(err, indexname) {
+            if (err) {
+                var message = 'Error creating full text index on Ideas collection: ' + err;
+                logger.fatal(message);
+                throw new Error(message);
+            }
+        });
+
         callback();
     });
 };
