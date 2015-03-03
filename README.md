@@ -41,10 +41,11 @@ You can then start up the application (listens on port 8000):
 node app.js
 ```
 
-To install the UI, navigate to the idealogue-ui directory and install it's dependencies using npm:
+To install the UI, navigate to the idealogue-ui directory and install it's dependencies using npm and bower:
 ```
 cd idealogue-ui
 npm install
+bower install
 ```
 
 You can then start up the application (listens on port 3000):
