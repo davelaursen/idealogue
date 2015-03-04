@@ -24,7 +24,7 @@ angular.module('idealogue.userServices', [
     }
 }])
 
-.factory('MultiUserLoader', ['$q', 'User', function($q, User) {
+.factory('MultiUserLoader', ['$q', 'User', function MultiUserLoaderFactory($q, User) {
     return function() {
         var delay = $q.defer();
         User.getMany(
@@ -39,7 +39,7 @@ angular.module('idealogue.userServices', [
     }
 }])
 
-.factory('UserLoader', ['$q', 'User', function($q, User) {
+.factory('UserLoader', ['$q', 'User', function UserLoaderFactory($q, User) {
     return function(userId) {
         var delay = $q.defer();
         User.getOne(userId,
@@ -54,7 +54,7 @@ angular.module('idealogue.userServices', [
     }
 }])
 
-.factory('UserSvc', function() {
+.factory('UserSvc', function UserSvcFactory() {
     return {
         //TODO: move into a directive
         initializeUserForm: function() {

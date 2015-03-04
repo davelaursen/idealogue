@@ -8,15 +8,15 @@ angular.module('idealogue.ideaControllers', [
     'idealogue.authServices'
 ])
 
-.controller('IdeaListCtrl', ['$scope', '$q', '$location', 'UtilSvc', 'Auth', 'ideas', function($scope, $q, $location, UtilSvc, Auth, ideas) {
+.controller('IdeaListCtrl', ['$scope', '$location', 'Util', 'Auth', 'ideas', function($scope, $location, Util, Auth, ideas) {
     Auth.checkIfLoggedIn();
 
-    ideas.sort(UtilSvc.sortBy('name', false, function(a){return a.toUpperCase()}));
+    ideas.sort(Util.sortBy('name', false, function(a){return a.toUpperCase()}));
     $scope.ideas = ideas;
     $scope.desc = false
 
     $scope.toList = function(arr, prop) {
-        return UtilSvc.arrayToString(arr, prop);
+        return Util.arrayToString(arr, prop);
     };
 
     $scope.addNew = function() {
@@ -29,11 +29,11 @@ angular.module('idealogue.ideaControllers', [
 
     $scope.sort = function() {
         $scope.desc = $scope.desc ? false : true;
-        ideas.sort(UtilSvc.sortBy('name', $scope.desc, function(a){return a.toUpperCase()}));
+        ideas.sort(Util.sortBy('name', $scope.desc, function(a){return a.toUpperCase()}));
     };
 }])
 
-.controller('IdeaViewCtrl', ['$route', '$scope', '$q', '$location', 'UtilSvc', 'Auth', 'IdeaSvc', 'Idea', 'idea', 'people', function($route, $scope, $q, $location, UtilSvc, Auth, IdeaSvc, Idea, idea, people) {
+.controller('IdeaViewCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'idea', 'people', function($route, $scope, $location, Util, Auth, IdeaSvc, Idea, idea, people) {
     Auth.checkIfLoggedIn();
 
     IdeaSvc.transformIdeaForView(idea, people);
@@ -77,7 +77,7 @@ angular.module('idealogue.ideaControllers', [
         idea.comments[idea.comments.length] = {
             id: Auth.currentUser(),
             text: newComment,
-            timestamp: UtilSvc.getISO8601DateString()
+            timestamp: Util.getISO8601DateString()
         };
         Idea.save(idea, function() {
             $route.reload();
@@ -85,18 +85,18 @@ angular.module('idealogue.ideaControllers', [
     }
 
     $scope.toList = function(arr, prop) {
-        return UtilSvc.arrayToString(arr, prop);
+        return Util.arrayToString(arr, prop);
     };
 
     $scope.printDate = function(dateStr) {
         if (dateStr) {
-            return UtilSvc.formatDateString(dateStr);
+            return Util.formatDateString(dateStr);
         }
         return null;
     }
 }])
 
-.controller('IdeaEditCtrl', ['$scope', '$q', '$location', 'UtilSvc', 'Auth', 'IdeaSvc', 'Idea', 'idea', function($scope, $q, $location, UtilSvc, Auth, IdeaSvc, Idea, idea) {
+.controller('IdeaEditCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'idea', function($scope, $location, Util, Auth, IdeaSvc, Idea, idea) {
     Auth.checkIfLoggedIn();
 
     $scope.idea = idea;
@@ -111,14 +111,10 @@ angular.module('idealogue.ideaControllers', [
             return;
         }
 
-        $scope.idea.updatedDate = UtilSvc.getISO8601DateString();
+        $scope.idea.updatedDate = Util.getISO8601DateString();
 
         // save data
-        var deferred = $q.defer();
         Idea.save($scope.idea, function(response) {
-            deferred.resolve(response.data);
-        });
-        deferred.promise.then(function() {
             $location.path('/ideas/view/' + $scope.idea.id);
         });
     };
@@ -157,7 +153,7 @@ angular.module('idealogue.ideaControllers', [
     };
 }])
 
-.controller('IdeaNewCtrl', ['$scope', '$q', '$location', 'UtilSvc', 'Auth', 'IdeaSvc', 'Idea', function($scope, $q, $location, UtilSvc, Auth, IdeaSvc, Idea) {
+.controller('IdeaNewCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', function($scope, $location, Util, Auth, IdeaSvc, Idea) {
     Auth.checkIfLoggedIn();
 
     $scope.save = function() {
@@ -168,19 +164,14 @@ angular.module('idealogue.ideaControllers', [
             return;
         }
 
-        var timestamp = UtilSvc.getISO8601DateString();
+        var timestamp = Util.getISO8601DateString();
         $scope.idea.createdDate = timestamp;
         $scope.idea.updatedDate = timestamp;
 
         // save data
-        var deferred = $q.defer();
         Idea.save($scope.idea, function(response) {
-            deferred.resolve(response.data);
-        });
-        deferred.promise.then(function(idea) {
-            if (idea) {
-                $location.path('/ideas/view/' + idea.id)
-            }
+            console.log(response)
+            $location.path('/ideas/view/' + response.data.id)
         });
     };
 
@@ -188,7 +179,7 @@ angular.module('idealogue.ideaControllers', [
         $location.path('/ideas');
     };
 
-    var dateStr = UtilSvc.getISO8601DateString();
+    var dateStr = Util.getISO8601DateString();
     $scope.idea = {
         name: "",
         summary: "",
@@ -199,7 +190,7 @@ angular.module('idealogue.ideaControllers', [
         skills: [],
         technologies: [],
         repo: "myrepo",
-        proposers: [ Auth.currentUser() ],
+        proposers: [ Auth.currentUser().id ],
         contributors: [],
         contributorRequests: [],
         isPublic: false,
@@ -211,5 +202,5 @@ angular.module('idealogue.ideaControllers', [
     };
 
     IdeaSvc.transformIdeaForEdit($scope.idea);
-    IdeaSvc.initializeIdeaForm();
+    // IdeaSvc.initializeIdeaForm();
 }]);

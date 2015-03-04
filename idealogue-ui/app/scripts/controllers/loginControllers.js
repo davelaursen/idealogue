@@ -5,7 +5,7 @@ angular.module('idealogue.loginControllers', [
     'idealogue.authServices'
 ])
 
-.controller('LoginCtrl', ['$scope', '$location', 'Auth', 'UtilSvc', function($scope, $location, Auth, UtilSvc) {
+.controller('LoginCtrl', ['$scope', '$location', 'Auth', 'Util', function($scope, $location, Auth, Util) {
     $scope.login = { };
     $scope.hideHeader();
 
@@ -28,7 +28,7 @@ angular.module('idealogue.loginControllers', [
     }
 }])
 
-.controller('RegisterCtrl', ['$scope', '$q', '$location', 'UtilSvc', 'Auth', 'UserSvc', 'User', function($scope, $q, $location, UtilSvc, Auth, UserSvc, User) {
+.controller('RegisterCtrl', ['$scope', '$q', '$location', 'Util', 'Auth', 'UserSvc', 'User', function($scope, $q, $location, Util, Auth, UserSvc, User) {
     $scope.user = { };
     $scope.password = { };
     $scope.hideHeader();
@@ -44,16 +44,14 @@ angular.module('idealogue.loginControllers', [
         $scope.user.password = newPass;
         $scope.user.isEnabled = true;
 
-        var timestamp = UtilSvc.getISO8601DateString();
+        var timestamp = Util.getISO8601DateString();
         $scope.user.createdDate = timestamp;
         $scope.user.updatedDate = timestamp;
 
         var saveUser = function(user, password) {
-            var deferred = $q.defer();
+            // var deferred = $q.defer();
             User.save(user, function(response) {
-                deferred.resolve(response.data);
-            });
-            deferred.promise.then(function() {
+                // deferred.resolve(response.data);
                 Auth.login(user.id, password,
                     function(result, message) {
                         if(result === true) {
@@ -66,6 +64,19 @@ angular.module('idealogue.loginControllers', [
                     }
                 );
             });
+            // deferred.promise.then(function() {
+            //     Auth.login(user.id, password,
+            //         function(result, message) {
+            //             if(result === true) {
+            //                 $location.path('/ideas');
+            //                 $scope.showHeader();
+            //             }
+            //             else {
+            //                 alert(message);
+            //             }
+            //         }
+            //     );
+            // });
         };
 
         User.getOne($scope.user.id,

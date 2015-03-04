@@ -5,7 +5,7 @@ angular.module('idealogue.accountControllers', [
     'idealogue.userServices'
 ])
 
-.controller('AccountViewCtrl', ['$scope', '$location', 'UtilSvc', 'Auth', 'User', 'user', function($scope, $location, UtilSvc, Auth, User, user) {
+.controller('AccountViewCtrl', ['$scope', '$location', 'Util', 'Auth', 'User', 'user', function($scope, $location, Util, Auth, User, user) {
     Auth.checkIfLoggedIn();
 
     $scope.user = user;
@@ -16,7 +16,7 @@ angular.module('idealogue.accountControllers', [
 
     $scope.printDate = function(dateStr) {
         if (dateStr) {
-            return UtilSvc.formatDateString(dateStr, true);
+            return Util.formatDateString(dateStr, true);
         }
         return null;
     }
@@ -36,7 +36,7 @@ angular.module('idealogue.accountControllers', [
     }
 }])
 
-.controller('AccountPasswordCtrl', ['$route', '$scope', '$q', '$location', 'UtilSvc', 'Auth', 'User', 'user', function($route, $scope, $q, $location, UtilSvc, Auth, User, user) {
+.controller('AccountPasswordCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'User', 'user', function($route, $scope, $location, Util, Auth, User, user) {
     Auth.checkIfLoggedIn();
 
     $scope.user = user;
@@ -60,11 +60,7 @@ angular.module('idealogue.accountControllers', [
         $scope.user.password = newPass;
 
         // save data
-        var deferred = $q.defer();
         User.save($scope.user, function(response) {
-            deferred.resolve(response.data);
-        });
-        deferred.promise.then(function() {
             $location.path('/account');
         });
     };
@@ -74,7 +70,7 @@ angular.module('idealogue.accountControllers', [
     };
 }])
 
-.controller('AccountEditCtrl', ['$route', '$scope', '$q', '$location', 'UtilSvc', 'Auth', 'UserSvc', 'User', 'user', function($route, $scope, $q, $location, UtilSvc, Auth, UserSvc, User, user) {
+.controller('AccountEditCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'UserSvc', 'User', 'user', function($route, $scope, $location, Util, Auth, UserSvc, User, user) {
     Auth.checkIfLoggedIn();
 
     $scope.user = user;
@@ -91,11 +87,7 @@ angular.module('idealogue.accountControllers', [
         }
 
         // save data
-        var deferred = $q.defer();
         User.save($scope.user, function(response) {
-            deferred.resolve(response.data);
-        });
-        deferred.promise.then(function() {
             $location.path('/account');
         });
     };

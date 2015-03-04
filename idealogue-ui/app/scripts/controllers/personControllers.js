@@ -5,10 +5,10 @@ angular.module('idealogue.personControllers', [
     'idealogue.userServices'
 ])
 
-.controller('PersonListCtrl', ['$scope', '$location', 'UtilSvc', 'Auth', 'people', function($scope, $location, UtilSvc, Auth, people) {
+.controller('PersonListCtrl', ['$scope', '$location', 'Util', 'Auth', 'people', function($scope, $location, Util, Auth, people) {
     Auth.checkIfLoggedIn();
 
-    people.sort(UtilSvc.sortBy('id', false, function(a){return a.toUpperCase()}));
+    people.sort(Util.sortBy('id', false, function(a){return a.toUpperCase()}));
     $scope.people = people;
 
     $scope.viewPerson = function(personId) {
@@ -16,7 +16,7 @@ angular.module('idealogue.personControllers', [
     }
 }])
 
-.controller('PersonViewCtrl', ['$scope', '$location', 'UtilSvc', 'Auth', 'User', 'person', function($scope, $location, UtilSvc, Auth, User, person) {
+.controller('PersonViewCtrl', ['$scope', '$location', 'Util', 'Auth', 'User', 'person', function($scope, $location, Util, Auth, User, person) {
     Auth.checkIfLoggedIn();
 
     $scope.person = person;
@@ -41,7 +41,7 @@ angular.module('idealogue.personControllers', [
 
     $scope.printDate = function(dateStr) {
         if (dateStr) {
-            return UtilSvc.formatDateString(dateStr, true);
+            return Util.formatDateString(dateStr, true);
         }
         return null;
     }

@@ -7,7 +7,7 @@ angular.module('idealogue.ideaServices', [
     'idealogue.userServices'
 ])
 
-.factory('Idea', ['$http', 'config', function($http, config) {
+.factory('Idea', ['$http', 'config', function IdeaFactory($http, config) {
     var baseUrl = config.apiUrl + '/ideas';
     return {
         getMany: function(success, error) {
@@ -30,7 +30,7 @@ angular.module('idealogue.ideaServices', [
     }
 }])
 
-.factory('MultiIdeaLoader', ['$q', 'Idea', function($q, Idea) {
+.factory('MultiIdeaLoader', ['$q', 'Idea', function MultiIdeaaLoaderFactory($q, Idea) {
     return function() {
         var delay = $q.defer();
         Idea.getMany(
@@ -45,7 +45,7 @@ angular.module('idealogue.ideaServices', [
     }
 }])
 
-.factory('IdeaLoader', ['$q', 'Idea', function($q, Idea) {
+.factory('IdeaLoader', ['$q', 'Idea', function IdeaLoaderFactory($q, Idea) {
     return function(ideaId) {
         var delay = $q.defer();
         Idea.getOne(ideaId,
@@ -60,7 +60,7 @@ angular.module('idealogue.ideaServices', [
     }
 }])
 
-.factory('IdeaSvc', ['UtilSvc', function(UtilSvc) {
+.factory('IdeaSvc', ['Util', function IdeaSvcFactory(Util) {
     return {
         //TODO: move into a directive
         initializeIdeaForm: function(delay) {
@@ -78,7 +78,7 @@ angular.module('idealogue.ideaServices', [
             $benefits.autoSize();
             $details.autoSize();
 
-            UtilSvc.delay(function() {
+            Util.delay(function() {
                 $.resizeTextArea($summary[0]);
                 $.resizeTextArea($benefits[0]);
                 $.resizeTextArea($details[0]);
@@ -140,7 +140,7 @@ angular.module('idealogue.ideaServices', [
             var proposerNames = [];
             var index = 0;
             for (i = 0, len = idea.proposers.length; i < len; i++) {
-                person = UtilSvc.findInArray(people, 'id', idea.proposers[i]);
+                person = Util.findInArray(people, 'id', idea.proposers[i]);
                 if (person !== null) {
                     proposerNames[index++] = person.firstName + ' ' + person.lastName;
                 }
@@ -148,7 +148,7 @@ angular.module('idealogue.ideaServices', [
             idea.proposerNames = proposerNames;
 
             for (i = 0, len = idea.comments.length; i < len; i++) {
-                person = UtilSvc.findInArray(people, 'id', idea.comments[i].id);
+                person = Util.findInArray(people, 'id', idea.comments[i].id);
                 if (person !== null) {
                     idea.comments[i]["fullName"] = person.firstName + ' ' + person.lastName;
                 }
@@ -156,10 +156,10 @@ angular.module('idealogue.ideaServices', [
         },
 
         transformIdeaForEdit: function(idea) {
-            idea.proposers = UtilSvc.arrayToString(idea.proposers);
-            idea.skills = UtilSvc.arrayToString(idea.skills);
-            idea.technologies = UtilSvc.arrayToString(idea.technologies);
-            idea.tags = UtilSvc.arrayToString(idea.tags);
+            idea.proposers = Util.arrayToString(idea.proposers);
+            idea.skills = Util.arrayToString(idea.skills);
+            idea.technologies = Util.arrayToString(idea.technologies);
+            idea.tags = Util.arrayToString(idea.tags);
         },
 
         transformIdeaForSave: function(idea) {

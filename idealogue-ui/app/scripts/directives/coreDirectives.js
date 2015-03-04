@@ -90,7 +90,7 @@ angular.module('idealogue.coreDirectives', [
     };
 }])
 
-.directive('searchform', ['UtilSvc', 'config', function(UtilSvc, config) {
+.directive('searchform', ['Util', 'config', function(Util, config) {
     return {
         restrict: 'E',
         templateUrl: '/views/searchForm.html',
@@ -128,7 +128,7 @@ angular.module('idealogue.coreDirectives', [
     };
 }])
 
-.directive('personsearch', ['UtilSvc', 'User', function(UtilSvc, User) {
+.directive('personsearch', ['Util', 'User', function(Util, User) {
     return {
         restrict: 'E',
         templateUrl: '/views/personSearch.html',
@@ -169,9 +169,9 @@ angular.module('idealogue.coreDirectives', [
                     results = scope.people;
                 }
                 else {
-                    results = UtilSvc.findMultipleInArray(scope.people, ['firstName','lastName','id'], text);
+                    results = Util.findMultipleInArray(scope.people, ['firstName','lastName','id'], text);
                 }
-                results.sort(UtilSvc.sortBy('id', false, function(a){return a.toUpperCase()}));
+                results.sort(Util.sortBy('id', false, function(a){return a.toUpperCase()}));
                 scope.personSearchResults = results;
             };
 

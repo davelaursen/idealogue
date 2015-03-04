@@ -180,25 +180,33 @@ button.inline:hover {
 /* Login
 *****************************************************************/
 
-.login-form {
+.login {
     width: 100%;
     text-align: center;
 }
 
-.login-form form {
+.login h1 {
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 6.854em;
+    margin-bottom: .75em;
+}
+
+.login form {
     margin-top: 75px;
 }
 
-.login-form button {
+.login button {
     width: 75px;
+    margin: 10px;
 }
 
-.login-form input {
+.login input {
     height: 20px;
     width: 200px;
+    margin: 5px;
 }
 
-.login-form .error-message {
+.login .error-message {
     display: block;
     margin-top: 20px;
     color: #84544d;
