@@ -60,10 +60,10 @@ angular.module('idealogue.ideaServices', [
     }
 }])
 
-.factory('IdeaSvc', ['Util', function IdeaSvcFactory(Util) {
+.factory('IdeaSvc', ['$timeout', 'Util', function IdeaSvcFactory($timeout, Util) {
     return {
         //TODO: move into a directive
-        initializeIdeaForm: function(delay) {
+        initializeIdeaForm: function() {
             var $name = $('#ideaName'),
                 $summary = $('#ideaSummary'),
                 $benefits = $('#ideaBenefits'),
@@ -78,12 +78,11 @@ angular.module('idealogue.ideaServices', [
             $benefits.autoSize();
             $details.autoSize();
 
-            Util.delay(function() {
+            $timeout(function() {
                 $.resizeTextArea($summary[0]);
                 $.resizeTextArea($benefits[0]);
                 $.resizeTextArea($details[0]);
-                $('#editIdea').find('.focus').focus();
-            }, delay || 1);
+            });
         },
 
         //TODO: move view-specific logic into a directive

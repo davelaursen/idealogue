@@ -9,12 +9,8 @@ angular.module('idealogue.coreDirectives', [
 ])
 
 .directive('idFocus', function() {
-    return {
-        restrict: 'A',
-        scope: {},
-        link: function($scope, $element) {
-            $element[0].focus();
-        }
+    return function($scope, $element) {
+        $element[0].focus();
     };
 })
 
@@ -57,53 +53,51 @@ angular.module('idealogue.coreDirectives', [
     };
 }])
 
-.directive('idNavigation', function() {
+.directive('idNavigation', ['$location', 'Auth', function($location, Auth) {
     return {
         restrict: 'E',
         templateUrl: '/views/navigation.html',
         replace: true,
         scope: {},
-        controller: ['$element', '$location', 'Auth', function($element, $location, Auth) {
-            this.goToIdeas = function() {
+        link: function($scope, $element) {
+            $scope.goToIdeas = function() {
                 $location.path('/ideas');
             };
 
-            this.goToPeople = function() {
+            $scope.goToPeople = function() {
                 $location.path('/people');
             };
 
-            this.goToAccount = function() {
+            $scope.goToAccount = function() {
                 $location.path('/account');
             };
 
-            this.logout = function() {
+            $scope.logout = function() {
                 Auth.logout();
             };
-        }],
-        controllerAs: 'navCtrl'
+        }
     };
-})
+}])
 
-.directive('idCurrentUser', function() {
+.directive('idCurrentUser', ['Auth', function(Auth) {
     return {
         restrict: 'E',
         templateUrl: '/views/currentUser.html',
         replace: true,
         scope: {},
-        controller: ['Auth', function(Auth) {
-            this.getCurrentUserName = function() {
+        link: function($scope) {
+            $scope.getCurrentUserName = function() {
                 var user = Auth.currentUser();
                 if (!user) {
                     return '';
                 }
                 return user.firstName + ' ' + user.lastName;
             };
-        }],
-        controllerAs: 'currentUserCtrl'
+        }
     };
-})
+}])
 
-.directive('idSearchForm', ['Util', 'config', function(Util, config) {
+.directive('idSearchForm', ['$rootScope', 'Util', 'Events', 'config', function($rootScope, Util, Events, config) {
     return {
         restrict: 'E',
         templateUrl: '/views/searchForm.html',
@@ -111,18 +105,16 @@ angular.module('idealogue.coreDirectives', [
         scope: {},
         link: function($scope, $element) {
             $scope.searchValue = "";
-        },
-        controller: ['$rootScope', '$scope', 'Events', function($rootScope, $scope, Events) {
-            this.executeSearch = function() {
+
+            $scope.executeSearch = function() {
                 $rootScope.$broadcast(Events.executeSearchEvent, $scope.searchValue);
                 $scope.searchValue = "";
             };
-        }],
-        controllerAs: 'searchFormCtrl'
+        }
     };
 }])
 
-.directive('idSearchResults', ['Events', 'config', function(Events, config) {
+.directive('idSearchResults', ['$rootScope', 'Events', 'config', function($rootScope, Events, config) {
     return {
         restrict: 'E',
         templateUrl: '/views/searchResults.html',
@@ -131,21 +123,19 @@ angular.module('idealogue.coreDirectives', [
         link: function($scope, $element) {
             $element.addClass("overlay");
 
-            $scope.$on(Events.openSearchResultsEvent, function(e, val) {
-                $element.fadeIn(config.searchResultsShowTime);
-            });
-        },
-        controller: ['$rootScope', '$scope', '$element', function($rootScope, $scope, $element) {
-            this.closeSearchResults = function() {
+            $scope.closeSearchResults = function() {
                 $element.fadeOut(config.searchResultsShowTime);
                 $rootScope.$broadcast(Events.closeSearchResultsEvent, true);
             };
-        }],
-        controllerAs: 'searchResultsCtrl'
+
+            $scope.$on(Events.openSearchResultsEvent, function(e, val) {
+                $element.fadeIn(config.searchResultsShowTime);
+            });
+        }
     };
 }])
 
-.directive('idPersonSearch', ['Util', 'Events', 'User', function(Util, Events, User) {
+.directive('idPersonSearch', ['$rootScope', 'Util', 'Events', 'User', function($rootScope, Util, Events, User) {
     return {
         restrict: 'E',
         templateUrl: '/views/personSearch.html',
@@ -159,22 +149,10 @@ angular.module('idealogue.coreDirectives', [
             });
 
             $scope.personSearchValue = "";
+            $scope.personSearchResults = [];
             $scope.onSelect = function(person){};
 
-            $scope.$on(Events.openPersonSearchBoxEvent, function(e, onSelect) {
-                if (onSelect) {
-                    $scope.onSelect = onSelect;
-                }
-
-                $element.fadeIn(100);
-                $element.find('input:first').focus();
-            });
-        },
-        controller: ['$rootScope', '$scope', '$element', function($rootScope, $scope, $element) {
-            this.personSearchResults = [];
-            var self = this;
-
-            this.executePersonSearch = function() {
+            $scope.executePersonSearch = function() {
                 var text = $scope.personSearchValue;
                 var results;
                 if (text === "") {
@@ -184,25 +162,33 @@ angular.module('idealogue.coreDirectives', [
                     results = Util.findMultipleInArray($scope.people, ['firstName','lastName','id'], text);
                 }
                 results.sort(Util.sortBy('id', false, function(a){return a.toUpperCase()}));
-                self.personSearchResults = results;
+                $scope.personSearchResults = results;
             };
 
-            this.closePersonSearchBox = function() {
+            $scope.closePersonSearchBox = function() {
                 $element.fadeOut(100);
-                self.personSearchResults = [];
+                $scope.personSearchResults = [];
                 $rootScope.$broadcast(Events.closePersonSearchBoxEvent, true);
             };
 
-            this.selectPerson = function(person) {
+            $scope.selectPerson = function(person) {
                 $scope.onSelect(person);
-                self.closePersonSearchBox();
+                $scope.closePersonSearchBox();
             };
-        }],
-        controllerAs: 'personSearchCtrl'
+
+            $scope.$on(Events.openPersonSearchBoxEvent, function(e, onSelect) {
+                if (onSelect) {
+                    $scope.onSelect = onSelect;
+                }
+
+                $element.fadeIn(100);
+                $element.find('input:first').focus();
+            });
+        }
     };
 }])
 
-.directive('idListFilter', ['Events', 'Util', function(Events, Util) {
+.directive('idListFilter', ['$timeout', 'Events', 'Util', function($timeout, Events, Util) {
     return {
         restrict: 'E',
         templateUrl: '/views/listFilter.html',
@@ -213,9 +199,9 @@ angular.module('idealogue.coreDirectives', [
             $scope.$on(Events.hideListFilterEvent, function(e, val) {
                 $scope.listFilterHidden = val;
 
-                Util.delay(function() {
+                $timeout(function() {
                     $element.find('input').focus();
-                }, 1);
+                });
             });
         }
     };

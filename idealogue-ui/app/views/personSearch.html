@@ -1,15 +1,15 @@
 <div class="person-search">
 	<div class="person-search-container">
-		<form ng-submit="personSearchCtrl.executePersonSearch()">
+		<form ng-submit="executePersonSearch()">
 		    <input class="form-element small" type="text" ng-model="personSearchValue">
 		    <button type="submit" class="hidden"></button>
-		    <button type="button" class="inline person-search-close" ng-click="personSearchCtrl.closePersonSearchBox()">(close)</button>
+		    <button type="button" class="inline person-search-close" ng-click="closePersonSearchBox()">(close)</button>
 		</form>
 
 		<div class="person-search-results">
 		    <ul>
-		        <li ng-repeat="person in personSearchCtrl.personSearchResults">
-		            <button ng-click="personSearchCtrl.selectPerson(person)">
+		        <li ng-repeat="person in personSearchResults">
+		            <button ng-click="selectPerson(person)">
 		                <span class="person-result-full-name">{{person.firstName}} {{person.lastName}}</span>
 		                <span class="person-result-info">username: {{person.id}}</span>
 		                <span class="person-result-info">{{person.email}}</span>
