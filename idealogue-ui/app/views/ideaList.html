@@ -7,8 +7,10 @@
         <li><a href="javascript:" ng-click="filter()" id-disabling>filter</a></li>
     </ul>
 
+    <id-list-filter></id-list-filter>
+
     <ul class="idea-list">
-        <li ng-repeat="idea in ideas">
+        <li ng-repeat="idea in ideas | filter:search">
             <button ng-click="viewIdea(idea.id)" id-disabling>
                 <span class="idea-list-name">{{idea.name}}</span>
                 <span class="idea-list-summary">{{idea.summary}}</span>

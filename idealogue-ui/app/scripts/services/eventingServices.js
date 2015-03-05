@@ -9,5 +9,6 @@ angular.module('idealogue.eventingServices', [])
 	hideHeaderEvent: 'hideHeader',
 	disableViewEvent: 'disableView',
 	openPersonSearchBoxEvent: 'openPersonSearchBox',
-	closePersonSearchBoxEvent: 'closePersonSearchBox'
+	closePersonSearchBoxEvent: 'closePersonSearchBox',
+	hideListFilterEvent: 'hideListFilter'
 });

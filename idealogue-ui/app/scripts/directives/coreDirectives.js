@@ -132,7 +132,6 @@ angular.module('idealogue.coreDirectives', [
             $element.addClass("overlay");
 
             $scope.$on(Events.openSearchResultsEvent, function(e, val) {
-                console.log("search: " + val);
                 $element.fadeIn(config.searchResultsShowTime);
             });
         },
@@ -200,5 +199,24 @@ angular.module('idealogue.coreDirectives', [
             };
         }],
         controllerAs: 'personSearchCtrl'
+    };
+}])
+
+.directive('idListFilter', ['Events', 'Util', function(Events, Util) {
+    return {
+        restrict: 'E',
+        templateUrl: '/views/listFilter.html',
+        replace: true,
+        link: function($scope, $element) {
+            $scope.listFilterHidden = true;
+
+            $scope.$on(Events.hideListFilterEvent, function(e, val) {
+                $scope.listFilterHidden = val;
+
+                Util.delay(function() {
+                    $element.find('input').focus();
+                }, 1);
+            });
+        }
     };
 }]);

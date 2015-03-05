@@ -5,15 +5,17 @@ angular.module('idealogue.ideaControllers', [
     'idealogue.utilityServices',
     'idealogue.coreDirectives',
     'idealogue.ideaServices',
-    'idealogue.authServices'
+    'idealogue.authServices',
+    'idealogue.eventingServices'
 ])
 
-.controller('IdeaListCtrl', ['$scope', '$location', 'Util', 'Auth', 'ideas', function($scope, $location, Util, Auth, ideas) {
+.controller('IdeaListCtrl', ['$rootScope', '$scope', '$location', 'Util', 'Auth', 'Events', 'ideas', function($rootScope, $scope, $location, Util, Auth, Events, ideas) {
     Auth.checkIfLoggedIn();
 
     ideas.sort(Util.sortBy('name', false, function(a){return a.toUpperCase()}));
     $scope.ideas = ideas;
-    $scope.desc = false
+    $scope.desc = false;
+    $scope.hideFilter = true;
 
     $scope.toList = function(arr, prop) {
         return Util.arrayToString(arr, prop);
@@ -28,8 +30,13 @@ angular.module('idealogue.ideaControllers', [
     };
 
     $scope.sort = function() {
-        $scope.desc = $scope.desc ? false : true;
+        $scope.desc = !$scope.desc;
         ideas.sort(Util.sortBy('name', $scope.desc, function(a){return a.toUpperCase()}));
+    };
+
+    $scope.filter = function() {
+        $scope.hideFilter = !$scope.hideFilter;
+        $rootScope.$broadcast(Events.hideListFilterEvent, $scope.hideFilter);
     };
 }])
 

@@ -154,6 +154,14 @@ button.inline:hover {
     z-index: 100;
 }
 
+.list-filter {
+    margin: 0 175px 0 80px;
+}
+
+.list-filter input {
+    width: 280px;
+}
+
 
 
 /* Views
@@ -615,7 +623,7 @@ button.inline:hover {
 .person-list li {
     border: 1px #aaaaaa solid;
     border-radius: 10px;
-    margin: 5px;
+    margin: 5px 10px 5px 0;
     float: left;
     width: 300px;
 }

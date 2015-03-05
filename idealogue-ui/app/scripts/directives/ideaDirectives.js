@@ -1,29 +1,32 @@
 'use strict';
 
-angular.module('idealogue.ideaDirectives', [])
+angular.module('idealogue.ideaDirectives', [
+	'idealogue.eventingServices'
+])
 
-.directive('comments', function(){
+.directive('comments', function() {
 	return {
 		restrict: 'E',
 		templateUrl: '/views/comments.html',
-		link: function(scope, element) {
-    		element.find('.comment-new-text').autoSize();
+		replace: true,
+		link: function($scope, $element) {
+    		$element.find('.comment-new-text').autoSize();
 
-			scope.addComment = function() {
-		        element.find('.comment-new').show();
-		        element.find('.add-comment-button').hide();
-		        element.find('.comment-new-text').focus();
+			$scope.addComment = function() {
+		        $element.find('.comment-new').show();
+		        $element.find('.add-comment-button').hide();
+		        $element.find('.comment-new-text').focus();
 		    };
 
-		    scope.cancelComment = function() {
-		    	scope.newComment = null;
-		        element.find('.comment-new').hide();
-		        element.find('.add-comment-button').show();
+		    $scope.cancelComment = function() {
+		    	$scope.newComment = null;
+		        $element.find('.comment-new').hide();
+		        $element.find('.add-comment-button').show();
 		    };
 
-		    scope.saveComment = function() {
-		        scope.save();
-		        scope.cancelComment();
+		    $scope.saveComment = function() {
+		        $scope.save();
+		        $scope.cancelComment();
     		};
 		}
 	};

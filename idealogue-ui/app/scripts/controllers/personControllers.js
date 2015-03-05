@@ -5,15 +5,27 @@ angular.module('idealogue.personControllers', [
     'idealogue.userServices'
 ])
 
-.controller('PersonListCtrl', ['$scope', '$location', 'Util', 'Auth', 'people', function($scope, $location, Util, Auth, people) {
+.controller('PersonListCtrl', ['$rootScope', '$scope', '$location', 'Util', 'Auth', 'Events', 'people', function($rootScope, $scope, $location, Util, Auth, Events, people) {
     Auth.checkIfLoggedIn();
 
-    people.sort(Util.sortBy('id', false, function(a){return a.toUpperCase()}));
+    people.sort(Util.sortBy('lastName', false, function(a){return a.toUpperCase()}));
     $scope.people = people;
+    $scope.desc = false;
+    $scope.hideFilter = true;
 
     $scope.viewPerson = function(personId) {
         $location.path('/people/view/' + personId);
     }
+
+    $scope.sort = function() {
+        $scope.desc = !$scope.desc;
+        $scope.people.sort(Util.sortBy('lastName', $scope.desc, function(a){return a.toUpperCase()}));
+    };
+
+    $scope.filter = function() {
+        $scope.hideFilter = !$scope.hideFilter;
+        $rootScope.$broadcast(Events.hideListFilterEvent, $scope.hideFilter);
+    };
 }])
 
 .controller('PersonViewCtrl', ['$scope', '$location', 'Util', 'Auth', 'User', 'person', function($scope, $location, Util, Auth, User, person) {
