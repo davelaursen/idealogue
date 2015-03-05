@@ -1,21 +1,45 @@
 'use strict';
 
-angular.module('idealogue.coreControllers', [])
+angular.module('idealogue.coreControllers', [
+    'idealogue.eventingServices'
+])
 
-.controller('MainCtrl', ['$scope', function($scope) {
-    $scope.overlayHidden = true;
-    $scope.searchResultsHidden = true;
-    $scope.personSearchHidden = true;
-
-    $scope.disableMainUIElements = function() {
-        $scope.disableHeader();
-        $('.content *').attr("disabled", "disabled");
-        $('.content a').removeAttr("href");
+.controller('MainCtrl', ['$rootScope', '$scope', 'Events', function($rootScope, $scope, Events) {
+    $scope.disableView = function() {
+        $rootScope.$broadcast(Events.disableViewEvent, true);
     };
 
-    $scope.enableMainUIElements = function() {
-        $scope.enableHeader();
-        $('.content *').removeAttr("disabled");
-        $('.content a').attr("href", "javascript:");
+    $scope.enableView = function() {
+        $rootScope.$broadcast(Events.disableViewEvent, false);
     };
+
+    $scope.hideHeader = function() {
+        $rootScope.$broadcast(Events.hideHeaderEvent, true);
+    };
+
+    $scope.showHeader = function() {
+        $rootScope.$broadcast(Events.hideHeaderEvent, false);
+    };
+
+    $scope.openPersonSearchBox = function(onSelect) {
+        $rootScope.$broadcast(Events.openPersonSearchBoxEvent, onSelect);
+        $scope.disableView();
+    }
+
+    $scope.openSearchResults = function(searchQuery) {
+        $rootScope.$broadcast(Events.openSearchResultsEvent, searchQuery);
+        $scope.disableView();
+    }
+
+    $scope.$on(Events.executeSearchEvent, function(e, val) {
+        $scope.openSearchResults(val);
+    });
+
+    $scope.$on(Events.closeSearchResultsEvent, function(e, val) {
+        $scope.enableView();
+    });
+
+    $scope.$on(Events.closePersonSearchBoxEvent, function(e, val) {
+        $scope.enableView();
+    })
 }]);

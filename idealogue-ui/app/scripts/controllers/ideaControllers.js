@@ -125,13 +125,6 @@ angular.module('idealogue.ideaControllers', [
 
     $scope.findProposer = function() {
         $scope.openPersonSearchBox(
-            100,
-            function() {
-                $scope.disableMainUIElements();
-            },
-            function() {
-                $scope.enableMainUIElements();
-            },
             function(person) {
                 var value = $scope.idea.proposers
                 if (value.length > 0) {
@@ -202,5 +195,4 @@ angular.module('idealogue.ideaControllers', [
     };
 
     IdeaSvc.transformIdeaForEdit($scope.idea);
-    // IdeaSvc.initializeIdeaForm();
 }]);

@@ -4,181 +4,201 @@ angular.module('idealogue.coreDirectives', [
     'idealogue.utilityServices',
     'idealogue.ideaServices',
     'idealogue.configServices',
-    'idealogue.authServices'
+    'idealogue.authServices',
+    'idealogue.eventingServices'
 ])
 
-.directive('focus', function() {
+.directive('idFocus', function() {
     return {
         restrict: 'A',
-        link: function(scope, element) {
-            element[0].focus();
+        scope: {},
+        link: function($scope, $element) {
+            $element[0].focus();
         }
     };
 })
 
-.directive('header', function() {
+.directive('idDisabling', ['Events', function(Events) {
     return {
-        restrict: 'E',
-        templateUrl: '/views/header.html',
-        link: function(scope, element) {
-            scope.showHeader = function() {
-                scope.headerHidden = false;
-            };
-
-            scope.hideHeader = function() {
-                scope.headerHidden = true;
-            };
-
-            scope.enableHeader = function() {
-                scope.enableSearchForm();
-                scope.enableNav();
-            };
-
-            scope.disableHeader = function() {
-                scope.disableSearchForm();
-                scope.disableNav();
-            };
-        }
-    };
-})
-
-.directive('navigation', ['$location', 'Auth', function($location, Auth) {
-    return {
-        restrict: 'E',
-        templateUrl: '/views/navigation.html',
-        link: function(scope, element) {
-            scope.goToIdeas = function() {
-                $location.path('/ideas');
-            };
-
-            scope.goToPeople = function() {
-                $location.path('/people');
-            };
-
-            scope.goToAccount = function() {
-                $location.path('/account');
-            };
-
-            scope.logout = function() {
-                Auth.logout();
-            };
-
-            scope.enableNav = function() {
-                element.find('a').attr('href', '#');
-            };
-
-            scope.disableNav = function() {
-                element.find('a').removeAttr('href');
-            };
+        restrict: 'A',
+        scope: {},
+        link: function($scope, $element) {
+            $scope.$on(Events.disableViewEvent, function(e, val) {
+                var isAnchor = ($element[0].localName === 'a');
+                if (val === true) {
+                    if (isAnchor) {
+                        $element.removeAttr("href");
+                    } else {
+                        $element.attr("disabled", "disabled");
+                    }
+                } else {
+                    if (isAnchor) {
+                        $element.attr("href", "javascript:");
+                    } else {
+                        $element.removeAttr("disabled");
+                    }
+                }
+            });
         }
     };
 }])
 
-.directive('currentuser', ['Auth', function(Auth) {
+.directive('idHeader', ['Events', function(Events) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: '/views/header.html',
+        scope: {},
+        link: function($scope) {
+            $scope.$on(Events.hideHeaderEvent, function(e, val) {
+                $scope.headerHidden = val;
+            });
+        }
+    };
+}])
+
+.directive('idNavigation', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/views/navigation.html',
+        replace: true,
+        scope: {},
+        controller: ['$element', '$location', 'Auth', function($element, $location, Auth) {
+            this.goToIdeas = function() {
+                $location.path('/ideas');
+            };
+
+            this.goToPeople = function() {
+                $location.path('/people');
+            };
+
+            this.goToAccount = function() {
+                $location.path('/account');
+            };
+
+            this.logout = function() {
+                Auth.logout();
+            };
+        }],
+        controllerAs: 'navCtrl'
+    };
+})
+
+.directive('idCurrentUser', function() {
     return {
         restrict: 'E',
         templateUrl: '/views/currentUser.html',
-        link: function(scope) {
-            scope.getCurrentUserName = function() {
+        replace: true,
+        scope: {},
+        controller: ['Auth', function(Auth) {
+            this.getCurrentUserName = function() {
                 var user = Auth.currentUser();
                 if (!user) {
                     return '';
                 }
                 return user.firstName + ' ' + user.lastName;
             };
-        }
+        }],
+        controllerAs: 'currentUserCtrl'
     };
-}])
+})
 
-.directive('searchform', ['Util', 'config', function(Util, config) {
+.directive('idSearchForm', ['Util', 'config', function(Util, config) {
     return {
         restrict: 'E',
         templateUrl: '/views/searchForm.html',
-        link: function(scope, element) {
-            scope.executeSearch = function() {
-                scope.showSearchResults();
+        replace: true,
+        scope: {},
+        link: function($scope, $element) {
+            $scope.searchValue = "";
+        },
+        controller: ['$rootScope', '$scope', 'Events', function($rootScope, $scope, Events) {
+            this.executeSearch = function() {
+                $rootScope.$broadcast(Events.executeSearchEvent, $scope.searchValue);
+                $scope.searchValue = "";
             };
-
-            scope.enableSearchForm = function() {
-                element.find('input').removeAttr('disabled');
-            };
-
-            scope.disableSearchForm = function() {
-                element.find('input').attr('disabled', 'disabled');
-            };
-        }
+        }],
+        controllerAs: 'searchFormCtrl'
     };
 }])
 
-.directive('searchresults', ['config', function(config) {
+.directive('idSearchResults', ['Events', 'config', function(Events, config) {
     return {
         restrict: 'E',
         templateUrl: '/views/searchResults.html',
-        link: function(scope, element) {
-            scope.showSearchResults = function(time) {
-                element.fadeIn(time || config.searchResultsShowTime);
-                scope.disableMainUIElements();
-            };
+        replace: true,
+        scope: {},
+        link: function($scope, $element) {
+            $element.addClass("overlay");
 
-            scope.closeSearchResults = function(time) {
-                element.fadeOut(time || config.searchResultsShowTime);
-                scope.enableMainUIElements();
+            $scope.$on(Events.openSearchResultsEvent, function(e, val) {
+                console.log("search: " + val);
+                $element.fadeIn(config.searchResultsShowTime);
+            });
+        },
+        controller: ['$rootScope', '$scope', '$element', function($rootScope, $scope, $element) {
+            this.closeSearchResults = function() {
+                $element.fadeOut(config.searchResultsShowTime);
+                $rootScope.$broadcast(Events.closeSearchResultsEvent, true);
             };
-        }
+        }],
+        controllerAs: 'searchResultsCtrl'
     };
 }])
 
-.directive('personsearch', ['Util', 'User', function(Util, User) {
+.directive('idPersonSearch', ['Util', 'Events', 'User', function(Util, Events, User) {
     return {
         restrict: 'E',
         templateUrl: '/views/personSearch.html',
-        link: function(scope, element) {
+        replace: true,
+        scope: {},
+        link: function($scope, $element) {
+            $element.addClass("overlay");
+
             User.getMany(function(response) {
-                scope.people = response.data;
+                $scope.people = response.data;
             });
 
-            scope.personSearchValue = "";
-            scope.personSearchConfig = {
-                time: 100,
-                onOpen: function(){},
-                onClose: function(){},
-                onSelect: function(){}
-            };
+            $scope.personSearchValue = "";
+            $scope.onSelect = function(person){};
 
-            scope.openPersonSearchBox = function(time, onOpen, onClose, onSelect) {
-                scope.personSearchConfig.time = time;
-                scope.personSearchConfig.onOpen = onOpen;
-                scope.personSearchConfig.onClose = onClose;
-                scope.personSearchConfig.onSelect = onSelect;
+            $scope.$on(Events.openPersonSearchBoxEvent, function(e, onSelect) {
+                if (onSelect) {
+                    $scope.onSelect = onSelect;
+                }
 
-                element.fadeIn(scope.personSearchConfig.time);
-                scope.personSearchConfig.onOpen();
-                element.find('input:first').focus();
-            };
+                $element.fadeIn(100);
+                $element.find('input:first').focus();
+            });
+        },
+        controller: ['$rootScope', '$scope', '$element', function($rootScope, $scope, $element) {
+            this.personSearchResults = [];
+            var self = this;
 
-            scope.closePersonSearchBox = function() {
-                element.fadeOut(scope.personSearchConfig.time);
-                scope.personSearchConfig.onClose();
-                scope.personSearchResults = [];
-            };
-
-            scope.executePersonSearch = function() {
-                var text = scope.personSearchValue;
+            this.executePersonSearch = function() {
+                var text = $scope.personSearchValue;
                 var results;
                 if (text === "") {
-                    results = scope.people;
+                    results = $scope.people;
                 }
                 else {
-                    results = Util.findMultipleInArray(scope.people, ['firstName','lastName','id'], text);
+                    results = Util.findMultipleInArray($scope.people, ['firstName','lastName','id'], text);
                 }
                 results.sort(Util.sortBy('id', false, function(a){return a.toUpperCase()}));
-                scope.personSearchResults = results;
+                self.personSearchResults = results;
             };
 
-            scope.selectPerson = function(person) {
-                scope.personSearchConfig.onSelect(person);
-                scope.closePersonSearchBox();
+            this.closePersonSearchBox = function() {
+                $element.fadeOut(100);
+                self.personSearchResults = [];
+                $rootScope.$broadcast(Events.closePersonSearchBoxEvent, true);
             };
-        }
+
+            this.selectPerson = function(person) {
+                $scope.onSelect(person);
+                self.closePersonSearchBox();
+            };
+        }],
+        controllerAs: 'personSearchCtrl'
     };
 }]);

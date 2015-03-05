@@ -25,10 +25,6 @@ h2 {
     font-size: 1.618em;
 }
 
-.hidden {
-    display: none;
-}
-
 
 
 /* Forms
@@ -136,6 +132,26 @@ button.inline:hover {
     color: #84544d;
     text-shadow: 0 1px 1px #bf9f99;
     background-color: transparent;
+}
+
+
+
+/* Utility Classes
+*****************************************************************/
+
+.hidden {
+    display: none;
+}
+
+.overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(85, 85, 85, 0.71);
+    height: 100%;
+    width: 100%;
+    z-index: 100;
 }
 
 
@@ -401,17 +417,6 @@ button.inline:hover {
 /* Person Search
 *****************************************************************/
 
-.person-search {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(85, 85, 85, 0.71);
-    height: 100%;
-    width: 100%;
-    z-index: 100;
-}
-
 .person-search-container {
     margin: auto;
     position: absolute;
@@ -481,17 +486,6 @@ button.inline:hover {
 
 /* Search Results
 *****************************************************************/
-
-.search-results {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(85, 85, 85, 0.71);
-    height: 100%;
-    width: 100%;
-    z-index: 100;
-}
 
 .search-results-container {
     /*display: none;*/

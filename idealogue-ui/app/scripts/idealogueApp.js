@@ -6,6 +6,7 @@ angular.module('idealogue', [
     'idealogue.authServices',
     'idealogue.ideaServices',
     'idealogue.userServices',
+    'idealogue.eventingServices',
     'idealogue.coreDirectives',
     'idealogue.ideaDirectives',
     'idealogue.coreControllers',

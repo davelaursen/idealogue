@@ -11,17 +11,17 @@
 </head>
 <body ng-controller="MainCtrl">
 
-    <header class="header" ng-class="{hidden: headerHidden}"></header>
+    <id-header></id-header>
 
     <div class="content-wrapper">
         <div class="content" ng-view></div>
     </div>
 
-    <searchresults class="search-results"></searchresults>
-    <personsearch class="person-search"></personsearch>
+    <id-search-results></id-search-results>
+    <id-person-search></id-person-search>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
@@ -41,5 +41,6 @@
     <script src="scripts/services/ideaServices.js"></script>
     <script src="scripts/services/userServices.js"></script>
     <script src="scripts/services/utilityServices.js"></script>
+    <script src="scripts/services/eventingServices.js"></script>
 </body>
 </html>
