@@ -13,14 +13,6 @@ angular.module('idealogue.coreControllers', [
         $rootScope.$broadcast(Events.disableViewEvent, false);
     };
 
-    $scope.hideHeader = function() {
-        $rootScope.$broadcast(Events.hideHeaderEvent, true);
-    };
-
-    $scope.showHeader = function() {
-        $rootScope.$broadcast(Events.hideHeaderEvent, false);
-    };
-
     $scope.openPersonSearchBox = function(onSelect) {
         $rootScope.$broadcast(Events.openPersonSearchBoxEvent, onSelect);
         $scope.disableView();
@@ -42,42 +34,6 @@ angular.module('idealogue.coreControllers', [
     $scope.$on(Events.closePersonSearchBoxEvent, function(e, val) {
         $scope.enableView();
     })
-}])
-
-.controller('HeaderCtrl', ['$rootScope', '$scope', '$location', 'Auth', 'Events', function($rootScope, $scope, $location, Auth, Events) {
-    $scope.searchValue = "";
-
-    //TODO: refactor to watch for changes to Auth.currentUser and auto-update value
-    var user = Auth.currentUser();
-    if (!user) {
-        return '';
-    }
-    $scope.currentUserName = user.firstName + ' ' + user.lastName;
-
-    $scope.executeSearch = function() {
-        $rootScope.$broadcast(Events.executeSearchEvent, $scope.searchValue);
-        $scope.searchValue = "";
-    };
-
-    $scope.goToIdeas = function() {
-        $location.path('/ideas');
-    };
-
-    $scope.goToPeople = function() {
-        $location.path('/people');
-    };
-
-    $scope.goToAccount = function() {
-        $location.path('/account');
-    };
-
-    $scope.logout = function() {
-        Auth.logout();
-    };
-
-    $scope.$on(Events.hideHeaderEvent, function(e, val) {
-        $scope.headerHidden = val;
-    });
 }])
 
 .controller('SearchResultsCtrl', ['$rootScope', '$scope', 'Events', function($rootScope, $scope, Events) {

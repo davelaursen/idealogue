@@ -1,28 +1,32 @@
-<section>
-    <h1 class="title">Person Details</h1>
+<id-header></id-header>
 
-    <ul class="actions">
-        <li><a href="javascript:" ng-click="back()" id-disabling>back</a></li>
-        <li><a href="javascript:" ng-click="vote()" id-disabling>vote</a></li>
-    </ul>
+<section class="content-wrapper">
+    <div class="content">
+        <h1 class="title">Person Details</h1>
 
-    <div class='view-group'>
-        <div class="view-label"></div>
-        <div class="view-element bottom-border"><h2>{{person.firstName}} {{person.lastName}}</h2></div>
-    </div>
+        <ul class="actions">
+            <li><a href="javascript:" ng-click="back()" id-disabling>back</a></li>
+            <li><a href="javascript:" ng-click="vote()" id-disabling>vote</a></li>
+        </ul>
 
-    <div class='view-group'>
-        <div class="view-label">Username</div>
-        <div class="view-element">{{person.id}}</div>
-    </div>
+        <div class='view-group'>
+            <div class="view-label"></div>
+            <div class="view-element bottom-border"><h2>{{person.firstName}} {{person.lastName}}</h2></div>
+        </div>
 
-    <div class='view-group'>
-        <div class="view-label">Email</div>
-        <div class="view-element">{{person.email}}</div>
-    </div>
+        <div class='view-group'>
+            <div class="view-label">Username</div>
+            <div class="view-element">{{person.id}}</div>
+        </div>
 
-    <div class='view-group'>
-        <div class="view-label">Joined</div>
-        <div class="view-element">{{printDate(person.createdDate)}}</div>
+        <div class='view-group'>
+            <div class="view-label">Email</div>
+            <div class="view-element">{{person.email}}</div>
+        </div>
+
+        <div class='view-group'>
+            <div class="view-label">Joined</div>
+            <div class="view-element">{{person.createdDate | date: 'M/dd/yyyy'}}</div>
+        </div>
     </div>
 </section>

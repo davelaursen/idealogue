@@ -6,7 +6,6 @@ angular.module('idealogue.eventingServices', [])
 	executeSearchEvent: 'executeSearch',
 	openSearchResultsEvent: 'openSearchResults',
 	closeSearchResultsEvent: 'closeSearchResults',
-	hideHeaderEvent: 'hideHeader',
 	disableViewEvent: 'disableView',
 	openPersonSearchBoxEvent: 'openPersonSearchBox',
 	closePersonSearchBoxEvent: 'closePersonSearchBox',

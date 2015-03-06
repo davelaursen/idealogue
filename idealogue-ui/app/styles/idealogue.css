@@ -115,6 +115,11 @@ form button:hover {
     background-color: rgba(205, 132, 119, 0.61);
 }
 
+form button:disabled {
+    background-color: rgba(225, 225, 225, 0.40);
+    color: #888888;
+}
+
 button.inline {
     font-family: 'Reenie Beanie', cursive;
     display: inline-block;
@@ -149,6 +154,13 @@ button.inline:hover {
 
 .list-filter input {
     width: 280px;
+}
+
+.error-msg-inline {
+    margin-left: 5px;
+    color: maroon;
+    font-size: 0.8em;
+    font-style: italic;
 }
 
 
@@ -194,6 +206,7 @@ button.inline:hover {
 *****************************************************************/
 
 .login {
+    margin-top: 50px;
     width: 100%;
     text-align: center;
 }
@@ -658,28 +671,20 @@ button.inline:hover {
     color: #6e4545;
     margin-bottom: 5px;
 }
-.person-list-username {
+.person-list-info {
     display: block;
     margin-left: 20px;
-    font-weight: 300;
-}
-.person-list-info {
-    display: inline-block;
-    margin-left: 6px;
     margin-top: 5px;
     font-weight: 300;
     font-size: .8em;
     font-style: italic;
 }
-.person-list-info-first {
-    margin-left: 20px;
-}
-.person-list-info::before {
+/*.person-list-info::before {
     content:'[';
 }
 .person-list-info::after {
     content:']';
-}
+}*/
 
 
 

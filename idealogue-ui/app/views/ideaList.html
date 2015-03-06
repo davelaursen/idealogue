@@ -1,24 +1,28 @@
-<section>
-    <h1 class="title">Ideas</h1>
+<id-header></id-header>
 
-    <ul class="actions">
-        <li><a href="javascript:" ng-click="addNew()" id-disabling>new</a></li>
-        <li><a href="javascript:" ng-click="sort()" id-disabling>sort</a></li>
-        <li><a href="javascript:" ng-click="filter()" id-disabling>filter</a></li>
-    </ul>
+<section class="content-wrapper">
+    <div class="content">
+        <h1 class="title">Ideas</h1>
 
-    <id-list-filter></id-list-filter>
+        <ul class="actions">
+            <li><a href="javascript:" ng-click="addNew()" id-disabling>new</a></li>
+            <li><a href="javascript:" ng-click="sort()" id-disabling>sort</a></li>
+            <li><a href="javascript:" ng-click="filter()" id-disabling>filter</a></li>
+        </ul>
 
-    <ul class="idea-list">
-        <li ng-repeat="idea in ideas | filter:search">
-            <button ng-click="viewIdea(idea.id)" id-disabling>
-                <span class="idea-list-name">{{idea.name}}</span>
-                <span class="idea-list-summary">{{idea.summary}}</span>
-                <span class="idea-list-info idea-list-info-first">votes: {{idea.voteCount}}</span>
-                <span class="idea-list-info">tags: {{toList(idea.tags)}}</span>
-                <span class="idea-list-info">skills: {{toList(idea.skills)}}</span>
-                <span class="idea-list-info">techs: {{toList(idea.technologies)}}</span>
-            </button>
-        </li>
-    </ul>
+        <id-list-filter></id-list-filter>
+
+        <ul class="idea-list">
+            <li ng-repeat="idea in ideas | filter:search">
+                <button ng-click="viewIdea(idea.id)" id-disabling>
+                    <span class="idea-list-name">{{idea.name}}</span>
+                    <span class="idea-list-summary">{{idea.summary}}</span>
+                    <span class="idea-list-info idea-list-info-first">votes: {{idea.voteCount}}</span>
+                    <span class="idea-list-info">tags: {{toList(idea.tags)}}</span>
+                    <span class="idea-list-info">skills: {{toList(idea.skills)}}</span>
+                    <span class="idea-list-info">techs: {{toList(idea.technologies)}}</span>
+                </button>
+            </li>
+        </ul>
+    </div>
 </section>

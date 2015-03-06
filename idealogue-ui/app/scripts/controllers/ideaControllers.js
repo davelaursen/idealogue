@@ -69,7 +69,6 @@ angular.module('idealogue.ideaControllers', [
             
             IdeaSvc.transformIdeaForSave(idea);
             Idea.save(idea, function() {
-                console.log("saved");
                 $route.reload();
             });
         }
@@ -94,13 +93,6 @@ angular.module('idealogue.ideaControllers', [
     $scope.toList = function(arr, prop) {
         return Util.arrayToString(arr, prop);
     };
-
-    $scope.printDate = function(dateStr) {
-        if (dateStr) {
-            return Util.formatDateString(dateStr);
-        }
-        return null;
-    }
 }])
 
 .controller('IdeaCommentsCtrl', ['$scope', '$element', function($scope, $element) {
@@ -131,14 +123,12 @@ angular.module('idealogue.ideaControllers', [
     IdeaSvc.transformIdeaForEdit($scope.idea);
     IdeaSvc.initializeIdeaForm();
 
-    $scope.save = function() {
-        IdeaSvc.transformIdeaForSave($scope.idea);
-
-        // validate data
-        if (!IdeaSvc.validateIdeaForm($scope)) {
+    $scope.save = function(form) {
+        if (!form.$valid) {
             return;
         }
 
+        IdeaSvc.transformIdeaForSave($scope.idea);
         $scope.idea.updatedDate = Util.getISO8601DateString();
 
         // save data
@@ -177,13 +167,17 @@ angular.module('idealogue.ideaControllers', [
 .controller('IdeaNewCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', function($scope, $location, Util, Auth, IdeaSvc, Idea) {
     Auth.checkIfLoggedIn();
 
-    $scope.save = function() {
-        IdeaSvc.transformIdeaForSave($scope.idea);
-
-        // validate data
-        if (!IdeaSvc.validateIdeaForm($scope)) {
+    $scope.save = function(form) {
+        if (!form.$valid) {
+            for (var prop in form) {
+                if (form.hasOwnProperty(prop) && prop.indexOf('$', 0) === -1) {
+                    form[prop].$touched = true;
+                }
+            }
             return;
         }
+
+        IdeaSvc.transformIdeaForSave($scope.idea);
 
         var timestamp = Util.getISO8601DateString();
         $scope.idea.createdDate = timestamp;
@@ -191,7 +185,6 @@ angular.module('idealogue.ideaControllers', [
 
         // save data
         Idea.save($scope.idea, function(response) {
-            console.log(response)
             $location.path('/ideas/view/' + response.data.id)
         });
     };

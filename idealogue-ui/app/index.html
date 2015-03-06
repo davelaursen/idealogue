@@ -11,7 +11,7 @@
 </head>
 <body ng-controller="MainCtrl">
 
-    <header class="header" ng-hide="headerHidden" ng-controller="HeaderCtrl">
+    <!-- <header class="header" ng-hide="headerHidden" ng-controller="HeaderCtrl">
         <div class="search">
             <form ng-submit="executeSearch()">
                 <label for="searchValue">search:</label>
@@ -29,11 +29,12 @@
                 <li><a href="javascript:" ng-click="logout()" id-disabling>Logout</a></li>
             </ul>
         </nav>
-    </header>
+    </header> -->
 
-    <div class="content-wrapper">
+    <!-- <div class="content-wrapper">
         <div class="content" ng-view></div>
-    </div>
+    </div> -->
+    <div ng-view></div>
 
     <div class="search-results fade" ng-hide="searchResultsHidden" ng-controller="SearchResultsCtrl">
         <div class="search-results-container">

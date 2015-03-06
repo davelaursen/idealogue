@@ -1,29 +1,33 @@
-<section>
-    <h1 class="title">Account</h1>
+<id-header></id-header>
 
-    <ul class="actions">
-        <li><a href="javascript:" ng-click="edit()" id-disabling>edit</a></li>
-        <li><a href="javascript:" ng-click="changePassword()" id-disabling>change password</a></li>
-        <li><a href="javascript:" ng-click="remove()" id-disabling>delete</a></li>
-    </ul>
+<section class="content-wrapper">
+    <div class="content">
+        <h1 class="title">Account</h1>
 
-    <div class='view-group'>
-        <div class="view-label"></div>
-        <div class="view-element bottom-border"><h2>{{user.firstName}} {{user.lastName}}</h2></div>
-    </div>
+        <ul class="actions">
+            <li><a href="javascript:" ng-click="edit()" id-disabling>edit</a></li>
+            <li><a href="javascript:" ng-click="changePassword()" id-disabling>change password</a></li>
+            <li><a href="javascript:" ng-click="remove()" id-disabling>delete</a></li>
+        </ul>
 
-    <div class='view-group'>
-        <div class="view-label">Username</div>
-        <div class="view-element">{{user.id}}</div>
-    </div>
+        <div class='view-group'>
+            <div class="view-label"></div>
+            <div class="view-element bottom-border"><h2>{{user.firstName}} {{user.lastName}}</h2></div>
+        </div>
 
-    <div class='view-group'>
-        <div class="view-label">Email</div>
-        <div class="view-element">{{user.email}}</div>
-    </div>
+        <div class='view-group'>
+            <div class="view-label">Username</div>
+            <div class="view-element">{{user.id}}</div>
+        </div>
 
-    <div class='view-group'>
-        <div class="view-label">Joined</div>
-        <div class="view-element">{{printDate(user.createdDate)}}</div>
+        <div class='view-group'>
+            <div class="view-label">Email</div>
+            <div class="view-element">{{user.email}}</div>
+        </div>
+
+        <div class='view-group'>
+            <div class="view-label">Joined</div>
+            <div class="view-element">{{user.createdDate | date: 'M/dd/yyyy'}}</div>
+        </div>
     </div>
 </section>

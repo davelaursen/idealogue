@@ -15,7 +15,7 @@ angular.module('idealogue.personControllers', [
 
     $scope.viewPerson = function(personId) {
         $location.path('/people/view/' + personId);
-    }
+    };
 
     $scope.sort = function() {
         $scope.desc = !$scope.desc;
@@ -35,7 +35,7 @@ angular.module('idealogue.personControllers', [
 
     $scope.back = function() {
         $location.path('/people');
-    }
+    };
 
     $scope.vote = function() {
 //        var user = $scope.person;
@@ -49,12 +49,5 @@ angular.module('idealogue.personControllers', [
 //                $scope.person = user;
 //            });
 //        }
-    }
-
-    $scope.printDate = function(dateStr) {
-        if (dateStr) {
-            return Util.formatDateString(dateStr, true);
-        }
-        return null;
-    }
+    };
 }]);

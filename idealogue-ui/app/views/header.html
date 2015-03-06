@@ -1,0 +1,19 @@
+<header class="header" ng-hide="headerHidden">
+    <div class="search">
+        <form ng-submit="executeSearch()">
+            <label for="searchValue">search:</label>
+            <input id="searchValue" class="form-element search-value" ng-model="searchValue" type="text" id-disabling>
+        </form>
+    </div>
+    <div class="current-user">
+        logged in as: <span class="username" ng-bind="currentUserName"></span>
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a href="javascript:" ng-click="goToIdeas()" id-disabling>Ideas</a></li>
+            <li><a href="javascript:" ng-click="goToPeople()" id-disabling>People</a></li>
+            <li><a href="javascript:" ng-click="goToAccount()" id-disabling>Account</a></li>
+            <li><a href="javascript:" ng-click="logout()" id-disabling>Logout</a></li>
+        </ul>
+    </nav>
+</header>

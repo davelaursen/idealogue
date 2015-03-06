@@ -14,13 +14,6 @@ angular.module('idealogue.accountControllers', [
         $location.path('/people');
     }
 
-    $scope.printDate = function(dateStr) {
-        if (dateStr) {
-            return Util.formatDateString(dateStr, true);
-        }
-        return null;
-    }
-
     $scope.edit = function() {
         $location.path('/account/edit');
     }
@@ -41,19 +34,18 @@ angular.module('idealogue.accountControllers', [
 
     $scope.user = user;
     $scope.password = { };
+    $scope.oldPasswordInvalid = false;
 
-    $scope.save = function() {
-        var oldPass = CryptoJS.MD5($scope.password.old).toString();
-        var newPass = CryptoJS.MD5($scope.password.new).toString();
-        var confirm = CryptoJS.MD5($scope.password.confirm).toString();
-
-        if ($scope.user.password !== oldPass) {
-            alert('password entered is incorrect');
+    $scope.save = function(form) {
+        if (!form.$valid) {
             return;
         }
 
-        if (newPass !== confirm) {
-            alert('new passwords do not match');
+        var oldPass = CryptoJS.MD5($scope.password.old).toString();
+        var newPass = CryptoJS.MD5($scope.password.new).toString();
+        var confirm = CryptoJS.MD5($scope.password.confirm).toString();
+        if ($scope.user.password !== oldPass) {
+            $scope.oldPasswordInvalid = true;
             return;
         }
 
@@ -70,19 +62,14 @@ angular.module('idealogue.accountControllers', [
     };
 }])
 
-.controller('AccountEditCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'UserSvc', 'User', 'user', function($route, $scope, $location, Util, Auth, UserSvc, User, user) {
+.controller('AccountEditCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'User', 'user', function($route, $scope, $location, Util, Auth, User, user) {
     Auth.checkIfLoggedIn();
 
     $scope.user = user;
-//    UserSvc.transformUserForEdit($scope.user);
-    UserSvc.initializeUserForm();
 
 
-    $scope.save = function() {
-//        UserSvc.transformUserForSave($scope.user);
-
-        // validate data
-        if (!UserSvc.validateUserForm($scope)) {
+    $scope.save = function(form) {
+        if (!form.$valid) {
             return;
         }
 

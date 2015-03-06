@@ -85,54 +85,6 @@ angular.module('idealogue.ideaServices', [
             });
         },
 
-        //TODO: move view-specific logic into a directive
-        validateIdeaForm: function(scope) {
-            var $name = $('#ideaName'),
-                $summary = $('#ideaSummary'),
-                $benefits = $('#ideaBenefits'),
-                $details = $('#ideaDetails');
-
-            var idea = scope.idea;
-            var isNameValid = idea.name && idea.name !== null || idea.name.trim() !== "";
-            var isSummaryValid = idea.summary && idea.summary !== null || idea.summary.trim() !== "";
-            var isBenefitsValid = idea.benefits && idea.benefits !== null || idea.benefits.trim() !== "";
-            var isDetailsValid = idea.details && idea.details !== null || idea.details.trim() !== "";
-
-            if (isDetailsValid) {
-                $details.removeClass('has-error');
-            }
-            else {
-                $details.addClass('has-error');
-                $details.focus();
-            }
-
-            if (isBenefitsValid) {
-                $benefits.removeClass('has-error');
-            }
-            else {
-                $benefits.addClass('has-error');
-                $benefits.focus();
-            }
-
-            if (isSummaryValid) {
-                $summary.removeClass('has-error');
-            }
-            else {
-                $summary.addClass('has-error');
-                $summary.focus();
-            }
-
-            if (isNameValid) {
-                $name.removeClass('has-error');
-            }
-            else {
-                $name.addClass('has-error');
-                $name.focus();
-            }
-
-            return !(!isNameValid || !isSummaryValid || !isBenefitsValid || !isDetailsValid);
-        },
-
         transformIdeaForView: function(idea, people) {
             var i, len, person;
 

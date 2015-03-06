@@ -1,55 +1,59 @@
-<section>
-    <h1 class="title">Edit Idea</h1>
+<id-header></id-header>
 
-    <ul class="actions">
-        <li><a href="javascript:" ng-click="cancel()" id-disabling>back</a></li>
-    </ul>
+<section class="content-wrapper">
+    <div class="content">
+        <h1 class="title">Edit Idea</h1>
 
-    <form ng-submit="save()">
-        <fieldset class="form-group">
-            <label class="form-label" for="ideaName">Name</label>
-            <input id="ideaName" ng-model="idea.name" class="form-element name" type="text" id-focus id-disabling>
-        </fieldset>
+        <ul class="actions">
+            <li><a href="javascript:" ng-click="cancel()" id-disabling>back</a></li>
+        </ul>
 
-        <fieldset class="form-group">
-            <label class="form-label" for="ideaSummary">Summary</label>
-            <textarea id="ideaSummary" ng-model="idea.summary" class="form-element desc" id-disabling></textarea>
-        </fieldset>
+        <form name="editIdeaForm" ng-submit="save(editIdeaForm)" novalidate>
+            <fieldset class="form-group">
+                <label class="form-label" for="ideaName">Name</label>
+                <input id="ideaName" name="ideaName" ng-model="idea.name" class="form-element name" type="text" ng-class="{'has-error': editIdeaForm.ideaName.$invalid}" id-focus id-disabling required>
+            </fieldset>
 
-        <fieldset class="form-group">
-            <label class="form-label" for="ideaBenefits">Benefits</label>
-            <textarea id="ideaBenefits" ng-model="idea.benefits" class="form-element desc" id-disabling></textarea>
-        </fieldset>
+            <fieldset class="form-group">
+                <label class="form-label" for="ideaSummary">Summary</label>
+                <textarea id="ideaSummary" name="ideaSummary" ng-model="idea.summary" class="form-element desc" ng-class="{'has-error': editIdeaForm.ideaSummary.$invalid}" id-disabling required></textarea>
+            </fieldset>
 
-        <fieldset class="form-group">
-            <label class="form-label" for="ideaDetails">Details</label>
-            <textarea id="ideaDetails" ng-model="idea.details" class="form-element desc" id-disabling></textarea>
-        </fieldset>
+            <fieldset class="form-group">
+                <label class="form-label" for="ideaBenefits">Benefits</label>
+                <textarea id="ideaBenefits" name="ideaBenefits" ng-model="idea.benefits" class="form-element desc" ng-class="{'has-error': editIdeaForm.ideaBenefits.$invalid}" id-disabling required></textarea>
+            </fieldset>
 
-        <fieldset class="form-group">
-            <label class="form-label" for="ideaProposers">Proposers</label>
-            <input id="ideaProposers" ng-model="idea.proposers" class="form-element data" type="text" id-disabling>
-            <button type="button" class="inline" ng-click="findProposer()" id-disabling>(lookup person)</button>
-        </fieldset>
+            <fieldset class="form-group">
+                <label class="form-label" for="ideaDetails">Details</label>
+                <textarea id="ideaDetails" name="ideaDetails" ng-model="idea.details" class="form-element desc" ng-class="{'has-error': editIdeaForm.ideaDetails.$invalid}" id-disabling required></textarea>
+            </fieldset>
 
-        <fieldset class="form-group">
-            <label class="form-label" for="ideaSkills">Skills</label>
-            <input id="ideaSkills" ng-model="idea.skills" class="form-element data" type="text" id-disabling>
-        </fieldset>
+            <fieldset class="form-group">
+                <label class="form-label" for="ideaProposers">Proposers</label>
+                <input id="ideaProposers" ng-model="idea.proposers" class="form-element data" type="text" id-disabling>
+                <button type="button" class="inline" ng-click="findProposer()" id-disabling>(lookup person)</button>
+            </fieldset>
 
-        <fieldset class="form-group">
-            <label class="form-label" for="ideaTechnologies">Technologies</label>
-            <input id="ideaTechnologies" ng-model="idea.technologies" class="form-element data" type="text" id-disabling>
-        </fieldset>
+            <fieldset class="form-group">
+                <label class="form-label" for="ideaSkills">Skills</label>
+                <input id="ideaSkills" ng-model="idea.skills" class="form-element data" type="text" id-disabling>
+            </fieldset>
 
-        <fieldset class="form-group">
-            <label class="form-label" for="ideaTags">Tags</label>
-            <input id="ideaTags" ng-model="idea.tags" class="form-element data" type="text" id-disabling>
-        </fieldset>
+            <fieldset class="form-group">
+                <label class="form-label" for="ideaTechnologies">Technologies</label>
+                <input id="ideaTechnologies" ng-model="idea.technologies" class="form-element data" type="text" id-disabling>
+            </fieldset>
 
-        <fieldset class="form-button-group">
-            <button type="submit" class="form-button button-default" id-disabling>save</button>
-            <button type="button" class="form-button" ng-click="cancel()" id-disabling>cancel</button>
-        </fieldset>
-    </form>
+            <fieldset class="form-group">
+                <label class="form-label" for="ideaTags">Tags</label>
+                <input id="ideaTags" ng-model="idea.tags" class="form-element data" type="text" id-disabling>
+            </fieldset>
+
+            <fieldset class="form-button-group">
+                <button type="submit" class="form-button button-default" id-disabling>save</button>
+                <button type="button" class="form-button" ng-click="cancel()" id-disabling>cancel</button>
+            </fieldset>
+        </form>
+    </div>
 </section>

@@ -16,7 +16,6 @@ angular.module('idealogue.coreDirectives', [
 
 .directive('idDisabling', ['Events', function(Events) {
     return {
-        scope: {},
         link: function($scope, $element) {
             $scope.$on(Events.disableViewEvent, function(e, val) {
                 var isAnchor = ($element[0].localName === 'a');
@@ -38,6 +37,24 @@ angular.module('idealogue.coreDirectives', [
     };
 }])
 
+.directive('compareTo', function() {
+    return {
+        require: 'ngModel',
+        scope: {
+            otherModelValue: '=compareTo'
+        },
+        link: function($scope, $element, $attrs, ngModel) {
+            ngModel.$validators.compareTo = function(modelValue) {
+                return modelValue == $scope.otherModelValue;
+            };
+
+            $scope.$watch('otherModelValue', function() {
+                ngModel.$validate();
+            });
+        }
+    };
+})
+
 .directive('idListFilter', ['$timeout', 'Events', 'Util', function($timeout, Events, Util) {
     return {
         restrict: 'E',
@@ -53,6 +70,46 @@ angular.module('idealogue.coreDirectives', [
                     $element.find('input').focus();
                 });
             });
+        }
+    };
+}])
+
+.directive('idHeader', ['$rootScope', '$location', 'Auth', 'Events', function($rootScope, $location, Auth, Events) {
+    return {
+        restrict: 'E',
+        templateUrl: '/views/header.html',
+        scope: {},
+        replace: true,
+        link: function($scope) {
+            $scope.searchValue = "";
+
+            //TODO: refactor to watch for changes to Auth.currentUser and auto-update value
+            var user = Auth.currentUser();
+            if (!user) {
+                return '';
+            }
+            $scope.currentUserName = user.firstName + ' ' + user.lastName;
+
+            $scope.executeSearch = function() {
+                $rootScope.$broadcast(Events.executeSearchEvent, $scope.searchValue);
+                $scope.searchValue = "";
+            };
+
+            $scope.goToIdeas = function() {
+                $location.path('/ideas');
+            };
+
+            $scope.goToPeople = function() {
+                $location.path('/people');
+            };
+
+            $scope.goToAccount = function() {
+                $location.path('/account');
+            };
+
+            $scope.logout = function() {
+                Auth.logout();
+            };
         }
     };
 }]);
