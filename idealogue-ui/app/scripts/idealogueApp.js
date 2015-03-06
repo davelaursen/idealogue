@@ -2,13 +2,13 @@
 
 angular.module('idealogue', [
     'ngRoute',
+    'ngAnimate',
     'idealogue.utilityServices',
     'idealogue.authServices',
     'idealogue.ideaServices',
     'idealogue.userServices',
     'idealogue.eventingServices',
     'idealogue.coreDirectives',
-    'idealogue.ideaDirectives',
     'idealogue.coreControllers',
     'idealogue.ideaControllers',
     'idealogue.personControllers',

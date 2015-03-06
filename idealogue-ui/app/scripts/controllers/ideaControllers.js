@@ -103,6 +103,27 @@ angular.module('idealogue.ideaControllers', [
     }
 }])
 
+.controller('IdeaCommentsCtrl', ['$scope', '$element', function($scope, $element) {
+    $element.find('.comment-new-text').autoSize();
+
+    $scope.addComment = function() {
+        $element.find('.comment-new').show();
+        $element.find('.add-comment-button').hide();
+        $element.find('.comment-new-text').focus();
+    };
+
+    $scope.cancelComment = function() {
+        $scope.newComment = null;
+        $element.find('.comment-new').hide();
+        $element.find('.add-comment-button').show();
+    };
+
+    $scope.saveComment = function() {
+        $scope.save();
+        $scope.cancelComment();
+    };
+}])
+
 .controller('IdeaEditCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'idea', function($scope, $location, Util, Auth, IdeaSvc, Idea, idea) {
     Auth.checkIfLoggedIn();
 

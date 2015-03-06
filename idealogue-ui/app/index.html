@@ -11,20 +11,65 @@
 </head>
 <body ng-controller="MainCtrl">
 
-    <id-header></id-header>
+    <header class="header" ng-hide="headerHidden" ng-controller="HeaderCtrl">
+        <div class="search">
+            <form ng-submit="executeSearch()">
+                <label for="searchValue">search:</label>
+                <input id="searchValue" class="form-element search-value" ng-model="searchValue" type="text" id-disabling>
+            </form>
+        </div>
+        <div class="current-user">
+            logged in as: <span class="username" ng-bind="currentUserName"></span>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="javascript:" ng-click="goToIdeas()" id-disabling>Ideas</a></li>
+                <li><a href="javascript:" ng-click="goToPeople()" id-disabling>People</a></li>
+                <li><a href="javascript:" ng-click="goToAccount()" id-disabling>Account</a></li>
+                <li><a href="javascript:" ng-click="logout()" id-disabling>Logout</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <div class="content-wrapper">
         <div class="content" ng-view></div>
     </div>
 
-    <id-search-results></id-search-results>
-    <id-person-search></id-person-search>
+    <div class="search-results fade" ng-hide="searchResultsHidden" ng-controller="SearchResultsCtrl">
+        <div class="search-results-container">
+            <button type="button" class="inline search-results-close" ng-click="closeSearchResults()">(close)</button>
+        </div>
+    </div>
+
+    <!-- <id-person-search></id-person-search> -->
+    <div class="person-search fade" ng-hide="personSearchHidden" ng-controller="PersonSearchCtrl">
+        <div class="person-search-container">
+            <form ng-submit="executePersonSearch()">
+                <input class="form-element small" type="text" ng-model="personSearchValue">
+                <button type="submit" class="hidden"></button>
+                <button type="button" class="inline person-search-close" ng-click="closePersonSearchBox()">(close)</button>
+            </form>
+
+            <div class="person-search-results">
+                <ul>
+                    <li ng-repeat="person in personSearchResults">
+                        <button ng-click="selectPerson(person)">
+                            <span class="person-result-full-name">{{person.firstName}} {{person.lastName}}</span>
+                            <span class="person-result-info">username: {{person.id}}</span>
+                            <span class="person-result-info">{{person.email}}</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/crypto-js/rollups/md5.js"></script>
 
     <script src="scripts/common.js"></script>
@@ -35,7 +80,6 @@
     <script src="scripts/controllers/personControllers.js"></script>
     <script src="scripts/controllers/accountControllers.js"></script>
     <script src="scripts/directives/coreDirectives.js"></script>
-    <script src="scripts/directives/ideaDirectives.js"></script>
     <script src="scripts/services/authServices.js"></script>
     <script src="scripts/services/configServices.js"></script>
     <script src="scripts/services/ideaServices.js"></script>

@@ -143,17 +143,6 @@ button.inline:hover {
     display: none;
 }
 
-.overlay {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(85, 85, 85, 0.71);
-    height: 100%;
-    width: 100%;
-    z-index: 100;
-}
-
 .list-filter {
     margin: 0 175px 0 80px;
 }
@@ -425,6 +414,16 @@ button.inline:hover {
 /* Person Search
 *****************************************************************/
 
+.person-search {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(85, 85, 85, 0.71);
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+}
+
 .person-search-container {
     margin: auto;
     position: absolute;
@@ -494,6 +493,16 @@ button.inline:hover {
 
 /* Search Results
 *****************************************************************/
+
+.search-results {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(85, 85, 85, 0.71);
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+}
 
 .search-results-container {
     /*display: none;*/
@@ -670,5 +679,24 @@ button.inline:hover {
 }
 .person-list-info::after {
     content:']';
+}
+
+
+
+/* AngularJS Styles
+*****************************************************************/
+
+/* required to ensure that element remains visible during the animation */
+.ng-hide-add, .ng-hide-remove {
+    display: block !important;
+}
+
+/* add 'fade' class to elements that use ng-hide to fade in and out */
+.fade {
+    transition: 200ms linear all;
+    opacity: 1;
+}
+.fade.ng-hide {
+    opacity: 0;
 }
 
