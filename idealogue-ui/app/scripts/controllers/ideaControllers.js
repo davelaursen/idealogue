@@ -121,7 +121,6 @@ angular.module('idealogue.ideaControllers', [
 
     $scope.idea = idea;
     IdeaSvc.transformIdeaForEdit($scope.idea);
-    IdeaSvc.initializeIdeaForm();
 
     $scope.save = function(form) {
         if (!form.$valid) {

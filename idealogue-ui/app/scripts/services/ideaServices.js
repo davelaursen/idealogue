@@ -62,29 +62,6 @@ angular.module('idealogue.ideaServices', [
 
 .factory('IdeaSvc', ['$timeout', 'Util', function IdeaSvcFactory($timeout, Util) {
     return {
-        //TODO: move into a directive
-        initializeIdeaForm: function() {
-            var $name = $('#ideaName'),
-                $summary = $('#ideaSummary'),
-                $benefits = $('#ideaBenefits'),
-                $details = $('#ideaDetails');
-
-            $name.parent().removeClass('has-error');
-            $summary.parent().removeClass('has-error');
-            $benefits.parent().removeClass('has-error');
-            $details.parent().removeClass('has-error');
-
-            $summary.autoSize();
-            $benefits.autoSize();
-            $details.autoSize();
-
-            $timeout(function() {
-                $.resizeTextArea($summary[0]);
-                $.resizeTextArea($benefits[0]);
-                $.resizeTextArea($details[0]);
-            });
-        },
-
         transformIdeaForView: function(idea, people) {
             var i, len, person;
 

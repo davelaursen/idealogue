@@ -37,11 +37,11 @@ angular.module('idealogue.coreDirectives', [
     };
 }])
 
-.directive('compareTo', function() {
+.directive('idCompareTo', function() {
     return {
         require: 'ngModel',
         scope: {
-            otherModelValue: '=compareTo'
+            otherModelValue: '=idCompareTo'
         },
         link: function($scope, $element, $attrs, ngModel) {
             ngModel.$validators.compareTo = function(modelValue) {
@@ -50,6 +50,17 @@ angular.module('idealogue.coreDirectives', [
 
             $scope.$watch('otherModelValue', function() {
                 ngModel.$validate();
+            });
+        }
+    };
+})
+
+.directive('idAutoSize', function($timeout) {
+    return {
+        link: function($scope, $element) {
+            $element.autoSize();
+            $timeout(function() {
+                $.resizeTextArea($element[0]);
             });
         }
     };
