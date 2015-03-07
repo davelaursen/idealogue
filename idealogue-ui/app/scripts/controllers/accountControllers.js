@@ -53,6 +53,7 @@ angular.module('idealogue.accountControllers', [
 
         // save data
         User.save($scope.user, function(response) {
+            Auth.setCurrentUser($scope.user);
             $location.path('/account');
         });
     };
@@ -75,6 +76,7 @@ angular.module('idealogue.accountControllers', [
 
         // save data
         User.save($scope.user, function(response) {
+            Auth.setCurrentUser($scope.user);
             $location.path('/account');
         });
     };

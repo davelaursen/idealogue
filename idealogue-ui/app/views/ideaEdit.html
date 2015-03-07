@@ -29,10 +29,20 @@
                 <textarea id="ideaDetails" name="ideaDetails" ng-model="idea.details" class="form-element desc" ng-class="{'has-error': editIdeaForm.ideaDetails.$invalid}" id-disabling required id-auto-size></textarea>
             </fieldset>
 
-            <fieldset class="form-group">
+            <!-- <fieldset class="form-group">
                 <label class="form-label" for="ideaProposers">Proposers</label>
                 <input id="ideaProposers" ng-model="idea.proposers" class="form-element data" type="text" id-disabling>
                 <button type="button" class="inline" ng-click="findProposer()" id-disabling>(lookup person)</button>
+            </fieldset> -->
+            <fieldset class="form-group">
+                <label class="form-label" for="ideaProposers">Proposers</label>
+                <ul class="proposer-list">
+                    <li ng-repeat="proposer in idea.proposers">
+                        {{proposer.firstName}} {{proposer.lastName}}
+                        <button type="button" ng-click="removeProposer($index)">x</button>
+                    </li>
+                </ul>
+                <button type="button" class="inline form-aligned" ng-click="addProposer()" id-disabling>(add proposer)</button>
             </fieldset>
 
             <fieldset class="form-group">

@@ -75,6 +75,7 @@ angular.module('idealogue.coreControllers', [
 
     $scope.closePersonSearchBox = function() {
         $scope.personSearchHidden = true;
+        $scope.personSearchValue = "";
         $scope.personSearchResults = [];
         $rootScope.$broadcast(Events.closePersonSearchBoxEvent, true);
     };

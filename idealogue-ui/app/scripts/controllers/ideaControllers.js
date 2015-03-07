@@ -116,11 +116,11 @@ angular.module('idealogue.ideaControllers', [
     };
 }])
 
-.controller('IdeaEditCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'idea', function($scope, $location, Util, Auth, IdeaSvc, Idea, idea) {
+.controller('IdeaEditCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'idea', 'people', function($scope, $location, Util, Auth, IdeaSvc, Idea, idea, people) {
     Auth.checkIfLoggedIn();
 
+    IdeaSvc.transformIdeaForEdit(idea, people);
     $scope.idea = idea;
-    IdeaSvc.transformIdeaForEdit($scope.idea);
 
     $scope.save = function(form) {
         if (!form.$valid) {
@@ -140,26 +140,16 @@ angular.module('idealogue.ideaControllers', [
         $location.path('/ideas/view/' + $scope.idea.id);
     };
 
-    $scope.findProposer = function() {
+    $scope.removeProposer = function(index) {
+        $scope.idea.proposers.splice(index, 1);
+    }
+
+    $scope.addProposer = function() {
         $scope.openPersonSearchBox(
             function(person) {
-                var value = $scope.idea.proposers
-                if (value.length > 0) {
-                    value += ", ";
-                }
-                value += person.id;
-                $scope.idea.proposers = value;
+                $scope.idea.proposers.push(person);
             }
         );
-    };
-
-    $scope.onPersonSelected = function(person) {
-        var value = $scope.idea.proposers
-        if (value.length > 0) {
-            value += ", ";
-        }
-        value += person.id;
-        $scope.idea.proposers = value;
     };
 }])
 

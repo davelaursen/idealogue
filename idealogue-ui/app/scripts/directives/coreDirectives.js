@@ -93,13 +93,11 @@ angular.module('idealogue.coreDirectives', [
         replace: true,
         link: function($scope) {
             $scope.searchValue = "";
+            $scope.currentUserName = Auth.currentUserName();
 
-            //TODO: refactor to watch for changes to Auth.currentUser and auto-update value
-            var user = Auth.currentUser();
-            if (!user) {
-                return '';
-            }
-            $scope.currentUserName = user.firstName + ' ' + user.lastName;
+            $scope.setCurrentUserName = function(user) {
+                $scope.currentUserName = user.firstName + ' ' + user.lastName;
+            };
 
             $scope.executeSearch = function() {
                 $rootScope.$broadcast(Events.executeSearchEvent, $scope.searchValue);
@@ -121,6 +119,16 @@ angular.module('idealogue.coreDirectives', [
             $scope.logout = function() {
                 Auth.logout();
             };
+
+            $scope.$watch(
+                function() {
+                    var user = Auth.currentUser();
+                    return user.firstName + ' ' + user.lastName;
+                },
+                function(val) {
+                    $scope.currentUserName = val;
+                }
+            );
         }
     };
 }]);

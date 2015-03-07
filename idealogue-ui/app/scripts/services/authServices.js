@@ -22,7 +22,6 @@ angular.module('idealogue.authServices', [
             deferred.promise.then(function(user) {
                 if (user.password === CryptoJS.MD5(password).toString()) {
                     $cookieStore.put('currentUser', user);
-                    $cookieStore.put('currentUserName', user.firstName + " " + user.lastName)
                     callback(true);
                 }
                 else {
@@ -33,7 +32,6 @@ angular.module('idealogue.authServices', [
 
         logout: function() {
             $cookieStore.remove('currentUser');
-            $cookieStore.remove('currentUserName');
             $location.path('/login');
         },
 
@@ -54,7 +52,12 @@ angular.module('idealogue.authServices', [
         },
 
         currentUserName: function() {
-            return $cookieStore.get('currentUserName');
+            var user = $cookieStore.get('currentUser');
+            return user.firstName + ' ' + user.lastName;
+        },
+
+        setCurrentUser: function(user) {
+            return $cookieStore.put('currentUser', user);
         }
     };
 }]);

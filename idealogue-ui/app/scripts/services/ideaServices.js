@@ -83,8 +83,18 @@ angular.module('idealogue.ideaServices', [
             }
         },
 
-        transformIdeaForEdit: function(idea) {
-            idea.proposers = Util.arrayToString(idea.proposers);
+        transformIdeaForEdit: function(idea, people) {
+            var proposerObjs = [];
+            var index = 0;
+            for (var i = 0, len = idea.proposers.length; i < len; i++) {
+                var person = Util.findInArray(people, 'id', idea.proposers[i]);
+                if (person !== null) {
+                    proposerObjs[index++] = person;
+                }
+            }
+            idea.proposers = proposerObjs;
+
+            // idea.proposers = Util.arrayToString(idea.proposers);
             idea.skills = Util.arrayToString(idea.skills);
             idea.technologies = Util.arrayToString(idea.technologies);
             idea.tags = Util.arrayToString(idea.tags);
@@ -93,11 +103,14 @@ angular.module('idealogue.ideaServices', [
         transformIdeaForSave: function(idea) {
             var i, len;
 
-            if (typeof idea.proposers === 'string') {
-                idea.proposers = idea.proposers.split(',');
-            }
+            // if (typeof idea.proposers === 'string') {
+            //     idea.proposers = idea.proposers.split(',');
+            // }
+            // for (i = 0, len = idea.proposers.length; i < len; i++) {
+            //     idea.proposers[i] = idea.proposers[i].trim();
+            // }
             for (i = 0, len = idea.proposers.length; i < len; i++) {
-                idea.proposers[i] = idea.proposers[i].trim();
+                idea.proposers[i] = idea.proposers[i].id;
             }
 
             if (typeof idea.skills === 'string') {

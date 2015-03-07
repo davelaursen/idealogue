@@ -635,6 +635,36 @@ button.inline:hover {
 
 
 
+
+.proposer-list {
+    display: inline-block;
+}
+
+.proposer-list li {
+    display: inline-block;
+    background-color: rgba(245, 245, 245, 0.5);
+    border: 1px solid #aaaaaa;
+    border-radius: 6px;
+    margin: 0 0 0 10px;
+    padding: 2px 5px 2px 10px;
+    font-size: 0.8em;
+}
+.proposer-list li:first-of-type {
+    margin-left: 0;
+}
+
+.proposer-list button {
+    border: 0;
+    background-color: transparent;
+    margin: 0;
+    padding: 0 5px;
+}
+.proposer-list button:hover {
+    background-color: transparent;
+}
+
+
+
 /* Person List
 *****************************************************************/
 

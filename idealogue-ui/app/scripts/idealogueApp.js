@@ -56,6 +56,9 @@ angular.module('idealogue', [
             resolve: {
                 idea: function(IdeaLoader, $route) {
                     return IdeaLoader($route.current.params.ideaId);
+                },
+                people: function(MultiUserLoader) {
+                    return MultiUserLoader();
                 }
             }
         })
