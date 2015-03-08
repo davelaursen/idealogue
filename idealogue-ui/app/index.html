@@ -11,39 +11,37 @@
 </head>
 <body ng-controller="MainCtrl">
 
-    <!-- <header class="header" ng-hide="headerHidden" ng-controller="HeaderCtrl">
-        <div class="search">
+    <header class="header" ng-hide="headerHidden" ng-cloak>
+        <div class="search" ng-controller="SearchCtrl">
             <form ng-submit="executeSearch()">
                 <label for="searchValue">search:</label>
                 <input id="searchValue" class="form-element search-value" ng-model="searchValue" type="text" id-disabling>
             </form>
         </div>
-        <div class="current-user">
+        <div class="current-user" ng-controller="CurrentUserCtrl">
             logged in as: <span class="username" ng-bind="currentUserName"></span>
         </div>
-        <nav class="nav">
+        <nav class="nav" ng-controller="NavCtrl">
             <ul>
-                <li><a href="javascript:" ng-click="goToIdeas()" id-disabling>Ideas</a></li>
-                <li><a href="javascript:" ng-click="goToPeople()" id-disabling>People</a></li>
-                <li><a href="javascript:" ng-click="goToAccount()" id-disabling>Account</a></li>
-                <li><a href="javascript:" ng-click="logout()" id-disabling>Logout</a></li>
+                <li><a href="" ng-click="goToIdeas()" id-disabling>Ideas</a></li>
+                <li><a href="" ng-click="goToPeople()" id-disabling>People</a></li>
+                <li><a href="" ng-click="goToAccount()" id-disabling>Account</a></li>
+                <li><a href="" ng-click="logout()" id-disabling>Logout</a></li>
             </ul>
         </nav>
-    </header> -->
+    </header>
 
-    <!-- <div class="content-wrapper">
+    <div class="content-wrapper">
         <div class="content" ng-view></div>
-    </div> -->
-    <div ng-view></div>
+    </div>
 
-    <div class="search-results fade" ng-hide="searchResultsHidden" ng-controller="SearchResultsCtrl">
+    <div class="search-results fade" ng-hide="searchResultsHidden" ng-controller="SearchResultsCtrl" ng-cloak>
         <div class="search-results-container">
             <button type="button" class="inline search-results-close" ng-click="closeSearchResults()">(close)</button>
         </div>
     </div>
 
-    <!-- <id-person-search></id-person-search> -->
-    <div class="person-search fade" ng-hide="personSearchHidden" ng-controller="PersonSearchCtrl">
+    <div class="person-search fade" ng-hide="personSearchHidden" ng-controller="PersonSearchCtrl" ng-cloak>
         <div class="person-search-container">
             <form ng-submit="executePersonSearch()">
                 <input class="form-element small" type="text" ng-model="personSearchValue">

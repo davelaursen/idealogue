@@ -35,6 +35,14 @@ angular.module('idealogue.authServices', [
             $location.path('/login');
         },
 
+        isLoggedIn: function() {
+            var currentUser = $cookieStore.get('currentUser');
+            if (!currentUser || currentUser == null) {
+                return false;
+            }
+            return true;
+        },
+
         checkIfLoggedIn: function(redirect) {
             var currentUser = $cookieStore.get('currentUser');
             if (!currentUser || currentUser == null) {
@@ -53,6 +61,9 @@ angular.module('idealogue.authServices', [
 
         currentUserName: function() {
             var user = $cookieStore.get('currentUser');
+            if (!user) {
+                return "";
+            }
             return user.firstName + ' ' + user.lastName;
         },
 

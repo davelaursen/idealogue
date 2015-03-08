@@ -5,6 +5,16 @@ angular.module('idealogue.coreControllers', [
 ])
 
 .controller('MainCtrl', ['$rootScope', '$scope', 'Events', function($rootScope, $scope, Events) {
+    $scope.headerHidden = true;
+
+    $scope.hideHeader = function() {
+        $scope.headerHidden = true;
+    };
+
+    $scope.showHeader = function() {
+        $scope.headerHidden = false;
+    };
+
     $scope.disableView = function() {
         $rootScope.$broadcast(Events.disableViewEvent, true);
     };
@@ -34,6 +44,50 @@ angular.module('idealogue.coreControllers', [
     $scope.$on(Events.closePersonSearchBoxEvent, function(e, val) {
         $scope.enableView();
     })
+}])
+
+.controller('SearchCtrl', ['$rootScope', '$scope', 'Auth', 'Events', function($rootScope, $scope, Auth, Events) {
+    $scope.searchValue = "";
+
+    $scope.executeSearch = function() {
+        $rootScope.$broadcast(Events.executeSearchEvent, $scope.searchValue);
+        $scope.searchValue = "";
+    };
+
+    $scope.$watch(
+        function() {
+            return Auth.currentUserName();
+        },
+        function(val) {
+            $scope.currentUserName = val;
+        }
+    );
+}])
+
+.controller('CurrentUserCtrl', ['$scope', 'Auth', function($scope, Auth) {
+    $scope.currentUserName = Auth.currentUserName();
+
+    $scope.setCurrentUserName = function(user) {
+        $scope.currentUserName = user.firstName + ' ' + user.lastName;
+    };
+}])
+
+.controller('NavCtrl', ['$scope', '$location', 'Auth', function($scope, $location, Auth) {
+    $scope.goToIdeas = function() {
+        $location.path('/ideas');
+    };
+
+    $scope.goToPeople = function() {
+        $location.path('/people');
+    };
+
+    $scope.goToAccount = function() {
+        $location.path('/account');
+    };
+
+    $scope.logout = function() {
+        Auth.logout();
+    };
 }])
 
 .controller('SearchResultsCtrl', ['$rootScope', '$scope', 'Events', function($rootScope, $scope, Events) {

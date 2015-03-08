@@ -36,6 +36,9 @@ angular.module('idealogue', [
                 ideas: function(MultiIdeaLoader) {
                     return MultiIdeaLoader();
                 }
+            },
+            access: {
+                requiresLogin: true
             }
         })
         .when('/ideas/view/:ideaId', {
@@ -48,6 +51,9 @@ angular.module('idealogue', [
                 people: function(MultiUserLoader) {
                     return MultiUserLoader();
                 }
+            },
+            access: {
+                requiresLogin: true
             }
         })
         .when('/ideas/edit/:ideaId', {
@@ -60,11 +66,17 @@ angular.module('idealogue', [
                 people: function(MultiUserLoader) {
                     return MultiUserLoader();
                 }
+            },
+            access: {
+                requiresLogin: true
             }
         })
         .when('/ideas/new', {
             controller: 'IdeaNewCtrl',
-            templateUrl: '/views/ideaNew.html'
+            templateUrl: '/views/ideaNew.html',
+            access: {
+                requiresLogin: true
+            }
         })
 
         .when('/people', {
@@ -74,6 +86,9 @@ angular.module('idealogue', [
                 people: function(MultiUserLoader) {
                     return MultiUserLoader();
                 }
+            },
+            access: {
+                requiresLogin: true
             }
         })
         .when('/people/view/:personId', {
@@ -83,6 +98,9 @@ angular.module('idealogue', [
                 person: function(UserLoader, $route) {
                     return UserLoader($route.current.params.personId);
                 }
+            },
+            access: {
+                requiresLogin: true
             }
         })
 
@@ -93,6 +111,9 @@ angular.module('idealogue', [
                 user: function(UserLoader, Auth) {
                     return UserLoader(Auth.currentUser().id);
                 }
+            },
+            access: {
+                requiresLogin: true
             }
         })
         .when('/account/edit', {
@@ -102,6 +123,9 @@ angular.module('idealogue', [
                 user: function(UserLoader, Auth) {
                     return UserLoader(Auth.currentUser().id);
                 }
+            },
+            access: {
+                requiresLogin: true
             }
         })
         .when('/account/password', {
@@ -111,8 +135,19 @@ angular.module('idealogue', [
                 user: function(UserLoader, Auth) {
                     return UserLoader(Auth.currentUser().id);
                 }
+            },
+            access: {
+                requiresLogin: true
             }
         })
 
         .otherwise({redirectTo:'/ideas'});
+}])
+
+.run(['$rootScope', '$location', 'Auth', function($rootScope, $location, Auth) {
+    $rootScope.$on('$routeChangeStart', function(evt, next, current) {
+        if (next.access !== undefined && !Auth.isLoggedIn()) {
+            $location.path('/login');
+        }
+    });
 }]);

@@ -6,6 +6,7 @@ angular.module('idealogue.personControllers', [
 ])
 
 .controller('PersonListCtrl', ['$rootScope', '$scope', '$location', 'Util', 'Auth', 'Events', 'people', function($rootScope, $scope, $location, Util, Auth, Events, people) {
+    $scope.showHeader();
     Auth.checkIfLoggedIn();
 
     people.sort(Util.sortBy('lastName', false, function(a){return a.toUpperCase()}));
@@ -29,6 +30,7 @@ angular.module('idealogue.personControllers', [
 }])
 
 .controller('PersonViewCtrl', ['$scope', '$location', 'Util', 'Auth', 'User', 'person', function($scope, $location, Util, Auth, User, person) {
+    $scope.showHeader();
     Auth.checkIfLoggedIn();
 
     $scope.person = person;

@@ -10,6 +10,7 @@ angular.module('idealogue.ideaControllers', [
 ])
 
 .controller('IdeaListCtrl', ['$rootScope', '$scope', '$location', 'Util', 'Auth', 'Events', 'ideas', function($rootScope, $scope, $location, Util, Auth, Events, ideas) {
+    $scope.showHeader();
     Auth.checkIfLoggedIn();
 
     ideas.sort(Util.sortBy('name', false, function(a){return a.toUpperCase()}));
@@ -41,6 +42,7 @@ angular.module('idealogue.ideaControllers', [
 }])
 
 .controller('IdeaViewCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'idea', 'people', function($route, $scope, $location, Util, Auth, IdeaSvc, Idea, idea, people) {
+    $scope.showHeader();
     Auth.checkIfLoggedIn();
 
     IdeaSvc.transformIdeaForView(idea, people);
@@ -117,6 +119,7 @@ angular.module('idealogue.ideaControllers', [
 }])
 
 .controller('IdeaEditCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'idea', 'people', function($scope, $location, Util, Auth, IdeaSvc, Idea, idea, people) {
+    $scope.showHeader();
     Auth.checkIfLoggedIn();
 
     IdeaSvc.transformIdeaForEdit(idea, people);
@@ -154,6 +157,7 @@ angular.module('idealogue.ideaControllers', [
 }])
 
 .controller('IdeaNewCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', function($scope, $location, Util, Auth, IdeaSvc, Idea) {
+    $scope.showHeader();
     Auth.checkIfLoggedIn();
 
     $scope.save = function(form) {

@@ -27,7 +27,7 @@ angular.module('idealogue.coreDirectives', [
                     }
                 } else {
                     if (isAnchor) {
-                        $element.attr("href", "javascript:");
+                        $element.attr("href", "");
                     } else {
                         $element.removeAttr("disabled");
                     }
@@ -81,54 +81,6 @@ angular.module('idealogue.coreDirectives', [
                     $element.find('input').focus();
                 });
             });
-        }
-    };
-}])
-
-.directive('idHeader', ['$rootScope', '$location', 'Auth', 'Events', function($rootScope, $location, Auth, Events) {
-    return {
-        restrict: 'E',
-        templateUrl: '/views/header.html',
-        scope: {},
-        replace: true,
-        link: function($scope) {
-            $scope.searchValue = "";
-            $scope.currentUserName = Auth.currentUserName();
-
-            $scope.setCurrentUserName = function(user) {
-                $scope.currentUserName = user.firstName + ' ' + user.lastName;
-            };
-
-            $scope.executeSearch = function() {
-                $rootScope.$broadcast(Events.executeSearchEvent, $scope.searchValue);
-                $scope.searchValue = "";
-            };
-
-            $scope.goToIdeas = function() {
-                $location.path('/ideas');
-            };
-
-            $scope.goToPeople = function() {
-                $location.path('/people');
-            };
-
-            $scope.goToAccount = function() {
-                $location.path('/account');
-            };
-
-            $scope.logout = function() {
-                Auth.logout();
-            };
-
-            $scope.$watch(
-                function() {
-                    var user = Auth.currentUser();
-                    return user.firstName + ' ' + user.lastName;
-                },
-                function(val) {
-                    $scope.currentUserName = val;
-                }
-            );
         }
     };
 }]);

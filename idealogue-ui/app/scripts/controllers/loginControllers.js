@@ -6,6 +6,7 @@ angular.module('idealogue.loginControllers', [
 ])
 
 .controller('LoginCtrl', ['$scope', '$location', 'Auth', 'Util', function($scope, $location, Auth, Util) {
+    $scope.hideHeader();
     $scope.login = { };
 
     $scope.login = function() {
@@ -27,6 +28,7 @@ angular.module('idealogue.loginControllers', [
 }])
 
 .controller('RegisterCtrl', ['$scope', '$q', '$location', 'Util', 'Auth', 'User', function($scope, $q, $location, Util, Auth, User) {
+    $scope.hideHeader();
     $scope.user = { };
     $scope.password = { };
 

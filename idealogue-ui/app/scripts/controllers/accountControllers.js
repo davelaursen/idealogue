@@ -6,6 +6,7 @@ angular.module('idealogue.accountControllers', [
 ])
 
 .controller('AccountViewCtrl', ['$scope', '$location', 'Util', 'Auth', 'User', 'user', function($scope, $location, Util, Auth, User, user) {
+    $scope.showHeader();
     Auth.checkIfLoggedIn();
 
     $scope.user = user;
@@ -30,6 +31,7 @@ angular.module('idealogue.accountControllers', [
 }])
 
 .controller('AccountPasswordCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'User', 'user', function($route, $scope, $location, Util, Auth, User, user) {
+    $scope.showHeader();
     Auth.checkIfLoggedIn();
 
     $scope.user = user;
@@ -64,6 +66,7 @@ angular.module('idealogue.accountControllers', [
 }])
 
 .controller('AccountEditCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'User', 'user', function($route, $scope, $location, Util, Auth, User, user) {
+    $scope.showHeader();
     Auth.checkIfLoggedIn();
 
     $scope.user = user;
