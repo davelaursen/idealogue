@@ -646,10 +646,6 @@ button.inline-symbol:hover {
     line-height: 1.3;
 }
 
-.comment-new {
-    display: none;
-}
-
 .comment-new-text {
     width: 98%;
 }

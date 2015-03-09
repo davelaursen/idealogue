@@ -8,32 +8,24 @@ angular.module('idealogue.coreDirectives', [
     'idealogue.eventingServices'
 ])
 
-// .directive('idFocus', ['$timeout', function($timeout) {
-//     return function($scope, $element) {
-//         $timeout(function() {
-//             $element[0].focus();
-//         });
-//     };
-// }])
-
 .directive('idFocus', ['$timeout', function($timeout) {
     return {
         scope: {
             idFocus: '@'
         },
-        link: function($scope, $element) {
+        link: function(scope, element) {
             function doFocus() {
                 $timeout(function() {
-                    $element[0].focus();
+                    element[0].focus();
                 });
             }
 
-            if ($scope.idFocus != null) {
-                if ($scope.idFocus !== 'false') {
+            if (scope.idFocus != null) {
+                if (scope.idFocus !== 'false') {
                     doFocus();
                 }
 
-                $scope.$watch('idFocus', function(value) {
+                scope.$watch('idFocus', function(value) {
                     if (value === 'true') {
                         doFocus();
                     }
@@ -48,20 +40,20 @@ angular.module('idealogue.coreDirectives', [
 
 .directive('idDisabling', ['Events', function(Events) {
     return {
-        link: function($scope, $element) {
-            $scope.$on(Events.disableViewEvent, function(e, val) {
-                var isAnchor = ($element[0].localName === 'a');
+        link: function(scope, element) {
+            scope.$on(Events.disableViewEvent, function(e, val) {
+                var isAnchor = (element[0].localName === 'a');
                 if (val === true) {
                     if (isAnchor) {
-                        $element.removeAttr("href");
+                        element.removeAttr("href");
                     } else {
-                        $element.attr("disabled", "disabled");
+                        element.attr("disabled", "disabled");
                     }
                 } else {
                     if (isAnchor) {
-                        $element.attr("href", "");
+                        element.attr("href", "");
                     } else {
-                        $element.removeAttr("disabled");
+                        element.removeAttr("disabled");
                     }
                 }
             });
@@ -75,44 +67,54 @@ angular.module('idealogue.coreDirectives', [
         scope: {
             otherModelValue: '=idCompareTo'
         },
-        link: function($scope, $element, $attrs, ngModel) {
+        link: function(scope, element, attrs, ngModel) {
             ngModel.$validators.compareTo = function(modelValue) {
-                return modelValue == $scope.otherModelValue;
+                return modelValue == scope.otherModelValue;
             };
 
-            $scope.$watch('otherModelValue', function() {
+            scope.$watch('otherModelValue', function() {
                 ngModel.$validate();
             });
         }
     };
 })
 
-.directive('idAutoSize', function($timeout) {
+.directive('idAutoSize', ['$timeout', function($timeout) {
     return {
-        link: function($scope, $element) {
-            $element.autoSize();
+        link: function(scope, element) {
+            function resize() {
+                if (element[0].scrollHeight < 1) {
+                    return;
+                }
+                while(element[0].clientHeight >= element[0].scrollHeight) {
+                    element[0].style.height = parseInt(getComputedStyle(element[0]).getPropertyValue('height'), 10) - 1 + "px";
+                }
+                while(element[0].clientHeight < element[0].scrollHeight) {
+                    element[0].style.height = parseInt(getComputedStyle(element[0]).getPropertyValue('height'), 10) + 1 + "px";
+                }
+            }
+
+            element.css('overflow', 'hidden');
+            element.bind('keyup', function() {resize()});
+
             $timeout(function() {
-                $.resizeTextArea($element[0]);
+                resize();
             });
         }
     };
-})
+}])
 
-.directive('idListFilter', ['$timeout', 'Events', 'Util', function($timeout, Events, Util) {
+.directive('idListFilter', function() {
     return {
         restrict: 'E',
         templateUrl: '/views/listFilter.html',
         replace: true,
-        link: function($scope, $element) {
-            $scope.listFilterHidden = true;
+        link: function(scope) {
+            scope.listFilterHidden = true;
 
-            $scope.$on(Events.hideListFilterEvent, function(e, val) {
-                $scope.listFilterHidden = val;
-
-                $timeout(function() {
-                    $element.find('input').focus();
-                });
-            });
+            scope.toggleFilter = function() {
+                scope.listFilterHidden = !scope.listFilterHidden;
+            };
         }
     };
-}]);
+});

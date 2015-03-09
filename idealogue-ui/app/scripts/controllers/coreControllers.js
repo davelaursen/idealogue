@@ -53,6 +53,14 @@ angular.module('idealogue.coreControllers', [
         $rootScope.$broadcast(Events.executeSearchEvent, $scope.searchValue);
         $scope.searchValue = "";
     };
+}])
+
+.controller('CurrentUserCtrl', ['$scope', 'Auth', function($scope, Auth) {
+    $scope.currentUserName = Auth.currentUserName();
+
+    $scope.setCurrentUserName = function(user) {
+        $scope.currentUserName = user.firstName + ' ' + user.lastName;
+    };
 
     $scope.$watch(
         function() {
@@ -62,14 +70,6 @@ angular.module('idealogue.coreControllers', [
             $scope.currentUserName = val;
         }
     );
-}])
-
-.controller('CurrentUserCtrl', ['$scope', 'Auth', function($scope, Auth) {
-    $scope.currentUserName = Auth.currentUserName();
-
-    $scope.setCurrentUserName = function(user) {
-        $scope.currentUserName = user.firstName + ' ' + user.lastName;
-    };
 }])
 
 .controller('NavCtrl', ['$scope', '$location', 'Auth', function($scope, $location, Auth) {
@@ -145,8 +145,5 @@ angular.module('idealogue.coreControllers', [
         }
 
         $scope.personSearchHidden = false;
-        $timeout(function() {
-            $element.find('input:first').focus();
-        });
     });
 }]);

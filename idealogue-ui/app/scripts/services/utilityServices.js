@@ -87,7 +87,21 @@ angular.module('idealogue.utilityServices', [])
             return results;
         },
 
-        findInArray: function(arr, prop1, value1, prop2, value2, partialMatch) {
+        findInArray: function(arr, value, partialMatch) {
+            for (var i = 0, len = arr.length; i < len; i++) {
+                if (!partialMatch || partialMatch === false) {
+                    if (arr[i] === value) {
+                        return arr[i];
+                    }
+                }
+                else if (arr[i].contains(value)) {
+                    return arr[i];
+                }
+            }
+            return null;
+        },
+
+        findInObjectArray: function(arr, prop1, value1, prop2, value2, partialMatch) {
             for (var i = 0, len = arr.length; i < len; i++) {
                 if (!partialMatch || partialMatch === false) {
                     if (prop1 && arr[i][prop1] === value1) {
@@ -97,8 +111,7 @@ angular.module('idealogue.utilityServices', [])
                     }
                 }
                 else if ((prop1 && arr[i][prop1].contains(value1))
-                        || (prop2 && arr[i][prop2].contains(value2)))
-                {
+                        || (prop2 && arr[i][prop2].contains(value2))) {
                     return arr[i];
                 }
             }

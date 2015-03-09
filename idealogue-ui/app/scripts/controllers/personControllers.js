@@ -12,7 +12,6 @@ angular.module('idealogue.personControllers', [
     people.sort(Util.sortBy('lastName', false, function(a){return a.toUpperCase()}));
     $scope.people = people;
     $scope.desc = false;
-    $scope.hideFilter = true;
 
     $scope.viewPerson = function(personId) {
         $location.path('/people/view/' + personId);
@@ -24,8 +23,7 @@ angular.module('idealogue.personControllers', [
     };
 
     $scope.filter = function() {
-        $scope.hideFilter = !$scope.hideFilter;
-        $rootScope.$broadcast(Events.hideListFilterEvent, $scope.hideFilter);
+        $scope.toggleFilter();
     };
 }])
 

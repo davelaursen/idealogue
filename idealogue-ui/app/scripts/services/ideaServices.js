@@ -62,49 +62,39 @@ angular.module('idealogue.ideaServices', [
 
 .factory('IdeaSvc', ['$timeout', 'Util', function IdeaSvcFactory($timeout, Util) {
     return {
-        transformIdeaForView: function(idea, people) {
+        populateIdea: function(idea, people) {
             var i, len, person;
 
+            var proposerObjs = [];
             var proposerNames = [];
             var index = 0;
-            for (i = 0, len = idea.proposers.length; i < len; i++) {
-                person = Util.findInArray(people, 'id', idea.proposers[i]);
+            for (var i = 0, len = idea.proposers.length; i < len; i++) {
+                person = Util.findInObjectArray(people, 'id', idea.proposers[i]);
                 if (person !== null) {
+                    proposerObjs[index] = person;
                     proposerNames[index++] = person.firstName + ' ' + person.lastName;
                 }
             }
+            idea.proposers = proposerObjs;
             idea.proposerNames = proposerNames;
 
             for (i = 0, len = idea.comments.length; i < len; i++) {
-                person = Util.findInArray(people, 'id', idea.comments[i].id);
+                person = Util.findInObjectArray(people, 'id', idea.comments[i].id);
                 if (person !== null) {
-                    idea.comments[i]["fullName"] = person.firstName + ' ' + person.lastName;
+                    idea.comments[i]['person'] = person;
                 }
             }
         },
 
-        transformIdeaForEdit: function(idea, people) {
-            var proposerObjs = [];
-            var index = 0;
-            for (var i = 0, len = idea.proposers.length; i < len; i++) {
-                var person = Util.findInArray(people, 'id', idea.proposers[i]);
-                if (person !== null) {
-                    proposerObjs[index++] = person;
-                }
-            }
-            idea.proposers = proposerObjs;
-        },
-
-        transformIdeaForSave: function(idea) {
+        stripIdea: function(idea) {
             var i, len;
 
+            delete idea.proposerNames;
             for (i = 0, len = idea.proposers.length; i < len; i++) {
                 idea.proposers[i] = idea.proposers[i].id;
             }
-
-            delete idea.proposerNames;
             for (i = 0, len = idea.comments.length; i < len; i++) {
-                delete idea.comments[i]['fullName'];
+                delete idea.comments[i]['person'];
             }
         }
     }

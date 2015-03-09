@@ -16,7 +16,6 @@ angular.module('idealogue.ideaControllers', [
     ideas.sort(Util.sortBy('name', false, function(a){return a.toUpperCase()}));
     $scope.ideas = ideas;
     $scope.desc = false;
-    $scope.hideFilter = true;
 
     $scope.toList = function(arr, prop) {
         return Util.arrayToString(arr, prop);
@@ -36,8 +35,7 @@ angular.module('idealogue.ideaControllers', [
     };
 
     $scope.filter = function() {
-        $scope.hideFilter = !$scope.hideFilter;
-        $rootScope.$broadcast(Events.hideListFilterEvent, $scope.hideFilter);
+        $scope.toggleFilter();
     };
 }])
 
@@ -45,8 +43,9 @@ angular.module('idealogue.ideaControllers', [
     $scope.showHeader();
     Auth.checkIfLoggedIn();
 
-    IdeaSvc.transformIdeaForView(idea, people);
+    IdeaSvc.populateIdea(idea, people);
     $scope.idea = idea;
+    $scope.people = people;
 
     $scope.back = function() {
         $location.path('/ideas');
@@ -63,15 +62,16 @@ angular.module('idealogue.ideaControllers', [
     $scope.vote = function() {
         var idea = $scope.idea;
         var votes = idea.votes;
-        var id = Auth.currentUser();
+        var id = Auth.currentUser().id;
 
-        if ($.inArray(id, votes) === -1) {
-            votes[votes.length] = id;
+        var found = Util.findInArray(votes, id);
+        if (found === null) {
+            votes.push(id);
             idea.voteCount = parseInt(idea.voteCount)+1;
             
-            IdeaSvc.transformIdeaForSave(idea);
+            IdeaSvc.stripIdea(idea);
             Idea.save(idea, function() {
-                $route.reload();
+                IdeaSvc.populateIdea(idea, $scope.people);
             });
         }
     };
@@ -82,33 +82,32 @@ angular.module('idealogue.ideaControllers', [
 }])
 
 .controller('IdeaCommentsCtrl', ['$scope', '$element', 'Util', 'Auth', 'IdeaSvc', 'Idea', function($scope, $element, Util, Auth, IdeaSvc, Idea) {
-    $element.find('.comment-new-text').autoSize();
-
     $scope.addComment = function() {
-        $element.find('.comment-new').show();
-        $element.find('.add-comment-button').hide();
-        $element.find('.comment-new-text').focus();
+        $scope.showNewComment = true;
+        $scope.hideAddCommentButton = true;
     };
 
     $scope.cancelComment = function() {
         $scope.newComment = null;
-        $element.find('.comment-new').hide();
-        $element.find('.add-comment-button').show();
+        $scope.showNewComment = false;
+        $scope.hideAddCommentButton = false;
     };
 
     $scope.saveComment = function() {
         var newComment = $scope.newComment;
         var idea = $scope.idea;
 
+        var user = Auth.currentUser();
         idea.comments.push({
-            id: Auth.currentUser(),
+            id: user.id,
             text: newComment,
-            timestamp: Util.getISO8601DateString()
+            timestamp: Util.getISO8601DateString(),
+            person: user
         });
-        IdeaSvc.transformIdeaForSave(idea);
+        IdeaSvc.stripIdea(idea);
 
         Idea.save(idea, function() {
-            $route.reload();
+            IdeaSvc.populateIdea(idea, $scope.people);
         });
         $scope.cancelComment();
     };
@@ -118,7 +117,7 @@ angular.module('idealogue.ideaControllers', [
     $scope.showHeader();
     Auth.checkIfLoggedIn();
 
-    IdeaSvc.transformIdeaForEdit(idea, people);
+    IdeaSvc.populateIdea(idea, people);
     $scope.idea = idea;
     $scope.skills = skills;
     $scope.techs = techs;
@@ -137,7 +136,7 @@ angular.module('idealogue.ideaControllers', [
         }
 
         var idea = $scope.idea;
-        IdeaSvc.transformIdeaForSave(idea);
+        IdeaSvc.stripIdea(idea);
         idea.updatedDate = Util.getISO8601DateString();
 
         // save data
@@ -270,7 +269,7 @@ angular.module('idealogue.ideaControllers', [
         updatedDate: dateStr
     };
 
-    IdeaSvc.transformIdeaForEdit($scope.idea, [ Auth.currentUser() ]);
+    IdeaSvc.populateIdea($scope.idea, [ Auth.currentUser() ]);
 
     $scope.skills = skills;
     $scope.techs = techs;
@@ -293,7 +292,7 @@ angular.module('idealogue.ideaControllers', [
             return;
         }
 
-        IdeaSvc.transformIdeaForSave($scope.idea);
+        IdeaSvc.stripIdea($scope.idea);
 
         var timestamp = Util.getISO8601DateString();
         $scope.idea.createdDate = timestamp;

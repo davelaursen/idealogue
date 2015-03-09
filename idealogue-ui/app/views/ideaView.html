@@ -58,16 +58,16 @@
         <div class="view-element" ng-controller="IdeaCommentsCtrl">
             <ul class="comment-list">
                 <li ng-repeat="comment in idea.comments">
-                    <span class="comment-header">{{comment.timestamp | date: 'M/dd/yyyy h:mm a'}}, {{comment.fullName}}</span>
+                    <span class="comment-header">{{comment.timestamp | date: 'M/dd/yyyy h:mm a'}}, {{comment.person.firstName}} {{comment.person.lastName}}</span>
                     <span class="comment-text">{{comment.text}}</span>
                 </li>
-                <li class="comment-new">
-                    <textarea ng-model="newComment" class="form-element comment-new-text" id="newCommentText" rows="1" id-disabling></textarea>
+                <li ng-show="showNewComment">
+                    <textarea ng-model="newComment" class="form-element comment-new-text" id="newCommentText" rows="1" id-disabling id-auto-size id-focus="{{showNewComment}}"></textarea>
                     <button type="button" class="inline" ng-click="saveComment()" id-disabling>save</button>
                     <button type="button" class="inline" ng-click="cancelComment()" id-disabling>cancel</button>
                 </li>
             </ul>
-            <button type='button' class="inline add-comment-button" ng-click="addComment()">add comment</button>
+            <button type='button' class="inline add-comment-button" ng-hide="hideAddCommentButton" ng-click="addComment()">add comment</button>
         </div>
     </div>
 </section>
