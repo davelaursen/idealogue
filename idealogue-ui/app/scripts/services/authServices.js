@@ -1,9 +1,6 @@
 'use strict';
 
-angular.module('idealogue.authServices', [
-    'ngCookies',
-    'idealogue.userServices'
-])
+angular.module('idealogue.authServices', [])
 
 .factory('Auth', ['$q', '$location', '$cookieStore', 'User', function AuthFactory($q, $location, $cookieStore, User) {
     return {
@@ -43,28 +40,8 @@ angular.module('idealogue.authServices', [
             return true;
         },
 
-        checkIfLoggedIn: function(redirect) {
-            var currentUser = $cookieStore.get('currentUser');
-            if (!currentUser || currentUser == null) {
-                if (redirect) {
-                    redirect();
-                }
-                else {
-                    $location.path('/login');
-                }
-            }
-        },
-
         currentUser: function() {
             return $cookieStore.get('currentUser');
-        },
-
-        currentUserName: function() {
-            var user = $cookieStore.get('currentUser');
-            if (!user) {
-                return "";
-            }
-            return user.firstName + ' ' + user.lastName;
         },
 
         setCurrentUser: function(user) {

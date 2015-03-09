@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('idealogue.techServices', [
-])
+angular.module('idealogue.techServices', [])
 
 .factory('Tech', ['$http', 'config', function TechFactory($http, config) {
     var baseUrl = config.apiUrl + '/technologies';

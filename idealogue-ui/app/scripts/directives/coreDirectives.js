@@ -1,12 +1,6 @@
 'use strict';
 
-angular.module('idealogue.coreDirectives', [
-    'idealogue.utilityServices',
-    'idealogue.ideaServices',
-    'idealogue.configServices',
-    'idealogue.authServices',
-    'idealogue.eventingServices'
-])
+angular.module('idealogue.coreDirectives', [])
 
 .directive('idFocus', ['$timeout', function($timeout) {
     return {

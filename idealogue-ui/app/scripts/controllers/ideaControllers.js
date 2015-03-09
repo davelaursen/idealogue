@@ -1,17 +1,9 @@
 'use strict';
 
-angular.module('idealogue.ideaControllers', [
-    'ngRoute',
-    'idealogue.utilityServices',
-    'idealogue.coreDirectives',
-    'idealogue.ideaServices',
-    'idealogue.authServices',
-    'idealogue.eventingServices'
-])
+angular.module('idealogue.ideaControllers', [])
 
-.controller('IdeaListCtrl', ['$rootScope', '$scope', '$location', 'Util', 'Auth', 'Events', 'ideas', function($rootScope, $scope, $location, Util, Auth, Events, ideas) {
+.controller('IdeaListCtrl', ['$scope', '$location', 'Util', 'ideas', function($scope, $location, Util, ideas) {
     $scope.showHeader();
-    Auth.checkIfLoggedIn();
 
     ideas.sort(Util.sortBy('name', false, function(a){return a.toUpperCase()}));
     $scope.ideas = ideas;
@@ -39,9 +31,8 @@ angular.module('idealogue.ideaControllers', [
     };
 }])
 
-.controller('IdeaViewCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'idea', 'people', function($route, $scope, $location, Util, Auth, IdeaSvc, Idea, idea, people) {
+.controller('IdeaViewCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'idea', 'people', function($scope, $location, Util, Auth, IdeaSvc, Idea, idea, people) {
     $scope.showHeader();
-    Auth.checkIfLoggedIn();
 
     IdeaSvc.populateIdea(idea, people);
     $scope.idea = idea;
@@ -60,9 +51,9 @@ angular.module('idealogue.ideaControllers', [
     };
 
     $scope.vote = function() {
-        var idea = $scope.idea;
-        var votes = idea.votes;
-        var id = Auth.currentUser().id;
+        var idea = $scope.idea,
+            votes = idea.votes,
+            id = Auth.currentUser().id;
 
         var found = Util.findInArray(votes, id);
         if (found === null) {
@@ -81,7 +72,7 @@ angular.module('idealogue.ideaControllers', [
     };
 }])
 
-.controller('IdeaCommentsCtrl', ['$scope', '$element', 'Util', 'Auth', 'IdeaSvc', 'Idea', function($scope, $element, Util, Auth, IdeaSvc, Idea) {
+.controller('IdeaCommentsCtrl', ['$scope', 'Util', 'Auth', 'IdeaSvc', 'Idea', function($scope, Util, Auth, IdeaSvc, Idea) {
     $scope.addComment = function() {
         $scope.showNewComment = true;
         $scope.hideAddCommentButton = true;
@@ -94,8 +85,8 @@ angular.module('idealogue.ideaControllers', [
     };
 
     $scope.saveComment = function() {
-        var newComment = $scope.newComment;
-        var idea = $scope.idea;
+        var newComment = $scope.newComment,
+            idea = $scope.idea;
 
         var user = Auth.currentUser();
         idea.comments.push({
@@ -113,9 +104,8 @@ angular.module('idealogue.ideaControllers', [
     };
 }])
 
-.controller('IdeaEditCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'idea', 'people', 'skills', 'techs', 'tags', function($scope, $location, Util, Auth, IdeaSvc, Idea, idea, people, skills, techs, tags) {
+.controller('IdeaEditCtrl', ['$scope', '$location', 'Util', 'IdeaSvc', 'Idea', 'idea', 'people', 'skills', 'techs', 'tags', function($scope, $location, Util, IdeaSvc, Idea, idea, people, skills, techs, tags) {
     $scope.showHeader();
-    Auth.checkIfLoggedIn();
 
     IdeaSvc.populateIdea(idea, people);
     $scope.idea = idea;
@@ -154,7 +144,7 @@ angular.module('idealogue.ideaControllers', [
     };
 
     $scope.addProposer = function() {
-        $scope.openPersonSearchBox(
+        $scope.openPersonSearchBoxAction(
             function(person) {
                 $scope.idea.proposers.push(person);
             }
@@ -245,7 +235,6 @@ angular.module('idealogue.ideaControllers', [
 
 .controller('IdeaNewCtrl', ['$scope', '$location', 'Util', 'Auth', 'IdeaSvc', 'Idea', 'skills', 'techs', 'tags', function($scope, $location, Util, Auth, IdeaSvc, Idea, skills, techs, tags) {
     $scope.showHeader();
-    Auth.checkIfLoggedIn();
 
     var dateStr = Util.getISO8601DateString();
     $scope.idea = {

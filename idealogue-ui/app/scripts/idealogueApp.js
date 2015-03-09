@@ -3,6 +3,8 @@
 angular.module('idealogue', [
     'ngRoute',
     'ngAnimate',
+    'ngCookies',
+    'idealogue.configServices',
     'idealogue.utilityServices',
     'idealogue.authServices',
     'idealogue.ideaServices',

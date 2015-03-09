@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('idealogue.skillServices', [
-])
+angular.module('idealogue.skillServices', [])
 
 .factory('Skill', ['$http', 'config', function SkillFactory($http, config) {
     var baseUrl = config.apiUrl + '/skills';

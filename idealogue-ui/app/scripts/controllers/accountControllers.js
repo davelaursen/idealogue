@@ -1,38 +1,33 @@
 'use strict';
 
-angular.module('idealogue.accountControllers', [
-    'idealogue.utilityServices',
-    'idealogue.userServices'
-])
+angular.module('idealogue.accountControllers', [])
 
-.controller('AccountViewCtrl', ['$scope', '$location', 'Util', 'Auth', 'User', 'user', function($scope, $location, Util, Auth, User, user) {
+.controller('AccountViewCtrl', ['$scope', '$location', 'Auth', 'User', 'user', function($scope, $location, Auth, User, user) {
     $scope.showHeader();
-    Auth.checkIfLoggedIn();
 
     $scope.user = user;
 
     $scope.back = function() {
         $location.path('/people');
-    }
+    };
 
     $scope.edit = function() {
         $location.path('/account/edit');
-    }
+    };
 
     $scope.remove = function() {
         User.remove($scope.user.id, function() {
             Auth.logout();
         });
-    }
+    };
 
     $scope.changePassword = function() {
         $location.path('/account/password');
-    }
+    };
 }])
 
-.controller('AccountPasswordCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'User', 'user', function($route, $scope, $location, Util, Auth, User, user) {
+.controller('AccountPasswordCtrl', ['$scope', '$location', 'Auth', 'User', 'user', function($scope, $location, Auth, User, user) {
     $scope.showHeader();
-    Auth.checkIfLoggedIn();
 
     $scope.user = user;
     $scope.password = { };
@@ -65,12 +60,10 @@ angular.module('idealogue.accountControllers', [
     };
 }])
 
-.controller('AccountEditCtrl', ['$route', '$scope', '$location', 'Util', 'Auth', 'User', 'user', function($route, $scope, $location, Util, Auth, User, user) {
+.controller('AccountEditCtrl', ['$scope', '$location', 'Auth', 'User', 'user', function($scope, $location, Auth, User, user) {
     $scope.showHeader();
-    Auth.checkIfLoggedIn();
 
     $scope.user = user;
-
 
     $scope.save = function(form) {
         if (!form.$valid) {

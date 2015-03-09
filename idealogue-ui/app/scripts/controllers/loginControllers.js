@@ -1,11 +1,8 @@
 'use strict';
 
-angular.module('idealogue.loginControllers', [
-    'idealogue.utilityServices',
-    'idealogue.authServices'
-])
+angular.module('idealogue.loginControllers', [])
 
-.controller('LoginCtrl', ['$scope', '$location', 'Auth', 'Util', function($scope, $location, Auth, Util) {
+.controller('LoginCtrl', ['$scope', '$location', 'Auth', function($scope, $location, Auth) {
     $scope.hideHeader();
     $scope.login = { };
 
@@ -24,10 +21,10 @@ angular.module('idealogue.loginControllers', [
 
     $scope.register = function() {
         $location.path('/register');
-    }
+    };
 }])
 
-.controller('RegisterCtrl', ['$scope', '$q', '$location', 'Util', 'Auth', 'User', function($scope, $q, $location, Util, Auth, User) {
+.controller('RegisterCtrl', ['$scope', '$location', 'Util', 'Auth', 'User', function($scope, $location, Util, Auth, User) {
     $scope.hideHeader();
     $scope.user = { };
     $scope.password = { };
@@ -53,9 +50,7 @@ angular.module('idealogue.loginControllers', [
         $scope.user.updatedDate = timestamp;
 
         var saveUser = function(user, password) {
-            // var deferred = $q.defer();
             User.save(user, function(response) {
-                // deferred.resolve(response.data);
                 Auth.login(user.id, password,
                     function(result, message) {
                         if(result === true) {
@@ -77,9 +72,9 @@ angular.module('idealogue.loginControllers', [
                 saveUser($scope.user, rawPass);
             }
         );
-    }
+    };
 
     $scope.cancel = function() {
         $location.path('/login');
-    }
+    };
 }]);

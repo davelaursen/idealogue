@@ -1,70 +1,61 @@
 'use strict';
 
-angular.module('idealogue.coreControllers', [
-    'idealogue.eventingServices'
-])
+angular.module('idealogue.coreControllers', [])
 
 .controller('MainCtrl', ['$rootScope', '$scope', 'Events', function($rootScope, $scope, Events) {
-    $scope.headerHidden = true;
+    var disableView = function(disabled) {
+        $rootScope.$broadcast(Events.disableViewEvent, disabled);
+    };
 
     $scope.hideHeader = function() {
-        $scope.headerHidden = true;
+        $scope.headerVisible = false;
     };
 
     $scope.showHeader = function() {
-        $scope.headerHidden = false;
+        $scope.headerVisible = true;
     };
 
-    $scope.disableView = function() {
-        $rootScope.$broadcast(Events.disableViewEvent, true);
+    $scope.executeSearchAction = function(query) {
+        $rootScope.$broadcast(Events.openSearchResultsEvent, query);
+        disableView(true);
     };
 
-    $scope.enableView = function() {
-        $rootScope.$broadcast(Events.disableViewEvent, false);
+    $scope.closeSearchResultsAction = function() {
+        disableView(false);
     };
 
-    $scope.openPersonSearchBox = function(onSelect) {
+    $scope.openPersonSearchBoxAction = function(onSelect) {
         $rootScope.$broadcast(Events.openPersonSearchBoxEvent, onSelect);
-        $scope.disableView();
-    }
+        disableView(true);
+    };
 
-    $scope.openSearchResults = function(searchQuery) {
-        $rootScope.$broadcast(Events.openSearchResultsEvent, searchQuery);
-        $scope.disableView();
-    }
-
-    $scope.$on(Events.executeSearchEvent, function(e, val) {
-        $scope.openSearchResults(val);
-    });
-
-    $scope.$on(Events.closeSearchResultsEvent, function(e, val) {
-        $scope.enableView();
-    });
-
-    $scope.$on(Events.closePersonSearchBoxEvent, function(e, val) {
-        $scope.enableView();
-    })
+    $scope.closePersonSearchBoxAction = function() {
+        disableView(false);
+    };
 }])
 
-.controller('SearchCtrl', ['$rootScope', '$scope', 'Auth', 'Events', function($rootScope, $scope, Auth, Events) {
+.controller('SearchCtrl', ['$scope', function($scope) {
     $scope.searchValue = "";
 
     $scope.executeSearch = function() {
-        $rootScope.$broadcast(Events.executeSearchEvent, $scope.searchValue);
+        $scope.executeSearchAction($scope.searchValue);
         $scope.searchValue = "";
     };
 }])
 
 .controller('CurrentUserCtrl', ['$scope', 'Auth', function($scope, Auth) {
-    $scope.currentUserName = Auth.currentUserName();
-
-    $scope.setCurrentUserName = function(user) {
-        $scope.currentUserName = user.firstName + ' ' + user.lastName;
+    var getFullName = function(user) {
+        if (user) {
+            return user.firstName + ' ' + user.lastName;
+        }
+        return "";
     };
+    
+    $scope.currentUserName = getFullName(Auth.currentUser());
 
     $scope.$watch(
         function() {
-            return Auth.currentUserName();
+            return getFullName(Auth.currentUser());
         },
         function(val) {
             $scope.currentUserName = val;
@@ -90,30 +81,18 @@ angular.module('idealogue.coreControllers', [
     };
 }])
 
-.controller('SearchResultsCtrl', ['$rootScope', '$scope', 'Events', function($rootScope, $scope, Events) {
-    $scope.searchResultsHidden = true;
-
+.controller('SearchResultsCtrl', ['$scope', 'Events', function($scope, Events) {
     $scope.closeSearchResults = function() {
-        $scope.searchResultsHidden = true;
-        $rootScope.$broadcast(Events.closeSearchResultsEvent, true);
+        $scope.searchResultsVisible = false;
+        $scope.closeSearchResultsAction();
     };
 
     $scope.$on(Events.openSearchResultsEvent, function(e, val) {
-        $scope.searchResultsHidden = false;
+        $scope.searchResultsVisible = true;
     });
 }])
 
-.controller('PersonSearchCtrl', ['$rootScope', '$scope', '$element', '$timeout', 'Util', 'Events', 'User', function($rootScope, $scope, $element, $timeout, Util, Events, User) {
-    $scope.personSearchHidden = true;
-
-    User.getMany(function(response) {
-        $scope.people = response.data;
-    });
-
-    $scope.personSearchValue = "";
-    $scope.personSearchResults = [];
-    $scope.onSelect = function(person){};
-
+.controller('PersonSearchCtrl', ['$scope', 'Util', 'Events', 'User', function($scope, Util, Events, User) {
     $scope.executePersonSearch = function() {
         var text = $scope.personSearchValue;
         var results;
@@ -128,10 +107,10 @@ angular.module('idealogue.coreControllers', [
     };
 
     $scope.closePersonSearchBox = function() {
-        $scope.personSearchHidden = true;
+        $scope.personSearchVisible = false;
         $scope.personSearchValue = "";
         $scope.personSearchResults = [];
-        $rootScope.$broadcast(Events.closePersonSearchBoxEvent, true);
+        $scope.closePersonSearchBoxAction();
     };
 
     $scope.selectPerson = function(person) {
@@ -143,7 +122,12 @@ angular.module('idealogue.coreControllers', [
         if (onSelect) {
             $scope.onSelect = onSelect;
         }
+        User.getMany(function(response) {
+            $scope.people = response.data;
+        });
 
-        $scope.personSearchHidden = false;
+        $scope.personSearchValue = "";
+        $scope.personSearchResults = [];
+        $scope.personSearchVisible = true;
     });
 }]);

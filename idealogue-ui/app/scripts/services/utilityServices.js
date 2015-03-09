@@ -24,22 +24,6 @@ angular.module('idealogue.utilityServices', [])
             return str;
         },
 
-        formatDateString: function(dateStr, dateOnly) {
-            var date = new Date();
-            date.setUTCFullYear(parseInt(dateStr.substring(0,4),10));
-            date.setUTCMonth(parseInt(dateStr.substring(5,7),10)-1);
-            date.setUTCDate(parseInt(dateStr.substring(8,10),10));
-            if (dateOnly && dateOnly === true) {
-                return date.toLocaleDateString();
-            }
-
-            date.setUTCHours(parseInt(dateStr.substring(11,13),10));
-            date.setUTCMinutes(parseInt(dateStr.substring(14,16),10));
-            date.setUTCSeconds(parseInt(dateStr.substring(17,19),10));
-            date.setUTCMilliseconds(0);
-            return date.toLocaleString();
-        },
-
         sortBy: function(field, desc, primer){
             var key = function (x) {return primer ? primer(x[field]) : x[field]};
 

@@ -1,10 +1,6 @@
 'use strict';
 
-angular.module('idealogue.userServices', [
-    'ngResource',
-    'idealogue.configServices',
-    'idealogue.utilityServices'
-])
+angular.module('idealogue.userServices', [])
 
 .factory('User', ['$http', 'config', function UserFactory($http, config) {
     var baseUrl = config.apiUrl + '/users';

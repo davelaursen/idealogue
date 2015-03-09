@@ -1,11 +1,6 @@
 'use strict';
 
-angular.module('idealogue.ideaServices', [
-    'ngResource',
-    'idealogue.configServices',
-    'idealogue.utilityServices',
-    'idealogue.userServices'
-])
+angular.module('idealogue.ideaServices', [])
 
 .factory('Idea', ['$http', 'config', function IdeaFactory($http, config) {
     var baseUrl = config.apiUrl + '/ideas';

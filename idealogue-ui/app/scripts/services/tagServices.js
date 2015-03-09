@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('idealogue.tagServices', [
-])
+angular.module('idealogue.tagServices', [])
 
 .factory('Tag', ['$http', 'config', function TagFactory($http, config) {
     var baseUrl = config.apiUrl + '/tags';
