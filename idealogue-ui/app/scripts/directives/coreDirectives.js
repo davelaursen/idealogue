@@ -8,11 +8,43 @@ angular.module('idealogue.coreDirectives', [
     'idealogue.eventingServices'
 ])
 
-.directive('idFocus', function() {
-    return function($scope, $element) {
-        $element[0].focus();
+// .directive('idFocus', ['$timeout', function($timeout) {
+//     return function($scope, $element) {
+//         $timeout(function() {
+//             $element[0].focus();
+//         });
+//     };
+// }])
+
+.directive('idFocus', ['$timeout', function($timeout) {
+    return {
+        scope: {
+            idFocus: '@'
+        },
+        link: function($scope, $element) {
+            function doFocus() {
+                $timeout(function() {
+                    $element[0].focus();
+                });
+            }
+
+            if ($scope.idFocus != null) {
+                if ($scope.idFocus !== 'false') {
+                    doFocus();
+                }
+
+                $scope.$watch('idFocus', function(value) {
+                    if (value === 'true') {
+                        doFocus();
+                    }
+                });
+            }
+            else {
+                doFocus();
+            }
+        }
     };
-})
+}])
 
 .directive('idDisabling', ['Events', function(Events) {
     return {

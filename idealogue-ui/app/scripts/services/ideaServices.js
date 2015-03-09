@@ -30,7 +30,7 @@ angular.module('idealogue.ideaServices', [
     }
 }])
 
-.factory('MultiIdeaLoader', ['$q', 'Idea', function MultiIdeaaLoaderFactory($q, Idea) {
+.factory('MultiIdeaLoader', ['$q', 'Idea', function MultiIdeaLoaderFactory($q, Idea) {
     return function() {
         var delay = $q.defer();
         Idea.getMany(
@@ -93,45 +93,13 @@ angular.module('idealogue.ideaServices', [
                 }
             }
             idea.proposers = proposerObjs;
-
-            // idea.proposers = Util.arrayToString(idea.proposers);
-            idea.skills = Util.arrayToString(idea.skills);
-            idea.technologies = Util.arrayToString(idea.technologies);
-            idea.tags = Util.arrayToString(idea.tags);
         },
 
         transformIdeaForSave: function(idea) {
             var i, len;
 
-            // if (typeof idea.proposers === 'string') {
-            //     idea.proposers = idea.proposers.split(',');
-            // }
-            // for (i = 0, len = idea.proposers.length; i < len; i++) {
-            //     idea.proposers[i] = idea.proposers[i].trim();
-            // }
             for (i = 0, len = idea.proposers.length; i < len; i++) {
                 idea.proposers[i] = idea.proposers[i].id;
-            }
-
-            if (typeof idea.skills === 'string') {
-                idea.skills = idea.skills.split(',');
-            }
-            for (i = 0, len = idea.skills.length; i < len; i++) {
-                idea.skills[i] = idea.skills[i].trim();
-            }
-
-            if (typeof idea.technologies === 'string') {
-                idea.technologies = idea.technologies.split(',');
-            }
-            for (i = 0, len = idea.technologies.length; i < len; i++) {
-                idea.technologies[i] = idea.technologies[i].trim();
-            }
-
-            if (typeof idea.tags === 'string') {
-                idea.tags = idea.tags.split(',');
-            }
-            for (i = 0, len = idea.tags.length; i < len; i++) {
-                idea.tags[i] = idea.tags[i].trim();
             }
 
             delete idea.proposerNames;

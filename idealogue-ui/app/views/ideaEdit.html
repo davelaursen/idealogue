@@ -26,35 +26,72 @@
             <textarea id="ideaDetails" name="ideaDetails" ng-model="idea.details" class="form-element desc" ng-class="{'has-error': editIdeaForm.ideaDetails.$invalid}" id-disabling required id-auto-size></textarea>
         </fieldset>
 
-        <!-- <fieldset class="form-group">
-            <label class="form-label" for="ideaProposers">Proposers</label>
-            <input id="ideaProposers" ng-model="idea.proposers" class="form-element data" type="text" id-disabling>
-            <button type="button" class="inline" ng-click="findProposer()" id-disabling>(lookup person)</button>
-        </fieldset> -->
         <fieldset class="form-group">
             <label class="form-label" for="ideaProposers">Proposers</label>
-            <ul class="proposer-list">
+            <ul class="inline-form-list">
                 <li ng-repeat="proposer in idea.proposers">
                     {{proposer.firstName}} {{proposer.lastName}}
-                    <button type="button" ng-click="removeProposer($index)">x</button>
+                    <button type="button" ng-click="removeProposer($index)" id-disabling>x</button>
                 </li>
             </ul>
-            <button type="button" class="inline form-aligned" ng-click="addProposer()" id-disabling>(add proposer)</button>
+            <button type="button" class="inline-symbol" ng-click="addProposer()" id-disabling>(+)</button>
         </fieldset>
 
-        <fieldset class="form-group">
+        <fieldset class="form-group" ng-controller="IdeaSkillCtrl">
             <label class="form-label" for="ideaSkills">Skills</label>
-            <input id="ideaSkills" ng-model="idea.skills" class="form-element data" type="text" id-disabling>
+            <ul class="inline-form-list">
+                <li ng-repeat="skill in idea.skills">
+                    {{skill}}
+                    <button type="button" ng-click="removeSkill($index)" id-disabling>x</button>
+                </li>
+                <li class="skill-new" ng-show="showNewSkill">
+                    <input id="newSkill" list="newSkillData" ng-model="newSkill" class="form-element" type="text" id-disabling id-focus="{{newSkillFocus}}">
+                    <datalist id="newSkillData">
+                        <option ng-repeat="skillVal in skills" value="{{skillVal}}">
+                    </datalist>
+                    <button type="button" class="inline-symbol" ng-click="saveSkill()" id-disabling>(+)</button>
+                    <button type="button" class="inline-symbol" ng-click="cancelSkill()" id-disabling>(x)</button>
+                </li>
+            </ul>
+            <button type="button" class="inline-symbol" ng-click="addSkill()" ng-hide="hideNewSkillButton" id-disabling>(+)</button>
         </fieldset>
 
-        <fieldset class="form-group">
+        <fieldset class="form-group" ng-controller="IdeaTechCtrl">
             <label class="form-label" for="ideaTechnologies">Technologies</label>
-            <input id="ideaTechnologies" ng-model="idea.technologies" class="form-element data" type="text" id-disabling>
+            <ul class="inline-form-list">
+                <li ng-repeat="tech in idea.technologies">
+                    {{tech}}
+                    <button type="button" ng-click="removeTech($index)" id-disabling>x</button>
+                </li>
+                <li class="tech-new" ng-show="showNewTech">
+                    <input id="newTech" list="newTechData" ng-model="newTech" class="form-element" type="text" id-disabling id-focus="{{newTechFocus}}">
+                    <datalist id="newTechData">
+                        <option ng-repeat="techVal in techs" value="{{techVal}}">
+                    </datalist>
+                    <button type="button" class="inline-symbol" ng-click="saveTech()" id-disabling>(+)</button>
+                    <button type="button" class="inline-symbol" ng-click="cancelTech()" id-disabling>(x)</button>
+                </li>
+            </ul>
+            <button type="button" class="inline-symbol" ng-click="addTech()" ng-hide="hideNewTechButton" id-disabling>(+)</button>
         </fieldset>
 
-        <fieldset class="form-group">
+        <fieldset class="form-group" ng-controller="IdeaTagCtrl">
             <label class="form-label" for="ideaTags">Tags</label>
-            <input id="ideaTags" ng-model="idea.tags" class="form-element data" type="text" id-disabling>
+            <ul class="inline-form-list">
+                <li ng-repeat="tag in idea.tags">
+                    {{tag}}
+                    <button type="button" ng-click="removeTag($index)" id-disabling>x</button>
+                </li>
+                <li class="tag-new" ng-show="showNewTag">
+                    <input id="newTag" list="newTagData" ng-model="newTag" class="form-element" type="text" id-disabling id-focus="{{newTagFocus}}">
+                    <datalist id="newTagData">
+                        <option ng-repeat="tagVal in tags" value="{{tagVal}}">
+                    </datalist>
+                    <button type="button" class="inline-symbol" ng-click="saveTag()" id-disabling>(+)</button>
+                    <button type="button" class="inline-symbol" ng-click="cancelTag()" id-disabling>(x)</button>
+                </li>
+            </ul>
+            <button type="button" class="inline-symbol" ng-click="addTag()" ng-hide="hideNewTagButton" id-disabling>(+)</button>
         </fieldset>
 
         <fieldset class="form-button-group">

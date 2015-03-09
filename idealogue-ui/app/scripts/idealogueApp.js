@@ -7,6 +7,9 @@ angular.module('idealogue', [
     'idealogue.authServices',
     'idealogue.ideaServices',
     'idealogue.userServices',
+    'idealogue.skillServices',
+    'idealogue.techServices',
+    'idealogue.tagServices',
     'idealogue.eventingServices',
     'idealogue.coreDirectives',
     'idealogue.coreControllers',
@@ -65,6 +68,15 @@ angular.module('idealogue', [
                 },
                 people: function(MultiUserLoader) {
                     return MultiUserLoader();
+                },
+                skills: function(MultiSkillLoader) {
+                    return MultiSkillLoader();
+                },
+                techs: function(MultiTechLoader) {
+                    return MultiTechLoader();
+                },
+                tags: function(MultiTagLoader) {
+                    return MultiTagLoader();
                 }
             },
             access: {
@@ -74,6 +86,17 @@ angular.module('idealogue', [
         .when('/ideas/new', {
             controller: 'IdeaNewCtrl',
             templateUrl: '/views/ideaNew.html',
+            resolve: {
+                skills: function(MultiSkillLoader) {
+                    return MultiSkillLoader();
+                },
+                techs: function(MultiTechLoader) {
+                    return MultiTechLoader();
+                },
+                tags: function(MultiTagLoader) {
+                    return MultiTagLoader();
+                }
+            },
             access: {
                 requiresLogin: true
             }
