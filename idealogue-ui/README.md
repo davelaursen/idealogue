@@ -3,7 +3,7 @@
 UI for Idealogue - uses AngularJS, JQuery, HTML5 and CSS3.
 
 **CURRENTLY IN DEVELOPMENT**
-This is actively being developed at this time. I'm currently implementing base functionality.  The design is completely
+This is actively being developed at this time. I'm currently implementing base functionality. The design is completely
 CSS-driven - the HTML has no layout or style information.
 
 _Completed_
@@ -11,16 +11,34 @@ _Completed_
 * People section: happy path has been implemented, minus the ability to sort and filter the people list
 * Account section: happy path has been implemented
 * Authentication: happy path for login & user registration has been implemented
+* Sort and filter functionality for idea and people lists
 
 _In The Works_
-* Sort and filter functionality for idea and people lists
+* Tests: add unit tests
 * Search: happy path
 * Administrator: add admin flag to users
 * Authorization: can only edit/delete ideas for which you are a proposer (or if you're an admin)
 * Import/Export: allow admins to import/export idea and user records
 
 ## Getting Started
-_(Coming soon)_
+
+Install the UI app by navigating to the idealogue-ui directory and installing it's dependencies using npm
+and bower:
+```
+cd idealogue-ui
+npm install
+bower install
+```
+
+You can then start up the application (listens on port 3000):
+```
+node app.js
+```
+
+Use the following command to run tests:
+```
+./node_modules/karma/bin/karma start karma.conf.js
+```
 
 ## Documentation
 _(Coming soon)_

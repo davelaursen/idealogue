@@ -4,7 +4,10 @@
     "description": "UI for Idealogue",
     "main": "app.js",
     "dependencies": {
-        "express": "~4.12.2"
+        "express":                  "~4.12.2",
+        "karma":                    "0.12.16",
+        "karma-jasmine":            "0.1.5",
+        "karma-phantomjs-launcher": "0.1.4"
     },
     "keywords": [
         "idea",

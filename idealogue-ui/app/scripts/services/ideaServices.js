@@ -58,14 +58,15 @@ angular.module('idealogue.ideaServices', [])
 .factory('IdeaSvc', ['$timeout', 'Util', function IdeaSvcFactory($timeout, Util) {
     return {
         populateIdea: function(idea, people) {
-            var i, len, person;
+            var i, len, found, person;
 
             var proposerObjs = [];
             var proposerNames = [];
             var index = 0;
             for (var i = 0, len = idea.proposers.length; i < len; i++) {
-                person = Util.findInObjectArray(people, 'id', idea.proposers[i]);
-                if (person !== null) {
+                found = Util.findInObjectArray(people, 'id', idea.proposers[i]);
+                if (found.length > 0) {
+                    person = people[found[0]];
                     proposerObjs[index] = person;
                     proposerNames[index++] = person.firstName + ' ' + person.lastName;
                 }
@@ -74,9 +75,9 @@ angular.module('idealogue.ideaServices', [])
             idea.proposerNames = proposerNames;
 
             for (i = 0, len = idea.comments.length; i < len; i++) {
-                person = Util.findInObjectArray(people, 'id', idea.comments[i].id);
-                if (person !== null) {
-                    idea.comments[i]['person'] = person;
+                found = Util.findInObjectArray(people, 'id', idea.comments[i].id);
+                if (found.length > 0) {
+                    idea.comments[i]['person'] = people[found[0]];
                 }
             }
         },

@@ -56,7 +56,7 @@ angular.module('idealogue.ideaControllers', [])
             id = Auth.currentUser().id;
 
         var found = Util.findInArray(votes, id);
-        if (found === null) {
+        if (found.length === 0) {
             votes.push(id);
             idea.voteCount = parseInt(idea.voteCount)+1;
             
