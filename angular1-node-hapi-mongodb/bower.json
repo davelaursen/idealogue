@@ -1,0 +1,16 @@
+{
+  "name": "idealogue-angular1-node-hapi-mongodb",
+  "version": "0.0.1",
+  "authors": [
+    "Dave Laursen"
+  ],
+  "description": "Idealogue application implemented in angular 1.x, node/hapi, and mongodb",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.5.3",
+    "angular-route": "^1.5.3",
+    "angular-ui-router": "^0.2.18",
+    "cryptojslib": "^3.1.2"
+  }
+}

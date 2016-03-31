@@ -6,46 +6,23 @@ It provides a forum for people to share new product ideas, suggest process or to
 organize Hackathon teams and projects, share information and collaborate on side projects, and
 otherwise give people a voice to improve their organization.
 
-**CURRENTLY IN DEVELOPMENT**
-While the Idealogue REST service is fairly stable, the Idealogue UI and X-UI (experimental UI)
-are being actively developed, and currently only have limited functionality. Please see the README
-files for each project to determine it's current state and see what's currently being worked on.
+## Implementations
+This project contains multiple implementations using different technologies. While it does provides
+real-world value, this is essentially a training project for me and demonstrates how to implement
+similar functionality across multiple tech stacks.
 
-Current version: **0.0.1**
+#### angular1-node-hapi-mongodb
+This project uses the following technologies:
 
-Node version: **0.10** required
+- Angular 1.5
+- NodeJS 5.x
+- Hapi 13.x
+- MongoDB 3.x
 
-## Getting Started
-Idealogue requires that MongoDB version 2.6.x or newer be installed.
+It uses simple cookie-based authentication, and does not utilize a build system. To install and run,
+follow these steps:
 
-Start the Mongo server, then use the Mongo client to add an API key so that the UI can communicate
-with the REST application:
-```
-> use idealogue;
-> db.apiKeys.insert({_id:"c4088588-3c0e-11e3-bee0-ce3f5508acd9"});
-```
-
-Next you need to install the REST application. Pull down the latest code, navigate to the root
-directory and install its dependencies using npm:
-```
-cd idealogue-rest
-npm install
-```
-
-You can then start up the application (listens on port 8000):
-```
-node app.js
-```
-
-To install the UI, navigate to the idealogue-ui directory and install it's dependencies using npm
-and bower:
-```
-cd idealogue-ui
-npm install
-bower install
-```
-
-You can then start up the application (listens on port 3000):
-```
-node app.js
-```
+1. Install MongoDB and start it up.
+2. Clone this repo and switch to the project directory: `cd idealogue/angular1-node-hapi-mongodb`
+3. Run `npm install` and `bower install`.
+4. Run the application: `node src/server/app.js`.

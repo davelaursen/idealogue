@@ -1,0 +1,27 @@
+{
+	"port": 1976,
+    "mongoConnectionString": "mongodb://127.0.0.1:27017/idealogue",
+    "mongoOptions": {
+        "server": {
+            "poolSize": 10
+        }
+    },
+    "logging": {
+        "name": "idealogue",
+        "level": "info",
+        "streams": [
+            {
+                "type": "console"
+            },
+            {
+                "type": "file",
+                "path": "idealogue-info.log"
+            },
+            {
+                "type": "file",
+                "path": "idealogue-error.log",
+                "level": "error"
+            }
+        ]
+    }
+}
