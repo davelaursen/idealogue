@@ -35,4 +35,4 @@ This project uses the following technologies:
 
 This implementation uses Google APIs for authentication, and does not utilize a build system. For
 information on installing and running this project, see the
-(Idealogue-go)[https://github.com/davelaursen/idealogue-go] repo.
+[Idealogue-go](https://github.com/davelaursen/idealogue-go) repo.
