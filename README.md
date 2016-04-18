@@ -40,7 +40,7 @@ information on installing and running this project, see the
 #### react-es6-node-graphql-mongodb
 This project uses the following technologies:
 
-- Frontend: React 15.x, React-Router, ES2015, Sass
+- Frontend: React 15.x, React-Router, Flux, ES2015, Sass
 - Backend: NodeJS 5.x, Express 4.x, GraphQL, ES2015
 - Database: MongoDB 3.x
 
