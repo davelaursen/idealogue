@@ -64,6 +64,7 @@ class PersonSearch extends Component {
             return this.setState({searchResults: this.props.people});
         }
 
+        str = str.toLowerCase();
         let results = this.props.people.filter(p => {
             return p.firstName.toLowerCase().indexOf(str) > -1 ||
                 p.lastName.toLowerCase().indexOf(str) > -1 ||

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "nodemon --ignore 'src/*' dist/server/index.js",
+    "start": "gulp build && nodemon --ignore 'src/*' dist/server/index.js",
     "build": "gulp"
   },
   "author": "",

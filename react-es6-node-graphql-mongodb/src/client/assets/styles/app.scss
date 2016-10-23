@@ -38,6 +38,18 @@ $comment-list-border-color: #ddd;
 $inline-form-list-button-color: #bbb;
 $person-list-name-color: #6e4545;
 
+// Keyframes
+@-webkit-keyframes lightboxFadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes lightboxFadeIn { from { opacity:0; } to { opacity:1; } }
+@-webkit-keyframes lightboxSlideIn {
+    0% { opacity: 0; transform: translateY(-25%) }
+    100% { opacity: 1; transform: translateY(0%) }
+}
+@keyframes lightboxSlideIn {
+    0% { opacity: 0; transform: translateY(-25%) }
+    100% { opacity: 1; transform: translateY(0%) }
+}
+
 
 html {
     font: 100% $primary-fonts;
@@ -171,6 +183,7 @@ form {
         border: 1px solid $button-border-color;
         border-radius: 4px;
         background-color: rgba(175, 175, 175, 0.4);
+        margin-right: 7px;
 
         &:hover {
             background-color: rgba(205, 132, 119, 0.61);
@@ -410,6 +423,14 @@ form {
     width: 100%;
     z-index: 100;
 
+    opacity: 0;
+    -webkit-animation: lightboxFadeIn ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-duration: .15s;
+    animation: lightboxFadeIn ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: .15s;
+
     input {
         width: 300px;
     }
@@ -449,6 +470,14 @@ form {
     padding: 20px 0 20px 20px;
     height: 50%;
     width: 50%;
+
+    opacity: 0;
+    -webkit-animation: lightboxSlideIn cubic-bezier(.18,.98,.2,.96);
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-duration: .4s;
+    animation: lightboxSlideIn cubic-bezier(.18,.98,.2,.96);
+    animation-fill-mode: forwards;
+    animation-duration: .4s;
 }
 .person-search-results {
     overflow-y: auto;
@@ -479,6 +508,14 @@ form {
     width: 100%;
     z-index: 100;
 
+    opacity: 0;
+    -webkit-animation: lightboxFadeIn ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-duration: .15s;
+    animation: lightboxFadeIn ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: .15s;
+
     input {
         width: 300px;
     }
@@ -496,6 +533,14 @@ form {
     border: 1px $primary-border-color solid;
     border-radius: 10px;
     padding: 25px;
+
+    opacity: 0;
+    -webkit-animation: lightboxSlideIn cubic-bezier(.18,.98,.2,.96);
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-duration: .4s;
+    animation: lightboxSlideIn cubic-bezier(.18,.98,.2,.96);
+    animation-fill-mode: forwards;
+    animation-duration: .4s;
 }
 .site-search-results {
     overflow-y: auto;
@@ -709,4 +754,165 @@ form {
     font-weight: 300;
     font-size: .8em;
     font-style: italic;
+}
+
+@media (max-width: 1000px) {
+    .search {
+        left: 20px;
+
+        label {
+            font-size: 1em;
+            top: 7px;
+            left: 5px;
+        }
+        input {
+            padding-left: 55px;
+            width: 200px;
+        }
+    }
+    .nav {
+        right: 20px;
+    }
+    .current-user {
+        right: 350px;
+    }
+    .idea-list {
+        li {
+            margin-right: 75px;
+        }
+    }
+}
+
+@media (max-width: 830px) {
+    .current-user {
+        display: none;
+    }
+    .view-label {
+        padding-right: 10px;
+        padding-left: 0;
+        width: 100px;
+    }
+    label {
+        padding-right: 10px;
+        padding-left: 0;
+        width: 100px;
+    }
+    fieldset.form-button-group {
+        left: 115px;
+    }
+    .person-search input {
+        width: 90%;
+        margin-top: 20px;
+        padding: 5px 2px;
+    }
+    button.person-search-close {
+        position: absolute;
+        top: 10px;
+    }
+}
+
+@media (max-width: 700px) {
+    html {
+        background-image: none;
+    }
+    .idea-list {
+        li {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+    }
+    .person-list {
+        margin-left: 0px;
+        margin-right: 0px;
+        li {
+            width: 100%;
+        }
+    }
+    .list-filter {
+        margin: 0 0 0 5px;
+    }
+    input {
+        &.name, &.email, &.password {
+            width: 350px;
+        }
+        &.data {
+            width: 350px;
+        }
+    }
+}
+
+@media (max-width: 635px) {
+    .search {
+        display: none;
+    }
+    .title {
+        display: inline-block;
+        width: 250px;
+    }
+}
+
+@media (max-width: 530px) {
+    .content {
+        top: 10px;
+    }
+    label {
+        float: none;
+        text-align: left;
+        width: 100%;
+    }
+    .view-label {
+        float: none;
+        text-align: left;
+        width: 100%;
+    }
+    .view-element {
+        width: 100%;
+    }
+    .person-search-container {
+        width: 80%
+    }
+    fieldset.form-button-group {
+        left: 0;
+    }
+    input.id,
+    input.name,
+    input.email,
+    input.password,
+    input.data,
+    textarea.desc {
+        width: 95%;
+    }
+}
+
+@media (max-width: 450px) {
+    .title {
+        width: 100%;
+    }
+    .actions {
+        float: left;
+        position: static;
+        margin-top: -35px;
+        margin-left: -8px;
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 355px) {
+    .content-wrapper {
+        top: 27px;
+    }
+    .header {
+        height: 26px;
+        background-color: transparent;
+        background: none;
+    }
+    .nav {
+        float: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        border: none;
+        border-radius: 0;
+    }
 }
