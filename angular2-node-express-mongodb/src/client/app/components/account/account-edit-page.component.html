@@ -1,0 +1,38 @@
+<section>
+    <h1 class="title">Edit Account</h1>
+
+    <ul class="actions">
+        <li><a routerLink="/account">back</a></li>
+    </ul>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <id-text-input name="username" label="Username" class="id disabled"
+            [value]="user.username"
+            [disabled]="true">
+        </id-text-input>
+
+        <id-text-input name="firstName" label="First Name" class="name"
+            [(ngModel)]="user.firstName"
+            formControlName="firstName"
+            [errors]="formSubmitted ? form.controls.firstName.errors : {}"
+            [autoFocus]="true">
+        </id-text-input>
+
+        <id-text-input name="lastName" label="Last Name" class="name"
+            [(ngModel)]="user.lastName"
+            formControlName="lastName"
+            [errors]="formSubmitted ? form.controls.lastName.errors : {}">
+        </id-text-input>
+
+        <id-text-input name="email" label="Email" class="email" type="email"
+            [(ngModel)]="user.email"
+            formControlName="email"
+            [errors]="formSubmitted ? form.controls.email.errors : {}">
+        </id-text-input>
+
+        <fieldset class="form-button-group">
+            <button type="submit" class="form-button button-default">save</button>
+            <button type="button" class="form-button" (click)="cancel()">cancel</button>
+        </fieldset>
+    </form>
+</section>

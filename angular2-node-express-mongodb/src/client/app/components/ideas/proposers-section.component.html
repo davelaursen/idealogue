@@ -1,0 +1,10 @@
+<fieldset class="form-group">
+    <label class="form-label" for="ideaProposers">Proposers</label>
+    <ul class="inline-form-list">
+        <li *ngFor="let proposer of proposers">
+            {{proposer.firstName}} {{proposer.lastName}}
+            <button type="button" (click)="onRemove(proposer)">x</button>
+        </li>
+    </ul>
+    <button type="button" class="inline-symbol" (click)="onAdd()">(+)</button>
+</fieldset>

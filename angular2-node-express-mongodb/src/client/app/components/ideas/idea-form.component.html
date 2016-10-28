@@ -1,0 +1,46 @@
+<form [formGroup]="form">
+    <id-text-input name="name" label="Name" class="name"
+        [(ngModel)]="idea.name"
+        formControlName="name"
+        [errors]="formSubmitted ? form.controls.name.errors : {}"
+        [autoFocus]="true">
+    </id-text-input>
+
+    <id-text-area name="summary" label="Summary" class="desc"
+        [(ngModel)]="idea.summary"
+        formControlName="summary"
+        [errors]="formSubmitted ? form.controls.summary.errors : {}"
+        [autoSize]="true">
+    </id-text-area>
+
+    <id-text-area name="benefits" label="Benefits" class="desc"
+        [(ngModel)]="idea.benefits"
+        formControlName="benefits"
+        [errors]="formSubmitted ? form.controls.benefits.errors : {}"
+        [autoSize]="true">
+    </id-text-area>
+
+    <id-text-area name="details" label="Details" class="desc"
+        [(ngModel)]="idea.details"
+        formControlName="details"
+        [errors]="formSubmitted ? form.controls.details.errors : {}"
+        [autoSize]="true">
+    </id-text-area>
+
+    <id-proposers-section *ngIf="showProposers"
+        [proposers]="idea.proposers"
+        (remove)="onRemoveProposer($event)"
+        (add)="onAddProposer()">
+    </id-proposers-section>
+
+    <id-skills-section [(skills)]="idea.skills" [allSkills]="skills"></id-skills-section>
+
+    <id-technologies-section [(technologies)]="idea.technologies" [allTechnologies]="technologies"></id-technologies-section>
+
+    <id-tags-section [(tags)]="idea.tags" [allTags]="tags"></id-tags-section>
+
+    <fieldset class="form-button-group">
+        <button type="button" class="form-button button-default" (click)="saveIdea()">save</button>
+        <button type="button" class="form-button" (click)="cancelIdea()">cancel</button>
+    </fieldset>
+</form>

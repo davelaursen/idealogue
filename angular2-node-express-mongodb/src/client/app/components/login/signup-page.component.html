@@ -1,0 +1,47 @@
+<section>
+    <h1 class="title">Create Account</h1>
+
+    <ul class="actions">
+        <li><a href="#" (click)="back($event)">back</a></li>
+    </ul>
+
+    <form [formGroup]="form" (ngSubmit)="create()">
+        <id-text-input formControlName="username" label="Username" class="id"
+            [(ngModel)]="user.username"
+            [errors]="formSubmitted ? form.controls.username.errors : {}"
+            [showErrorMessage]="form.controls.username.errors && !form.controls.username.errors.required"
+            [autoFocus]="true">
+        </id-text-input>
+
+        <id-text-input formControlName="firstName" label="First Name" class="name"
+            [(ngModel)]="user.firstName"
+            [errors]="formSubmitted ? form.controls.firstName.errors : {}">
+        </id-text-input>
+
+        <id-text-input formControlName="lastName" label="Last Name" class="name"
+            [(ngModel)]="user.lastName"
+            [errors]="formSubmitted ? form.controls.lastName.errors : {}">
+        </id-text-input>
+
+        <id-text-input formControlName="email" label="Email" class="email" type="email"
+            [(ngModel)]="user.email"
+            [errors]="formSubmitted ? form.controls.email.errors : {}">
+        </id-text-input>
+
+        <id-text-input formControlName="password" label="Password" class="password" type="password"
+            [(ngModel)]="user.password"
+            [errors]="formSubmitted ? form.controls.password.errors : {}">
+        </id-text-input>
+
+        <id-text-input formControlName="confirmPassword" label="Confirm" class="password" type="password"
+            [(ngModel)]="confirmPassword"
+            [errors]="formSubmitted ? form.controls.confirmPassword.errors : {}"
+            [showErrorMessage]="form.controls.confirmPassword.errors && !form.controls.confirmPassword.errors.required">
+        </id-text-input>
+
+        <fieldset class="form-button-group">
+            <button type="submit" class="form-button button-default">create</button>
+            <button type="button" class="form-button" (click)="back()">cancel</button>
+        </fieldset>
+    </form>
+</section>

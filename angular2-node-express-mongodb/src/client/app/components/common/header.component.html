@@ -1,0 +1,25 @@
+<header class="header">
+    <div class="search">
+        <form (submit)="executeSearch($event)">
+            <label for="searchValue">search:</label>
+            <input id="searchValue" name="searchValue" class="form-element search-value" [(ngModel)]="searchValue" type="text">
+        </form>
+    </div>
+    <div class="current-user">
+        logged in as: <span class="username">{{currentUserName}}</span>
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a routerLink="/ideas">Ideas</a></li>
+            <li><a routerLink="/people">People</a></li>
+            <li><a routerLink="/account">Account</a></li>
+            <li><a href (click)="logout($event)">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+ <id-site-search
+    *ngIf="searchResultsVisible"
+    [searchStr]="searchValue"
+    (close)="clearSearchValue()">
+</id-site-search>

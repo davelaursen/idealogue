@@ -1,0 +1,20 @@
+<fieldset class="form-group">
+    <label class="form-label" for="ideaTechnologies">Technologies</label>
+    <ul class="inline-form-list">
+        <li *ngFor="let technology of technologies; let i=index">
+            {{technology}} <button type="button" (click)="removeTechnology(i)">x</button>
+        </li>
+        <li *ngIf="showNewTechnology" class="technology-new">
+            <input id="newTechnology" list="newTechnologyData" class="form-element" type="text"
+                [(ngModel)]="newTechnology"
+                (keyup)="newTechnologyKeyUp($event)"
+                autofocus>
+            <datalist id="newTechnologyData">
+                <option *ngFor="let technology of allTechnologies" [value]="technology">{{technology}}</option>
+            </datalist>
+            <button type="button" class="inline-symbol" (click)="saveTechnology()">(+)</button>
+            <button type="button" class="inline-symbol" (click)="cancelTechnology()">(x)</button>
+        </li>
+    </ul>
+    <button *ngIf="!showNewTechnology" type="button" class="inline-symbol" (click)="addTechnology()">(+)</button>
+</fieldset>

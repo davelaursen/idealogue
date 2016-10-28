@@ -1,0 +1,20 @@
+<fieldset class="form-group">
+    <label class="form-label" for="ideaTags">Tags</label>
+    <ul class="inline-form-list">
+        <li *ngFor="let tag of tags; let i=index">
+            {{tag}} <button type="button" (click)="removeTag(i)">x</button>
+        </li>
+        <li *ngIf="showNewTag" class="tag-new">
+            <input id="newTag" list="newTagData" class="form-element" type="text"
+                [(ngModel)]="newTag"
+                (keyup)="newTagKeyUp($event)"
+                autofocus>
+            <datalist id="newTagData">
+                <option *ngFor="let tag of allTags" [value]="tag">{{tag}}</option>
+            </datalist>
+            <button type="button" class="inline-symbol" (click)="saveTag()">(+)</button>
+            <button type="button" class="inline-symbol" (click)="cancelTag()">(x)</button>
+        </li>
+    </ul>
+    <button *ngIf="!showNewTag" type="button" class="inline-symbol" (click)="addTag()">(+)</button>
+</fieldset>

@@ -1,0 +1,16 @@
+<id-header></id-header>
+
+<section>
+    <h1 class="title">Person Details</h1>
+
+    <ul class="actions">
+        <li><a routerLink="/people">back</a></li>
+    </ul>
+
+    <div>
+        <id-view-field label="" [value]="user.firstName + ' ' + user.lastName" class="bottom-border"></id-view-field>
+        <id-view-field label="Username" [value]="user.username"></id-view-field>
+        <id-view-field label="Email" [value]="user.email"></id-view-field>
+        <id-view-field label="Joined" [value]="user.createdDate | idDateFormatter"></id-view-field>
+    </div>
+</section>

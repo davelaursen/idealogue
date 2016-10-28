@@ -1,0 +1,12 @@
+<section>
+    <h1 class="title">Idea Details</h1>
+
+    <ul class="actions">
+        <li><a routerLink="/ideas">back</a></li>
+        <li><a href="#" (click)="vote($event)">vote</a></li>
+        <li *ngIf="idea"><a [routerLink]="['/ideas', idea._id, 'edit']">edit</a></li>
+        <li><a href="#" (click)="remove($event)">delete</a></li>
+    </ul>
+
+    <id-idea-details *ngIf="idea" [(idea)]="idea" (ideaChange)="onIdeaChange()"></id-idea-details>
+</section>

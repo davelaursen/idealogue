@@ -1,0 +1,26 @@
+<id-header></id-header>
+
+<section>
+    <h1 class="title">Ideas</h1>
+
+    <ul class="actions">
+        <li><a routerLink="/ideas/new">new</a></li>
+        <li><a href="#" (click)="reverseSortOrder($event)">sort</a></li>
+        <li><a href="#" (click)="toggleFilter($event)">filter</a></li>
+    </ul>
+
+    <id-list-filter *ngIf="showFilter" [(filter)]="filter" (close)="showFilter = false"></id-list-filter>
+
+    <ul class="idea-list" *ngIf="ideas.length > 0">
+        <li *ngFor="let idea of ideas | idIdeaFilter:filter">
+            <button (click)="viewIdea(idea)">
+                <span class="idea-list-name">{{idea.name}}</span>
+                <span class="idea-list-summary">{{idea.summary}}</span>
+                <span class="idea-list-info idea-list-info-first">votes: {{idea.votes.length}}</span>
+                <span class="idea-list-info">tags: {{toList(idea.tags)}}</span>
+                <span class="idea-list-info">skills: {{toList(idea.skills)}}</span>
+                <span class="idea-list-info">techs: {{toList(idea.technologies)}}</span>
+            </button>
+        </li>
+    </ul>
+</section>

@@ -1,0 +1,15 @@
+{
+    "globalDependencies": {
+        "core-js": "registry:dt/core-js#0.0.0+20160725163759",
+        "crypto-js": "registry:dt/crypto-js#3.1.4+20160708041433",
+        "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
+        "node": "registry:dt/node#6.0.0+20160909174046"
+    },
+    "dependencies": {
+        "body-parser": "registry:npm/body-parser#1.15.2+20160815132839",
+        "express": "registry:npm/express#4.14.0+20160911114220",
+        "jsonwebtoken": "registry:npm/jsonwebtoken#7.1.8+20160811031426",
+        "mongodb": "registry:npm/mongodb#2.1.0+20160721204323",
+        "node-uuid": "registry:npm/node-uuid#1.4.7+20160723033700"
+    }
+}

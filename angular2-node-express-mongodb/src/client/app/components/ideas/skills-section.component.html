@@ -1,0 +1,20 @@
+<fieldset class="form-group">
+    <label class="form-label" for="ideaSkills">Skills</label>
+    <ul class="inline-form-list">
+        <li *ngFor="let skill of skills; let i=index">
+            {{skill}} <button type="button" (click)="removeSkill(i)">x</button>
+        </li>
+        <li *ngIf="showNewSkill" class="skill-new">
+            <input id="newSkill" list="newSkillData" class="form-element" type="text"
+                [(ngModel)]="newSkill"
+                (keyup)="newSkillKeyUp($event)"
+                autofocus>
+            <datalist id="newSkillData">
+                <option *ngFor="let skill of allSkills" [value]="skill">{{skill}}</option>
+            </datalist>
+            <button type="button" class="inline-symbol" (click)="saveSkill()">(+)</button>
+            <button type="button" class="inline-symbol" (click)="cancelSkill()">(x)</button>
+        </li>
+    </ul>
+    <button *ngIf="!showNewSkill" type="button" class="inline-symbol" (click)="addSkill()">(+)</button>
+</fieldset>

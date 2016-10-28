@@ -1,0 +1,16 @@
+<section>
+    <h1 class="title">New Idea</h1>
+
+    <ul class="actions">
+        <li><a routerLink="/ideas">back</a></li>
+    </ul>
+
+    <id-idea-form
+        [idea]="idea"
+        [skills]="skills"
+        [technologies]="techs"
+        [tags]="tags"
+        (save)="onSave()"
+        (cancel)="onCancel()">
+    </id-idea-form>
+</section>

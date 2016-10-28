@@ -1,0 +1,21 @@
+<div class="person-search fade">
+    <div class="person-search-container">
+        <form (ngSubmit)="executeSearch()">
+            <input type="text" name="searchStr" class="form-element small" [(ngModel)]="searchStr"[id-autofocus]="true">
+            <button type="submit" class="hidden"></button>
+            <button type="button" class="inline person-search-close" (click)="closeLightbox()">(close)</button>
+        </form>
+
+        <div class="person-search-results">
+            <ul>
+                <li *ngFor="let person of searchResults">
+                    <button (click)="onSelectPerson(person)">
+                        <span class="person-result-full-name">{{person.firstName}} {{person.lastName}}</span>
+                        <span class="person-result-info">username: {{person.username}}</span>
+                        <span class="person-result-info">{{person.email}}</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

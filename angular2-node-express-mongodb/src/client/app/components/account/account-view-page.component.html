@@ -1,0 +1,16 @@
+<section>
+    <h1 class="title">Account</h1>
+
+    <ul class="actions">
+        <li><a routerLink="/account/edit">edit</a></li>
+        <li><a routerLink="/account/password">change password</a></li>
+        <li><a href="" (click)="remove($event)">delete</a></li>
+    </ul>
+
+    <div>
+        <id-view-field label="" [value]="user.firstName + ' ' + user.lastName" class="bottom-border"></id-view-field>
+        <id-view-field label="Username" [value]="user.username"></id-view-field>
+        <id-view-field label="Email" [value]="user.email"></id-view-field>
+        <id-view-field label="Joined" [value]="user.createdDate | idDateFormatter"></id-view-field>
+    </div>
+</section>

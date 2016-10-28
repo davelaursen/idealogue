@@ -1,0 +1,22 @@
+<id-header></id-header>
+
+<section>
+    <h1 class="title">People</h1>
+
+    <ul class="actions">
+        <li><a href="" (click)="reverseSortOrder($event)">sort</a></li>
+        <li><a href="" (click)="toggleFilter($event)">filter</a></li>
+    </ul>
+
+    <id-list-filter *ngIf="showFilter" [(filter)]="filter" (close)="showFilter = false"></id-list-filter>
+
+    <ul class="person-list" *ngIf="people.length > 0">
+        <li *ngFor="let person of people | idUserFilter:filter">
+            <button (click)="viewPerson(person)">
+                <span class="person-list-full-name">{{person.firstName}} {{person.lastName}}</span>
+                <span class="person-list-info">username: {{person.username}}</span>
+                <span class="person-list-info">email: {{person.email}}</span>
+            </button>
+        </li>
+    </ul>
+</section>

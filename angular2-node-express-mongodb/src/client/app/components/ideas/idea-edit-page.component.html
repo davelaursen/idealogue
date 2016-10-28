@@ -1,0 +1,27 @@
+<section>
+    <h1 class="title">Edit Idea</h1>
+
+    <ul class="actions" *ngIf="idea">
+        <li><a [routerLink]="['/ideas', idea._id]">back</a></li>
+    </ul>
+
+    <id-idea-form
+        *ngIf="idea"
+        [idea]="idea"
+        [skills]="skills"
+        [technologies]="techs"
+        [tags]="tags"
+        [people]="people"
+        [showProposers]="true"
+        (addProposer)="onAddProposer($event)"
+        (save)="onSave()"
+        (cancel)="onCancel()">
+    </id-idea-form>
+
+    <id-person-search
+        *ngIf="showPersonSearch"
+        [people]="people"
+        (selectPerson)="onSelectProposer($event)"
+        (close)="onClosePersonSearch()">
+    </id-person-search>
+</section>
