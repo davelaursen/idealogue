@@ -1,7 +1,7 @@
 <div class="person-search fade">
     <div class="person-search-container">
         <form (ngSubmit)="executeSearch()">
-            <input type="text" name="searchStr" class="form-element small" [(ngModel)]="searchStr"[id-autofocus]="true">
+            <input type="text" name="searchStr" class="form-element small" [(ngModel)]="searchStr" id-autofocus autocomplete="off">
             <button type="submit" class="hidden"></button>
             <button type="button" class="inline person-search-close" (click)="closeLightbox()">(close)</button>
         </form>

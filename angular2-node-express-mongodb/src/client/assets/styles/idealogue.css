@@ -103,7 +103,8 @@ input[list] {
   padding: 4px; }
 
 textarea.desc {
-  width: 900px; }
+  width: 70%;
+  max-width: 800px; }
 
 form button {
   font-family: "Reenie Beanie", cursive;
@@ -481,6 +482,9 @@ button.inline-symbol {
   .site-search-results li:hover {
     background-color: rgba(195, 123, 111, 0.25);
     cursor: pointer; }
+  .site-search-results .spinner-wrapper {
+    width: 80%;
+    text-align: center; }
 
 .site-search-close {
   position: relative;
@@ -683,11 +687,6 @@ button.inline-symbol {
   .idea-list li {
     margin-left: 0px;
     margin-right: 0px; }
-  .person-list {
-    margin-left: 0px;
-    margin-right: 0px; }
-    .person-list li {
-      width: 100%; }
   .list-filter {
     margin: 0 0 0 5px; }
   input.name, input.email, input.password {
@@ -735,7 +734,12 @@ button.inline-symbol {
     position: static;
     margin-top: -35px;
     margin-left: -8px;
-    border-bottom: none; } }
+    border-bottom: none; }
+  .person-list {
+    margin-left: 0px;
+    margin-right: 0px; }
+    .person-list li {
+      width: 100%; } }
 
 @media (max-width: 355px) {
   .content-wrapper {

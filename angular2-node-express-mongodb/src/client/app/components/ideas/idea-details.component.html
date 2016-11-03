@@ -1,8 +1,8 @@
 <div>
     <id-view-field label="" [value]="idea.name" class="bottom-border"></id-view-field>
-    <id-view-field label="Summary" [value]="idea.summary" class="bottom-border linebreaks"></id-view-field>
-    <id-view-field label="Benefits" [value]="idea.benefits" class="bottom-border linebreaks"></id-view-field>
-    <id-view-field label="Details" [value]="idea.details" class="bottom-border linebreaks"></id-view-field>
+    <id-view-field label="Summary" [value]="idea.summary | idTextFormatter" class="bottom-border linebreaks"></id-view-field>
+    <id-view-field label="Benefits" [value]="idea.benefits | idTextFormatter" class="bottom-border linebreaks"></id-view-field>
+    <id-view-field label="Details" [value]="idea.details | idTextFormatter" class="bottom-border linebreaks"></id-view-field>
     <id-view-field label="Proposers" [value]="toList(idea.proposers, true)"></id-view-field>
     <id-view-field label="Skills" [value]="toList(idea.skills)"></id-view-field>
     <id-view-field label="Technologies" [value]="toList(idea.technologies)"></id-view-field>

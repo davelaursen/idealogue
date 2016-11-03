@@ -2,7 +2,7 @@
     <div class="search">
         <form (submit)="executeSearch($event)">
             <label for="searchValue">search:</label>
-            <input id="searchValue" name="searchValue" class="form-element search-value" [(ngModel)]="searchValue" type="text">
+            <input id="searchValue" name="searchValue" class="form-element search-value" [(ngModel)]="searchValue" type="text" autocomplete="off">
         </form>
     </div>
     <div class="current-user">

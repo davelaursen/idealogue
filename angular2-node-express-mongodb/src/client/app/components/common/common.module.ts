@@ -9,6 +9,7 @@ import { HeaderComponent } from './header.component';
 import { ListFilterComponent } from './list-filter.component';
 import { PersonSearchComponent } from './person-search.component';
 import { SiteSearchComponent } from './site-search.component';
+import { SpinnerComponent } from './spinner.component';
 import { TextAreaComponent } from './text-area.component';
 import { TextInputComponent } from './text-input.component';
 import { ViewFieldComponent } from './view-field.component';
@@ -27,6 +28,7 @@ import { ViewFieldComponent } from './view-field.component';
         ListFilterComponent,
         PersonSearchComponent,
         SiteSearchComponent,
+        SpinnerComponent,
         TextAreaComponent,
         TextInputComponent,
         ViewFieldComponent
@@ -36,6 +38,7 @@ import { ViewFieldComponent } from './view-field.component';
         ListFilterComponent,
         PersonSearchComponent,
         SiteSearchComponent,
+        SpinnerComponent,
         TextAreaComponent,
         TextInputComponent,
         ViewFieldComponent

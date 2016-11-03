@@ -14,6 +14,8 @@ export class SiteSearchComponent implements OnInit {
 
     ideaSearchResults: IIdea[] = [];
     personSearchResults: IUser[] = [];
+    ideasLoading: boolean = false;
+    peopleLoading: boolean = false;
 
     constructor(
         private _router: Router,
@@ -33,25 +35,37 @@ export class SiteSearchComponent implements OnInit {
     }
 
     executeSearch() {
+        this.ideaSearchResults = [];
+        this.personSearchResults = [];
+
         if (this._util.isEmpty(this.searchStr)) {
-            this.ideaSearchResults = [];
-            this.personSearchResults = [];
             return;
         }
+
+        this.ideasLoading = true;
+        this.peopleLoading = true;
 
         this._ideaService.search(this.searchStr)
             .then(results => {
                 results.forEach(r => {
                     r.score = this._util.round(r.score, 1);
                 });
-                this.ideaSearchResults = results;
+                // simulate slow call
+                setTimeout(() => {
+                    this.ideaSearchResults = results;
+                    this.ideasLoading = false;
+                }, 1500);
             });
         this._userService.search(this.searchStr)
             .then(results => {
                 results.forEach(r => {
                     r.score = this._util.round(r.score, 1);
                 });
-                this.personSearchResults = results;
+                // simulate slow call
+                setTimeout(() => {
+                    this.personSearchResults = results;
+                    this.peopleLoading = false;
+                }, 2000);
             });
     }
 

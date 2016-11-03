@@ -16,8 +16,6 @@ export class AccountViewPageComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.user = {};
-
         let currentUser = this._authService.getCurrentUser();
         this._userService.getById(currentUser._id)
             .then(user => this.user = user);

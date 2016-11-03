@@ -7,6 +7,7 @@ import { AccountModule } from './account/account.module';
 import { IdeasModule } from './ideas/ideas.module';
 import { LoginModule } from './login/login.module';
 import { PeopleModule } from './people/people.module';
+import { RandomModule } from './random/random.module';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { PeopleModule } from './people/people.module';
         AccountModule,
         IdeasModule,
         LoginModule,
-        PeopleModule
+        PeopleModule,
+        RandomModule
     ],
     declarations: [],
     exports: [],

@@ -7,7 +7,7 @@
         <li><a href="" (click)="remove($event)">delete</a></li>
     </ul>
 
-    <div>
+    <div *ngIf="user">
         <id-view-field label="" [value]="user.firstName + ' ' + user.lastName" class="bottom-border"></id-view-field>
         <id-view-field label="Username" [value]="user.username"></id-view-field>
         <id-view-field label="Email" [value]="user.email"></id-view-field>

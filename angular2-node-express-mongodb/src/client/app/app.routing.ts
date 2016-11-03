@@ -8,6 +8,7 @@ import { loginRoutes } from './components/login/login.routing';
 import { ideasRoutes } from './components/ideas/ideas.routing';
 import { peopleRoutes } from './components/people/people.routing';
 import { accountRoutes } from './components/account/account.routing';
+import { randomRoutes } from './components/random/random.routing';
 
 const appRoutes: Routes = [
     {
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
             ...accountRoutes
         ]
     },
+    ...randomRoutes,
     {
         path: '**',
         component: NotFoundComponent

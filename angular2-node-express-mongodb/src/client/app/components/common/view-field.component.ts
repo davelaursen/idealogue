@@ -5,7 +5,7 @@ import {Component, Input} from '@angular/core';
     template: `
         <div class='view-group'>
             <div class="view-label">{{label}}</div>
-            <div [class]="'view-element ' + (class || '')">{{value === null || value === undefined ? '&nbsp;' : value}}</div>
+            <div [class]="'view-element ' + (class || '')" [innerHtml]="value === null || value === undefined ? '&nbsp;' : value"></div>
         </div>
     `
 })

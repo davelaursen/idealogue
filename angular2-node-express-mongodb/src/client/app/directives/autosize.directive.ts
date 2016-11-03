@@ -4,12 +4,13 @@ import {Directive, DoCheck, ElementRef, Input} from '@angular/core';
     selector: '[id-autosize]',
 })
 export class AutosizeDirective implements DoCheck {
-    @Input('id-autosize') enabled: boolean = true;
+    @Input('id-autosize') enabled: boolean|string;
 
     constructor(private _element: ElementRef) { }
 
     ngDoCheck() {
-        if (this.enabled) {
+        console.log(this.enabled);
+        if (this.enabled === true || this.enabled === '') {
             let element: HTMLElement = this._element.nativeElement;
             if (element.scrollHeight < 1) {
                 return;

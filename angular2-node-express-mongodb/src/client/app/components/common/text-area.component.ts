@@ -35,9 +35,9 @@ export class TextAreaComponent implements ControlValueAccessor {
     @Input() placeholder: string;
     @Input() value: string;
     @Input() errors: any;
-    @Input() autoSize: boolean;
-    @Input() disabled: boolean;
-    @Input() autoFocus: boolean;
+    @Input() autoSize: boolean = false;
+    @Input() disabled: boolean = false;
+    @Input() autoFocus: boolean = false
 
     propagateChange = (_: any) => { };
     hasErrors: boolean;

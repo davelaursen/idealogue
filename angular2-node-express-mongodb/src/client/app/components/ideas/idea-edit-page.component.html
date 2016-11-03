@@ -21,6 +21,7 @@
     <id-person-search
         *ngIf="showPersonSearch"
         [people]="people"
+        [excludeList]="idea.proposers"
         (selectPerson)="onSelectProposer($event)"
         (close)="onClosePersonSearch()">
     </id-person-search>

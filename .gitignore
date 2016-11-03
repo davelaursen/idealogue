@@ -6,6 +6,7 @@ node_modules/
 bower_components/
 typings/
 .git/
+.vscode/
 *.log
 *.tmp
 *.map

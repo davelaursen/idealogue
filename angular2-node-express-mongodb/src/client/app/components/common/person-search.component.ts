@@ -9,10 +9,12 @@ import { UserService, IUser } from '../../services/user.service';
 })
 export class PersonSearchComponent {
     @Input() people: IUser[] = [];
+    @Input() excludeList: IUser[] = [];
     @Output() selectPerson = new EventEmitter<IUser>();
     @Output() close = new EventEmitter<void>();
 
     searchStr: string = '';
+    filteredList: IUser[] = [];
     searchResults: IUser[] = [];
 
     constructor(
@@ -21,18 +23,25 @@ export class PersonSearchComponent {
         private _userService: UserService
     ) { }
 
+    ngOnInit() {
+        this.filteredList = [].concat(this.people).filter(u => {
+            let found = this.excludeList.find(i => i._id === u._id);
+            return !found;
+        });
+    }
+
     closeLightbox() {
         this.close.emit();
     }
 
     executeSearch() {
         if (this._util.isEmpty(this.searchStr)) {
-            this.searchResults = [];
+            this.searchResults = this.filteredList;
             return;
         }
 
         let str = this.searchStr.toLowerCase();
-        let results = this.people.filter(p => {
+        let results = this.filteredList.filter(p => {
             return p.firstName.toLowerCase().indexOf(str) > -1 ||
                 p.lastName.toLowerCase().indexOf(str) > -1 ||
                 p.username.toLowerCase().indexOf(str) > -1 ||

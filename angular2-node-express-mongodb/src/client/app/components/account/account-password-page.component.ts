@@ -20,7 +20,6 @@ export class AccountPasswordPageComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.user = {};
         this.passwords = {
             oldPassword: '',
             newPassword: '',
@@ -28,7 +27,7 @@ export class AccountPasswordPageComponent implements OnInit {
         };
 
         let currentPasswordValidator = (c: FormControl) => {
-            return c.value === this.user.password ? null : {
+            return this.user && c.value === this.user.password ? null : {
                 passwordIncorect: 'password is incorrect'
             };
         };

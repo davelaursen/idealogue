@@ -14,8 +14,6 @@ export class PersonViewPageComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.user = {};
-
         let id = this._route.snapshot.params['id'];
         this._userService.getById(id)
             .then(user => this.user = user);

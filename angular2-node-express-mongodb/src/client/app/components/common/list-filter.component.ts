@@ -4,7 +4,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
     selector: 'id-list-filter',
     template: `
         <div class="list-filter">
-            <input type="text" [(ngModel)]="filter" (ngModelChange)="onChange()" (keyup)="onKeyup($event)" [id-autofocus]="true">
+            <input type="text" [(ngModel)]="filter" (ngModelChange)="onChange()" (keyup)="onKeyup($event)" id-autofocus>
         </div>
     `
 })

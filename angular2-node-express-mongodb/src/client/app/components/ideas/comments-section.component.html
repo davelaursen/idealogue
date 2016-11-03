@@ -4,11 +4,11 @@
         <ul class="comment-list">
             <li *ngFor="let comment of comments">
                 <span class="comment-header">{{comment.timestamp | idDateTimeFormatter}}, {{comment.person.firstName}} {{comment.person.lastName}}</span>
-                <span class="comment-text linebreaks">{{comment.text}}</span>
+                <span class="comment-text linebreaks" [innerHtml]="comment.text | idTextFormatter"></span>
             </li>
             <li *ngIf="showNewComment">
                 <textarea id="newComment" [(ngModel)]="newCommentText" rows="1"
-                    class="form-element comment-new-text auto-size"[id-autofocus]="true" id-autosize></textarea>
+                    class="form-element comment-new-text auto-size" id-autofocus id-autosize></textarea>
                 <button type="button" class="inline" (click)="saveComment()">save</button>
                 <button type="button" class="inline" (click)="cancelComment()">cancel</button>
             </li>
