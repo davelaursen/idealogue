@@ -6,7 +6,6 @@ let registerAuthRoutes = (app: any, userService: any) => {
     let router = express.Router();
 
     router.post('/login', (req: any, res: any) => {
-        console.log('test', req.body);
         userService.getByUsername(req.body.username)
             .then((user: any) => {
                 if (user.password === req.body.password) {

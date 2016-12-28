@@ -55,7 +55,6 @@ let registerIdeaRoutes = (
 
     function createIdea(req: any, res: any) {
         //TODO: add location header
-        console.log(req.body);
         ideaService.insert(req.body)
             .then((idea: any) => {
                 if (idea) {

@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
 
     executeSearch = (e: Event) => {
         e.preventDefault();
-        console.log(`executing search for '${this.searchValue}'`);
         this.searchResultsVisible = true;
     }
 
